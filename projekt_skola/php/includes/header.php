@@ -121,7 +121,7 @@
               <ul class="dropdown-menu">
                 <li><a href="exam_list.php">Popis svih ispita</a></li>
                 <li><a href="exam_add.php">Unos ispita</a></li>
-                <li><a href="group.php">Upis grupe</a></li>
+                <li><a href="group_add.php">Upis grupe</a></li>
                 <li><a href="lesson_add.php">Unos lekcije</a></li>
                 <li><a href="question_add.php">Unos pitanja u bazu</a></li>
               </ul>
@@ -161,7 +161,7 @@ else if($_SESSION['role'] == "2"){
               <ul class="dropdown-menu">
                 <li><a href="exam_list.php">Popis svih ispita</a></li>
                 <li><a href="exam_add.php">Unos ispita</a></li>
-                <li><a href="group.php">Upis grupe</a></li>
+                <li><a href="group_add.php">Upis grupe</a></li>
                 <li><a href="lesson_add.php">Unos lekcije</a></li>
                 <li><a href="question_add.php">Unos pitanja u bazu</a></li>
               </ul>
