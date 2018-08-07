@@ -141,19 +141,19 @@ var d = q.getDay();
 var y = q.getFullYear();
 var h = q.getHours();
 
-var date = new Date(d,m,y,h);
+var date = q;
 
 date_exam = document.getElementById("datum_ispita").value;
 console.log(date);
-console.log(date_exam)
+console.log(date_exam);
 
 if(date>date_exam)
 {
-    alert(date_exam);
+    alert("Current is bigger");
 }
 else
 {
-    alert(date_exam );
+    alert("Current is smaller");
 }
 }
 </script>
