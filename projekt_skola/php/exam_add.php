@@ -5,6 +5,7 @@ $title = "Unos novog ispita";
 
         $con = spajanje();
 if(!empty($_POST['posalji'])){
+    if(!empty($_POST['pitanja'])){
     
     $id_tecaj_fk = ocisti_tekst($_POST['id_tecaj_fk']);
     $id_lesson_fk = ocisti_tekst($_POST['id_lesson_fk']);
@@ -34,6 +35,11 @@ if(!empty($_POST['posalji'])){
     header("Location: ".$_SERVER['PHP_SELF']);
     exit;
 }
+else{
+    die("Popunite sva područja! Za povratak na stranicu kliknite <a href='exam_add.php'><b>ovdje</b></a>");
+}
+}
+
 require_once ("includes/header.php");
 
 ?>
@@ -105,15 +111,15 @@ require_once ("includes/header.php");
         <div class="form-group">
             <label class = "control-label col-sm-2" for="datum_ispita">Unesite datum i vrijeme pisanja ispita:</label>
             <div class="col-sm-7">
-                <input  name='datum_ispita' id='datum_ispita' type = "datetime-local" value = "" required> 
+                <input name='datum_ispita' id='datum_ispita' type = "datetime-local" value = "" required> 
             </div>  
         </div> 
 
         <div class="form-group">
             <label class = "control-label col-sm-2" for="trajanje_ispita">Odaberite trajanje ispita u minutama</label>
             <div class="col-sm-7">
-                <input type="range" min = "15" max = "300" id="trajanje_ispita" value = "" required onchange="updateTextInput(this.value);">
-                <input type="number" name="trajanje_ispita" id="display" >
+                <input type="range" min = "15" max = "300" id="trajanje_ispita" value = ""  onchange="updateTextInput(this.value); ">
+                <input readonly type = "number" name="trajanje_ispita" id="display" >
             </div>  
         </div> 
 
@@ -125,7 +131,7 @@ require_once ("includes/header.php");
                 
         <div class="form-group">
         <div class="col-sm-2 col-sm-offset-5">
-            <button onclick = "dateChecker();" class = "form-control btn btn-ghost" id="posalji" value = "posalji" name="posalji" type="submit">Dodaj ispit</button>
+            <button onclick = "checkAll();" class = "form-control btn btn-ghost" id="posalji" value = "posalji" name="posalji" type="submit">Dodaj ispit</button>
         </div>
         </div>
 
@@ -134,28 +140,52 @@ require_once ("includes/header.php");
 
 
 <script>
-function dateChecker(){
-var q = new Date();
-var m = q.getMonth();
-var d = q.getDay();
-var y = q.getFullYear();
-var h = q.getHours();
 
-var date = q;
+function checkAll(){
+                
+            let password = document.getElementById("sifra")
 
-date_exam = document.getElementById("datum_ispita").value;
-console.log(date);
-console.log(date_exam);
+            if (password.value.length<8){
+                password.style = "border-color:red";
+                password.setCustomValidity("Lozinka je prekratka!")
+            }
+            else {
+                password.removeAttribute("style");
+                password.setCustomValidity("");
 
-if(date>date_exam)
-{
-    alert("Current is bigger");
-}
-else
-{
-    alert("Current is smaller");
-}
-}
+                var q = new Date();
+                var m = q.getMonth();
+                var d = q.getDay();
+                var y = q.getFullYear();
+                var h = q.getHours();
+
+                var date = q;
+
+                var date_exam = document.getElementById("datum_ispita").value;
+                var date_exam = Date.parse(date_exam);
+                var date = Date.parse(date);
+                var input = document.getElementById("datum_ispita");
+
+                if(date>date_exam){
+                        input.style = "border-color:red";
+                        input.setCustomValidity("Unesite važeći datum i vrijeme!"); 
+                    }
+                else{    
+                        input.removeAttribute("style");
+                        input.setCustomValidity(""); 
+
+                        var duration = document.getElementById("display");
+                        do{
+                            duration.style = "border-color:red";
+                            alert("Unesite trajanje ispita!");
+                            return false;
+                        }
+                        while(duration.value.length == 0);
+                    }
+                
+            }
+
+} 
 </script>
     <?php require_once("includes/footer.php");?>
         

@@ -23,9 +23,9 @@
           margin-bottom:3px;
         }
         #scroll-to-bottom{
-          position:absolute;
+          position:fixed;
           right:0;
-          top:66.25px;
+          top:120px;
         }
         #table > tbody > tr > td {
          text-align:center;

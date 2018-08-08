@@ -1180,7 +1180,7 @@ STYLE SWITCHER FOR DEMO
 */
 #style-switch-button {
   position: absolute;
-  top: 66.25px;
+  top: 120px;
   left: 0px;
   border-radius: 0;
   z-index: 2;
@@ -1189,11 +1189,10 @@ STYLE SWITCHER FOR DEMO
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  width: 200px;
+  width: 300px;
   padding: 20px;
   position: fixed;
-  margin-top:-20px;
-  top: 126.25px;
+  top: 160px;
   left: 0;
   background: #fff;
   border: solid 1px #eeeeee;
