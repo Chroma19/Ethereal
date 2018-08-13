@@ -111,7 +111,7 @@ container.removeAttribute("class");
         <div style="background-image: url('../html/img/carousel3.jpg');" class="item active">
           <div class="overlay"></div>
           <div class="carousel-caption">
-            <h1 class="super-heading">Barunka</h1>
+            <h1 class="super-heading">Ethereal</h1>
             <p class="super-paragraph">A multi-purpose Bootstrap template by  <a href="https://bootstrapious.com">Bootstrapious.com</a>.</p>
           </div>
         </div>

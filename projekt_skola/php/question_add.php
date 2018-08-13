@@ -39,13 +39,14 @@ require_once "includes/functions.php";
         require_once ("includes/header.php"); 
 ?>
 
-    <form action="" method = 'post'>
+    <form action="" class = "form-horizontal" method = 'post'>
 
 
         <!-- select -->
-        <p>
-            <label for="id_tecaj_fk">Odaberite tecaj:
-                <select name='id_tecaj_fk' id='id_tecaj_fk' onchange = "traziLekcija(this.options[this.selectedIndex].value);" required>
+        <div class = "form-group">
+            <label for="id_tecaj_fk" class = "col-sm-2 control-label">Odaberite tecaj:</label>
+            <div class="col-sm-7">
+                <select name='id_tecaj_fk' id='id_tecaj_fk' class = "form-control" onchange = "traziLekcija(this.options[this.selectedIndex].value);" required>
                 <option value="NULL" disabled selected>--</option>
 
                 
@@ -65,14 +66,15 @@ require_once "includes/functions.php";
                 
                 ?>
                 </select>
-            </label>
-        </p>
+                </div>
+        </div>
 
         <article>
         <!-- select -->
-        <p>
-            <label for="id_lesson_fk">Odaberite lekciju:
-                <select  name='id_lesson_fk' id='id_lesson_fk' required>
+        <div class = "form-group">
+            <label class = "col-sm-2 control-label" for="id_lesson_fk">Odaberite lekciju:</label>
+            <div class="col-sm-7">
+                <select  name='id_lesson_fk' class = "form-control" id='id_lesson_fk' required>
                 <option value="NULL" disabled selected>--</option>
 
                 
@@ -94,14 +96,16 @@ require_once "includes/functions.php";
                 
                 ?>
                 </select>
-            </label>
-        </p>
+                </div>
+        </div>
+
 
 
         <!-- select -->
-        <p>
-            <label for="id_tip_pitanja">Tip pitanja: 
-                <select  id = "id_tip_pitanja" name = "id_tip_pitanja" onchange = "createInputs();" required>
+        <div class = "form-group">
+            <label for="id_tip_pitanja" class = "col-sm-2 control-label">Tip pitanja:</label> 
+            <div class="col-sm-7">
+                <select  id = "id_tip_pitanja" name = "id_tip_pitanja" class = "form-control" onchange = "createInputs();" required>
                 <option value="NULL" disabled selected>--</option>
                 <?php
 
@@ -122,29 +126,30 @@ require_once "includes/functions.php";
                 ?>
                
                 </select>
-            </label>
-        </p>
+        </div>
+        </div>
        
 
-        <p>
-            <label for="pitanje">Unesite pitanje:
-                <input required type="text" name='pitanje' id='pitanje'  value = "" required>
-            </label>
-        </p>
+        <div class = "form-group">
+            <label for="pitanje" class = "col-sm-2 control-label">Unesite pitanje: </label>
+            <div class="col-sm-7">
+                <input required class = "form-control" type="text" name='pitanje' id='pitanje'  value = "" required>
+            </div>    
+        </div>
         
-
-        <p>
-            <div id = "solution">
-            <label for="rjesenje[]">Unesite rješenje (ukoliko imate vise ponudenih odgovora oznacite onaj koji je tocan):
-            </label>
+        <div class = "form-inline form-group">
+            <label class = "col-sm-2 control-label" for="rjesenje[]">Unesite rješenje:</label>
+            <div class = "col-sm-7" id = "solution">
             </div>
-        </p>
+        </div>
 
 
-        <p>
-            <button id="posalji" value = "posalji" name="posalji" type="submit">Dodaj pitanje</button>
-        </p>
+        <div class = "form-group">
+        <div class="col-sm-2 col-sm-offset-5">
+            <button id="posalji" value = "posalji" class = "btn btn-ghost form-control" name="posalji" type="submit">Dodaj pitanje</button>
+        </div>
+        </div>
 
     </form>
 </article>    
-<?php ispisi_polje($_POST); require_once("includes/footer.php");?>
+<?php require_once("includes/footer.php");?>

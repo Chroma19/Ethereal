@@ -21,7 +21,7 @@
     </footer>
     
    
-    <button type="button" data-toggle="collapse" data-target="#style-switch" id="style-switch-button" class="btn btn-primary btn-sm"><span class="fa fa-cog fa-2x"></span></button>
+    <button type="button" style = "position:absolute; top:67px;" data-toggle="collapse" data-target="#style-switch" id="style-switch-button" class="btn btn-primary btn-sm"><span class="fa fa-cog fa-2x"></span></button>
     <div id="style-switch" class="collapse collapse-div">
       <h4 class="text-uppercase">Odaberi temu</h4>
       <form class="margin-bottom">
@@ -53,10 +53,12 @@
     <script src="../js/jquery.cookie.js"> </script>
     <script src="../js/lightbox.js"></script>
     <script src="../js/front.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
     <script>
     $(document).ready(function(){
         $('#noJS').hide();
         $('#site').show();
+        $('input.timepicker').timepicker({});
     });
     $(document).ready( function () {
     $('#table').DataTable();
@@ -113,11 +115,12 @@
             
             for(let i = 0; i<=3; i++){
                 
-                //za svaku grupu (input check/radio + tekst) kreiram paragraf
-                let paragraph = document.createElement("p");
-                paragraph.classList.add("form_parag");
+                //za svaku grupu (input check/radio + tekst) kreiram div
+                let div = document.createElement("p");
+                div.classList.add("form_parag");
+            
                 
-                
+
                 //kreiram input text
                 let txt_input = document.createElement("input");
                 txt_input.id = "txt"+i;
@@ -125,35 +128,44 @@
                 txt_input.type = "text";
                 txt_input.required = "required";
                 txt_input.placeholder = "Upišite odgovor!";
-
+                txt_input.classList.add("form-control");
+                
 
                 //kreiram radio ili checkbox - ovisi što je odabrano u onom selectu
                 let rjesenje_input = document.createElement("input");
                 rjesenje_input.id = "correct"+i;
                 rjesenje_input.name = "rjesenje[]";
                 rjesenje_input.value = i;
+                rjesenje_input.classList.add("form-control");
                 rjesenje_input.type = option.options[option.selectedIndex].id;
-                //dodajem u paragraf inpute - prvo chb/radio pa onda text            
-                paragraph.appendChild(rjesenje_input);
-                paragraph.appendChild(txt_input);
 
-                //na kraju dodajem paragraf u formu
-                forma.appendChild(paragraph);
+                let label = document.createElement("label");
+                label.classList.add("checkbox");
+                label.classList.add("control-label");
+                label.style = "margin-right:15px; margin-bottom:13px";
+                label.appendChild(rjesenje_input);
+                //dodajem u div inpute - prvo chb/radio pa onda text            
+                div.appendChild(label);
+                div.appendChild(txt_input);
+
+                //na kraju dodajem div u formu
+                forma.appendChild(div);
             }
         }
         
         else {
-            let paragraph = document.createElement("p");
-            paragraph.classList.add("form_parag");
+            let div = document.createElement("div");
+            div.classList.add("form_parag");
             let rjesenje = document.createElement("input");
             rjesenje.id = "rjesenje[]";
             rjesenje.name = "rjesenje[]";
             rjesenje.type = "text";
             rjesenje.placeholder = "Upišite točan odgovor!";
             rjesenje.classList.add("form_parag");
+            rjesenje.classList.add("form-control");
             rjesenje.required = "required";
-            paragraph.appendChild(rjesenje);
-            forma.appendChild(paragraph);
+            div.appendChild(rjesenje);
+            forma.appendChild(div);
             
         }
     }

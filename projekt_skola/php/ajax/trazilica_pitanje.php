@@ -25,8 +25,12 @@ if(isset($_POST['odabrana_lekcija'])){
             $tmp = "";
             
             while($pitanja = mysqli_fetch_assoc($rez)){
-                $tmp .= '<div class="col-sm-7"><input type = "checkbox" name = "pitanja['.$pitanja["id"].']"  id = "pitanja['.$pitanja["id"].']" value = "'.$pitanja["id"].'"></input>';
-                $tmp .= '<label for="pitanja['.$pitanja["id"].']">'.ucfirst($pitanja["pitanje"]).'</label></div>';
+                $tmp .= '<div>
+                        <input type = "checkbox" name = "pitanja['.$pitanja["id"].']"
+                        id = "pitanja['.$pitanja["id"].']" value = "'.$pitanja["id"].'">
+                        <label class = "control-label" for="pitanja['.$pitanja["id"].']">'.ucfirst($pitanja["pitanje"]).'
+                         </label></input>';
+                $tmp .= '</div>';
             }
             echo $tmp;
         }

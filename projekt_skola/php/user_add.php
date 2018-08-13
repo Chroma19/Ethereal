@@ -46,8 +46,7 @@
             
         }
         else{
-            header("Location: user_add.php");
-            exit("Korisnik nije upisan: ".mysqli_error($con));
+            echo "korisnik nije upisan " .mysqli_error($con);
         }
     }
     }

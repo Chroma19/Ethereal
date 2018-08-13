@@ -5,7 +5,7 @@ $title = "Unos novog ispita";
 
         $con = spajanje();
 if(!empty($_POST['posalji'])){
-    if(!empty($_POST['pitanja'])){
+    if(!empty($_POST['pitanja']) or !empty($_POST['vrijeme_ispita']) or !empty($_POST['trajanje_ispita'])){
     
     $id_tecaj_fk = ocisti_tekst($_POST['id_tecaj_fk']);
     $id_lesson_fk = ocisti_tekst($_POST['id_lesson_fk']);
@@ -13,22 +13,20 @@ if(!empty($_POST['posalji'])){
     $pitanja_string = ocisti_tekst($pitanja_string);
     $exam_code = ocisti_tekst(md5($_POST['sifra']));
     $datum_ispita = ocisti_tekst($_POST['datum_ispita']);
+    $vrijeme_ispita = ocisti_tekst($_POST['vrijeme_ispita']);
     $trajanje_ispita = ocisti_tekst($_POST['trajanje_ispita']);
-    
-    
-    
-    
     
     
     $sql = "INSERT INTO
     ispit 
-    (id_tecaj_fk,id_lesson_fk,pitanja_string,exam_code,datum_ispita, trajanje_ispita)
+    (id_tecaj_fk,id_lesson_fk,pitanja_string,exam_code,datum_ispita, vrijeme_ispita, trajanje_ispita)
     VALUES (
         $id_tecaj_fk,
         $id_lesson_fk,
         '$pitanja_string',
         '$exam_code',
         '$datum_ispita',
+        '$vrijeme_ispita',
         '$trajanje_ispita'
     );";
     $res = mysqli_query($con,$sql);
@@ -90,9 +88,7 @@ require_once ("includes/header.php");
         
         <div class="form-group">
         <label class = "control-label col-sm-2" for="pitanja[]">Odaberite pitanja:</label>
-            <div id = "pitanje" class="col-sm-7">
-                
-            </div>
+        <div id="pitanje" class = "col-sm-7"></div>
         </div>
         
         
@@ -109,11 +105,19 @@ require_once ("includes/header.php");
                 
                 
         <div class="form-group">
-            <label class = "control-label col-sm-2" for="datum_ispita">Unesite datum i vrijeme pisanja ispita:</label>
+            <label class = "control-label col-sm-2" for="datum_ispita">Unesite datum pisanja ispita:</label>
             <div class="col-sm-7">
-                <input name='datum_ispita' id='datum_ispita' type = "datetime-local" value = "" required> 
+                <input name='datum_ispita' id='datum_ispita' type = "date" value = "" required> 
             </div>  
         </div> 
+
+        <div class="form-group">
+            <label class = "control-label col-sm-2" for="vrijeme_ispita">Unesite vrijeme pisanja ispita:</label>
+            <div class="col-sm-7">
+                <input name='vrijeme_ispita' id='vrijeme_ispita' class = "timepicker" value = "" required> 
+            </div>  
+        </div> 
+
 
         <div class="form-group">
             <label class = "control-label col-sm-2" for="trajanje_ispita">Odaberite trajanje ispita u minutama</label>
@@ -175,13 +179,7 @@ function checkAll(){
                         input.setCustomValidity(""); 
 
                         var duration = document.getElementById("display");
-                        do{
-                            duration.style = "border-color:red";
-                            alert("Unesite trajanje ispita!");
-                            return false;
                         }
-                        while(duration.value.length == 0);
-                    }
                 
             }
 

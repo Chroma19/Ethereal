@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,14 +21,13 @@
           margin-bottom:3px;
         }
         #scroll-to-bottom{
-          position:fixed;
+          position:absolute;
           right:0;
-          top:120px;
+          top:67px;
         }
         #table > tbody > tr > td {
          text-align:center;
         }
-        
         
     </style>
 
@@ -39,15 +36,10 @@
     <script>function blockFill(){var tecaj=document.getElementById("id_tecaj_fk").value;if(tecaj=="NULL"){$("article").hide();}}$(document).on("change","#id_tecaj_fk",function(){$("article").show();});</script>
  
             
-            
-                
-              
-        
-
     <!-- Bootstrap core CSS --> 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <!-- Tablesorter CSS
-    <link rel="stylesheet" href="../js/tablesorter/css/sortable-theme-minimal.css" /> -->
+    <!-- Jquery timepicker -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
     <!-- Font Awesome & Pixeden Icon Stroke icon font-->
     <link rel="stylesheet" href="../css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/pe-icon-7-stroke.css">
@@ -69,8 +61,6 @@
 </head>
 
 <body class ="background-gray-lightest" id="site" onload = "blockFill();">
-
-
 
 <noscript>
   <div id = "noJS">
