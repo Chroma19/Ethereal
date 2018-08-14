@@ -4,13 +4,12 @@ require_once "includes/functions.php";
 
     $title = "Unos nove lekcije";
 
-    require_once ("includes/header.php");
-        $con = spajanje();
+    $con = spajanje();
     if(!empty($_POST['posalji'])){
         
         $lesson_name = ocisti_tekst($_POST['lesson_name']);
         $id_tecaj_fk = ocisti_tekst($_POST['id_tecaj_fk']);
-
+        
         $sql = "INSERT INTO
                 lessons 
                 (lesson_name,id_tecaj_fk)
@@ -22,26 +21,29 @@ require_once "includes/functions.php";
         header("Location: ".$_SERVER['PHP_SELF']);
         exit;
     }
-
     
+    
+    require_once ("includes/header.php");
 ?>
 
 
-    <form action="" method = 'post'>
+    <form class = "form-horizontal" action="" method = 'post'>
 
        
-        <p>
-            <label for="lesson_name">Upišite lekciju:
-               <input type="text" id='lesson_name' name="lesson_name" value = "" required>
-            </label>
-        </p>
+        <div class = "form-group">
+            <label for="lesson_name" class = "col-sm-2 control-label">Upišite lekciju:</label>
+            <div class="col-sm-7">
+               <input type="text" class = "form-control" id='lesson_name' name="lesson_name" value = "" required>
+            </div>
+        </div>
 
         
         
         <!-- select -->
-        <p>
-            <label for="id_tecaj_fk">Odaberite tecaj:
-                <select name="id_tecaj_fk" id="id_tecaj_fk" required>
+        <div class = "form-group">
+            <label for="id_tecaj_fk" class = "col-sm-2 control-label">Odaberite tecaj:</label>
+            <div class="col-sm-7">
+                <select name="id_tecaj_fk" id="id_tecaj_fk" required class = "form-control">
                 <option value="NULL" selected disabled>--</option>
                 
                 <?php
@@ -60,13 +62,15 @@ require_once "includes/functions.php";
                 ?>
 
                 </select>
-            </label>
-        </p>
+                </div>
+        </div>
 
 
-        <p>
-            <button id="posalji" value = "posalji" name="posalji" type="submit">Dodaj lekciju</button>
-        </p>
+        <div class = "form-group">
+        <div class="col-sm-2 col-sm-offset-5">
+            <button class = "form-control btn btn-ghost" id="posalji" value = "posalji" name="posalji" type="submit">Dodaj lekciju</button>
+        </div>
+        </div>
 
     </form>   
 

@@ -8,6 +8,7 @@ require_once "includes/functions.php";
     $con = spajanje();
 
     if(isset($_POST['posalji'])){
+        if(!empty($_POST['rjesenje'])){
         
         $id_tecaj_fk = ocisti_tekst($_POST['id_tecaj_fk']);
         $id_lesson_fk = ocisti_tekst($_POST['id_lesson_fk']);
@@ -34,7 +35,11 @@ require_once "includes/functions.php";
         $res = mysqli_query($con,$sql);
         header("Location: question_add.php");
         }
-    
+        else{
+            header("Location: question_add.php");
+            exit("Popunite sva polja!");
+        }
+    }
 
         require_once ("includes/header.php"); 
 ?>

@@ -122,17 +122,10 @@ require_once ("includes/header.php");
         <div class="form-group">
             <label class = "control-label col-sm-2" for="trajanje_ispita">Odaberite trajanje ispita u minutama</label>
             <div class="col-sm-7">
-                <input type="range" min = "15" max = "300" id="trajanje_ispita" value = ""  onchange="updateTextInput(this.value); ">
-                <input readonly type = "number" name="trajanje_ispita" id="display" >
+                <input type = "number" name="trajanje_ispita" id="trajanje_ispita" min = "15" max = "300">
             </div>  
         </div> 
-
-        <script>
-        function updateTextInput(val) {
-        document.getElementById('display').value=val; 
-        }
-        </script>
-                
+        
         <div class="form-group">
         <div class="col-sm-2 col-sm-offset-5">
             <button onclick = "checkAll();" class = "form-control btn btn-ghost" id="posalji" value = "posalji" name="posalji" type="submit">Dodaj ispit</button>
@@ -178,7 +171,20 @@ function checkAll(){
                         input.removeAttribute("style");
                         input.setCustomValidity(""); 
 
-                        var duration = document.getElementById("display");
+                        let dur = document.getElementById("trajanje_ispita");
+                        if(isNaN(dur.value)){
+                            dur.style = "border-color:red";
+                            dur.setCustomValidity("Unesite važeće trajanje!");
+                        }
+                        else if(dur.value>300 || dur.value<15){
+                            dur.style = "border-color:red";
+                            dur.setCustomValidity("Unesite važeće trajanje!");
+                        }
+                        else{
+                            dur.removeAttribute("style");
+                            dur.setCustomValidity("");
+                        }
+
                         }
                 
             }

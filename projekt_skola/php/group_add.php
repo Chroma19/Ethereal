@@ -4,9 +4,8 @@ require_once "includes/functions.php";
 
     $title = "Upis nove grupe";
 
-    require_once ("includes/header.php");
     $con = spajanje();
-
+    
     if(!empty($_POST['posalji'])){
         
         $naziv = ocisti_tekst($_POST['naziv']);
@@ -15,7 +14,7 @@ require_once "includes/functions.php";
         $id_predavac_fk = ocisti_tekst($_POST['id_predavac_fk']); 
         $max_polaznika = ocisti_tekst($_POST['max_polaznika']);
         $id_tecaj_fk = ocisti_tekst($_POST['id_tecaj']);
-
+        
         $sql = "INSERT INTO
                 grupa 
                 (naziv,datum_pocetka,datum_zavrsetka,id_predavac_fk,max_polaznika,id_tecaj_fk)
@@ -31,42 +30,47 @@ require_once "includes/functions.php";
         header("Location: ".$_SERVER['PHP_SELF']);
         exit;
     }
-
+    
+    require_once ("includes/header.php");
     
 ?>
 
 
 
-    <form action="" method = 'post'>
+    <form action="" class = "form-horizontal" method = 'post'>
 
-         <p>
-            <label for="naziv">Unesite naziv grupe:
-                <input type="text" name='naziv' id='naziv' value="" required>
-            </label>
-        </p>
+         <div class = "form-group">
+            <label class = "col-sm-2 control-label" for="naziv">Unesite naziv grupe:</label>
+            <div class="col-sm-7">
+                <input class = "form-control" type="text" name='naziv' id='naziv' value="" required>
+            </div>
+        </div>
 
-         <p>
-            <label for="datum_pocetka">Unesite datum početka:
-                <input type="date" name='datum_pocetka' id='datum_pocetka' value="" required>
-            </label>
-        </p>
+         <div class = "form-group">
+            <label for="datum_pocetka" class = "col-sm-2 control-label">Unesite datum početka:</label>
+            <div class="col-sm-7">
+                <input class = "form-control" type="date" name='datum_pocetka' id='datum_pocetka' value="" required>
+            </div>
+        </div>
 
-         <p>
-            <label for="datum_zavrsetka">Unesite datum završetka:
-                <input type="date" name='datum_zavrsetka' id='datum_zavrsetka' value="" required>
-            </label>
-        </p>
+         <div class = "form-group">
+            <label class = "col-sm-2 control-label" for="datum_zavrsetka">Unesite datum završetka:</label>
+                <div class="col-sm-7">
+                    <input type="date" name='datum_zavrsetka' id='datum_zavrsetka' value="" required class = "form-control">
+                </div>
+        </div>
 
         <!-- select -->
-        <p>
-            <label for="id_predavac_fk">Odaberite predavača:
-                <select name='id_predavac_fk' id='id_predavac_fk' required>
+        <div class = "form-group">
+            <label for="id_predavac_fk" class = "col-sm-2 control-label">Odaberite predavača:</label>
+            <div class="col-sm-7">
+                <select class  = "form-control" name='id_predavac_fk' id='id_predavac_fk' required>
                 <option value="NULL" disabled selected>--</option>
 
                 <!-- Catching tutors -->
                 <?php
 
-                    $sql = "SELECT id, ime, prezime FROM osobe WHERE id_status_fk = '2'";
+                    $sql = "SELECT id, ime, prezime FROM users WHERE id_status_fk = '2'";
                     $res_tutor = mysqli_query($con, $sql); 
 
                     if(mysqli_num_rows($res_tutor)>0){
@@ -80,22 +84,25 @@ require_once "includes/functions.php";
                 
                 ?>
                 </select>
-            </label>
-        </p>
+                </div>
+            
+        </div>
 
 
 
-         <p>
-            <label for="max_polaznika">Unesite maksimalni broj polaznika:
-                <input type="number" name='max_polaznika' id='max_polaznika' value="" max = "15" min = "1" required>
-            </label>
-        </p>
+         <div class = "form-group">
+            <label for="max_polaznika" class = "col-sm-2 control-label">Unesite maksimalni broj polaznika:</label>
+            <div class="col-sm-7">
+                <input class = "form-control" type="number" name='max_polaznika' id='max_polaznika' value="" max = "15" min = "1" required>
+            </div>
+        </div>
                 
 
         <!-- select -->
-        <p>
-            <label for="id_tecaj">Odaberite tecaj:
-                <select name="id_tecaj" id="id_tecaj" required>
+        <div class = "form-group">
+            <label for="id_tecaj" class = "col-sm-2 control-label">Odaberite tecaj:</label>
+            <div class="col-sm-7">
+                <select name="id_tecaj" id="id_tecaj" required class = "form-control">
                 <option value="NULL" selected disabled>--</option>
 
                 
@@ -115,19 +122,45 @@ require_once "includes/functions.php";
                 ?>
 
                 </select>
-            </label>
-        </p>
+            </div>
+        </div>
        
 
        
         
 
-        <p>
-            <button id="posalji" value = "posalji" name="posalji" type="submit">Dodaj grupu</button>
-        </p>
+        <div class = "form-group">
+        <div class="col-sm-2 col-sm-offset-5">
+            <button onclick = "startcheck();" class = "btn-ghost btn form-control" id="posalji" value = "posalji" name="posalji" type="submit">Dodaj grupu</button>
+        </div>
+        </div>
 
     </form>  
 
-        
+        <script>
+        function startcheck(){
+        var q = new Date();
+                var m = q.getMonth();
+                var d = q.getDay();
+                var y = q.getFullYear();
+                var h = q.getHours();
+
+                var date = q;
+
+                var date_group = document.getElementById("datum_pocetka").value;
+                var date_group = Date.parse(date_group);
+                var date = Date.parse(date);
+                var input = document.getElementById("datum_pocetka");
+
+                if(date>date_group){
+                        input.style = "border-color:red";
+                        input.setCustomValidity("Unesite važeći datum i vrijeme!"); 
+                    }
+                else{    
+                        input.removeAttribute("style");
+                        input.setCustomValidity(""); 
+                }
+            }
+        </script>
     
 <?php require_once("includes/footer.php");?>
