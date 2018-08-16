@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.1
+-- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 07, 2018 at 01:21 PM
--- Server version: 10.1.33-MariaDB
--- PHP Version: 7.2.6
+-- Generation Time: Aug 16, 2018 at 06:03 PM
+-- Server version: 10.1.34-MariaDB
+-- PHP Version: 7.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -46,7 +46,8 @@ INSERT INTO `baza_pitanja` (`id`, `id_tecaj_fk`, `id_lesson_fk`, `id_tip_pitanja
 (1, 6, 5, 1, 'Ajax vise ponudenih', 'ajax1,ajax2,ajax3,ajax4', '0,3'),
 (8, 8, 5, 2, 'Ajax vise ponudenih', 'ajax1,ajax1,ajax2,ajax13', '3'),
 (21, 3, 3, 2, 'Ajax vise ponudenih', 'ajax1,ajax1,ajax1,ajax1', '2'),
-(30, 6, 5, 2, 'Ajax vise ponudenih', 'ajax1,ajax1,ajax1,ajax1', '3');
+(30, 6, 5, 2, 'Ajax vise ponudenih', 'ajax1,ajax1,ajax1,ajax1', '3'),
+(31, 10, 6, 2, 'Koji je nastavak za 3.l.jd.?', '-st,-t,-est,-/', '1');
 
 -- --------------------------------------------------------
 
@@ -86,6 +87,7 @@ CREATE TABLE `ispit` (
   `pitanja_string` varchar(2000) NOT NULL,
   `exam_code` varchar(255) NOT NULL,
   `datum_ispita` date NOT NULL,
+  `vrijeme_ispita` time NOT NULL,
   `trajanje_ispita` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -93,8 +95,10 @@ CREATE TABLE `ispit` (
 -- Dumping data for table `ispit`
 --
 
-INSERT INTO `ispit` (`id`, `id_tecaj_fk`, `id_lesson_fk`, `pitanja_string`, `exam_code`, `datum_ispita`, `trajanje_ispita`) VALUES
-(20, 6, 5, '1,8,30', 'aee03111935944a5ad1f1c887bd141e2', '2018-08-06', '82');
+INSERT INTO `ispit` (`id`, `id_tecaj_fk`, `id_lesson_fk`, `pitanja_string`, `exam_code`, `datum_ispita`, `vrijeme_ispita`, `trajanje_ispita`) VALUES
+(23, 3, 3, '21', '179ad45c6ce2cb97cf1029e212046e81', '2018-08-16', '01:30:00', '84'),
+(24, 10, 6, '31', '179ad45c6ce2cb97cf1029e212046e81', '2018-08-14', '09:00:00', '45'),
+(25, 6, 5, '', '179ad45c6ce2cb97cf1029e212046e81', '2018-08-17', '02:00:00', '140');
 
 -- --------------------------------------------------------
 
@@ -117,7 +121,9 @@ INSERT INTO `lessons` (`id`, `lesson_name`, `id_tecaj_fk`) VALUES
 (2, 'Druga testna lekcija', 1),
 (3, 'Treća lekcija', 3),
 (4, 'WP1', 6),
-(5, 'Ajax test', 6);
+(5, 'Ajax test', 6),
+(6, 'Deklinacija riječi &quot;Hoću&quot;', 10),
+(7, 'Nova Lekcija', 4);
 
 -- --------------------------------------------------------
 
@@ -138,7 +144,8 @@ CREATE TABLE `mjesto` (
 INSERT INTO `mjesto` (`id`, `naziv`, `pbr`) VALUES
 (1, 'Vinkovci', 32100),
 (2, 'Cerna', 3210),
-(3, 'Županja', 32121);
+(3, 'Županja', 32121),
+(4, 'Ivankovo', 32281);
 
 -- --------------------------------------------------------
 
@@ -196,7 +203,8 @@ INSERT INTO `tecaj` (`id`, `naziv`, `broj_sati`, `cijena`) VALUES
 (4, 'Testni smjer', 69, 6900.00),
 (6, 'Web Coding 1-2', 160, 1600.56),
 (8, 'Novi tečaj2', 123, 456.20),
-(9, 'Novi tečaj23', 123, 123.55);
+(9, 'Novi tečaj23', 123, 123.55),
+(10, 'Njemački jezik', 150, 1620.00);
 
 -- --------------------------------------------------------
 
@@ -239,7 +247,8 @@ CREATE TABLE `upisi` (
 INSERT INTO `upisi` (`id`, `id_users_fk`, `id_grupa_fk`, `datum_upisa`) VALUES
 (1, 1, 2, '2018-07-31 02:54:51'),
 (2, 2, 2, '2018-07-31 02:54:58'),
-(3, 6, 3, '2018-08-04 18:05:21');
+(3, 6, 3, '2018-08-04 18:05:21'),
+(4, 1, 3, '2018-08-13 18:28:24');
 
 -- --------------------------------------------------------
 
@@ -270,7 +279,9 @@ INSERT INTO `users` (`id`, `ime`, `prezime`, `username`, `password`, `oib`, `ema
 (1, 'Zdravko', 'Petričušić', 'zdrava53', '179ad45c6ce2cb97cf1029e212046e81', '27359479322', 'chromaa19@gmail.com', '095/815-0749', 'Glagoljaška 12', 1, '2018-07-11', 1),
 (2, 'Nenad', 'Trivun', 'nenad', 'aee03111935944a5ad1f1c887bd141e2', '32165498732', 'zdrava53@gmail.com', '095/815-0748', 'Glagoljaška 24', 2, '2018-07-05', 2),
 (6, 'test', 'user', 'testuser', '179ad45c6ce2cb97cf1029e212046e81', '12345678998', 'zdrava54@net.hr', '098348886', 'Rojčani 21', 1, '1997-08-19', 3),
-(7, 'Zdravko', 'asd', 'asd', '202cb962ac59075b964b07152d234b70', '32165498745', 'zdrava55@net.hr', '3216846251', 'wadsa', 2, '2018-08-08', 3);
+(7, 'Zdravko', 'asd', 'asd', '202cb962ac59075b964b07152d234b70', '32165498745', 'zdrava55@net.hr', '3216846251', 'wadsa', 4, '2018-08-08', 3),
+(12, 'Marko', 'Petričušić', 'markop', '179ad45c6ce2cb97cf1029e212046e81', '96358274125', 'marko@gmail.com', '098349864', 'Rojčani 62', 1, '1952-07-22', 1),
+(13, 'Admin', 'Test', 'admin', '179ad45c6ce2cb97cf1029e212046e81', '32165465412', 'admin@mail.com', '12345697512', 'Admin 52', 1, '2018-08-08', 1);
 
 --
 -- Indexes for dumped tables
@@ -377,7 +388,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `baza_pitanja`
 --
 ALTER TABLE `baza_pitanja`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `grupa`
@@ -389,19 +400,19 @@ ALTER TABLE `grupa`
 -- AUTO_INCREMENT for table `ispit`
 --
 ALTER TABLE `ispit`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `lessons`
 --
 ALTER TABLE `lessons`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `mjesto`
 --
 ALTER TABLE `mjesto`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `results`
@@ -419,7 +430,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `tecaj`
 --
 ALTER TABLE `tecaj`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tip_pitanja`
@@ -431,13 +442,13 @@ ALTER TABLE `tip_pitanja`
 -- AUTO_INCREMENT for table `upisi`
 --
 ALTER TABLE `upisi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables
