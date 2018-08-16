@@ -23,7 +23,7 @@
         #scroll-to-bottom{
           position:absolute;
           right:0;
-          top:67px;
+          top:120px;
         }
         #table > tbody > tr > td {
          text-align:center;
@@ -31,11 +31,6 @@
         
     </style>
 
-    <!-- skripte-->
-	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>function blockFill(){var tecaj=document.getElementById("id_tecaj_fk").value;if(tecaj=="NULL"){$("article").hide();}}$(document).on("change","#id_tecaj_fk",function(){$("article").show();});</script>
- 
-            
     <!-- Bootstrap core CSS --> 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <!-- Jquery timepicker -->
@@ -101,6 +96,7 @@
                 <li><a href="users.php">Popis svih korisnika</a></li>
                 <li><a href="course_add.php">Unos tečaja u bazu</a></li>
                 <li><a href="enrol.php">Upis korisnika na tečaj</a></li>
+                <li><a href="group_add.php">Upis grupe</a></li>
                 <li><a href="mjesto_add.php">Unos mjesta u bazu</a></li>
               </ul>
             </li>        
@@ -111,7 +107,6 @@
               <ul class="dropdown-menu">
                 <li><a href="exam_list.php">Popis svih ispita</a></li>
                 <li><a href="exam_add.php">Unos ispita</a></li>
-                <li><a href="group_add.php">Upis grupe</a></li>
                 <li><a href="lesson_add.php">Unos lekcije</a></li>
                 <li><a href="question_add.php">Unos pitanja u bazu</a></li>
               </ul>
@@ -151,7 +146,6 @@ else if($_SESSION['role'] == "2"){
               <ul class="dropdown-menu">
                 <li><a href="exam_list.php">Popis svih ispita</a></li>
                 <li><a href="exam_add.php">Unos ispita</a></li>
-                <li><a href="group_add.php">Upis grupe</a></li>
                 <li><a href="lesson_add.php">Unos lekcije</a></li>
                 <li><a href="question_add.php">Unos pitanja u bazu</a></li>
               </ul>
