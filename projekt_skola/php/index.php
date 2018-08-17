@@ -222,6 +222,24 @@ require_once "includes/header.php";
     </section>
     <!--   *** SERVICES END ***-->
     
+
+    <script>
+    
+    let site = document.getElementById("site");
+    site.className = "home";
+
+    let btn = document.getElementById("btn-adjust");
+    btn.removeAttribute("class");
+    btn.classList.add("btn");
+    btn.classList.add("navbar-btn");
+    btn.classList.add("btn-white");
+    btn.classList.add("pull-left");
+
+    let container = document.getElementById("top-container");
+    container.removeAttribute("id");
+    container.removeAttribute("class");
+    
+    </script>
 <?php
 //--------------------------------
 require_once "includes/footer.php";
