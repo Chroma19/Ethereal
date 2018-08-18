@@ -31,7 +31,7 @@ if(isset($_POST['prijava'])){
 			
 			$user= mysqli_fetch_assoc($rezultat);
 		
-			if($password == $user['password']){
+			if($password == $user['password'] and $username = $user['username']){
 				
 				$_SESSION['login'] = true;
         $_SESSION['username'] = $username;
@@ -46,14 +46,20 @@ if(isset($_POST['prijava'])){
           setcookiealive('username',$username, time()-7*24*60*60);
           setcookiealive('role', $user['id_status_fk'], time()-7*24*60*60);
 				}
-				
-			}
+
+      }
+      else{
+        echo '<div class="alert" style="background:yellow;"> 
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">
+              &times;
+              </a>
+              <strong>Upozorenje! </strong>Netočno korisničko ime ili lozinka!
+              
+              </div>';
+        }
 			
     }
-    else{
-      header("Location: index.php?login=false");
-      exit;
-			}
+    
   }
 }
 
@@ -73,7 +79,6 @@ require_once "includes/header.php";
 
 
 ?>
-
 <!-- Carousel -->
     <div id="carousel-home" data-ride="carousel" class="carousel slide carousel-fullscreen carousel-fade">
       <!-- Indicators-->
@@ -120,7 +125,7 @@ require_once "includes/header.php";
         <div class="row">
           <div class="col-sm-6">
             <div class="post">
-              <div class="image"><a href="text.html"><img src="../img/blog4.jpg" alt="" class="img-responsive"></a></div>
+              <div class="image"><a href="text.html">Text.html</a></div>
               <h3><a href="text.html">Rit eget tincidunt condimentum</a></h3>
               <p class="post__intro">ellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
               <p class="read-more"><a href="text.html" class="btn btn-ghost">Continue reading   </a></p>
@@ -128,7 +133,7 @@ require_once "includes/header.php";
           </div>
           <div class="col-sm-6">
             <div class="post">
-              <div class="image"><a href="text.html"><img src="../img/blog5.jpg" alt="" class="img-responsive"></a></div>
+              <div class="image"><a href="text.html">Text.html</a></div>
               <h3><a href="text.html">Tempor sit amet</a></h3>
               <p class="post__intro"> Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
               <p class="read-more"><a href="text.html" class="btn btn-ghost">Continue reading   </a></p>
@@ -138,7 +143,7 @@ require_once "includes/header.php";
         <div class="row">
           <div class="col-sm-4">
             <div class="post">
-              <div class="image"><a href="text.html"><img src="../img/blog1.jpg" alt="" class="img-responsive"></a></div>
+              <div class="image"><a href="text.html">Text.html</a></div>
               <h3><a href="text.html">Rit eget tincidunt condimentum</a></h3>
               <p class="post__intro">ellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
               <p class="read-more"><a href="text.html" class="btn btn-ghost">Continue reading     </a></p>
@@ -146,7 +151,7 @@ require_once "includes/header.php";
           </div>
           <div class="col-sm-4">
             <div class="post">
-              <div class="image"><a href="text.html"><img src="../img/blog2.jpg" alt="" class="img-responsive"></a></div>
+              <div class="image"><a href="text.html">Text.html</a></div>
               <h3><a href="text.html">Tempor sit amet</a></h3>
               <p class="post__intro"> Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
               <p class="read-more"><a href="text.html" class="btn btn-ghost">Continue reading     </a></p>
@@ -154,7 +159,7 @@ require_once "includes/header.php";
           </div>
           <div class="col-sm-4">
             <div class="post">
-              <div class="image"><a href="text.html"><img src="../img/blog3.jpg" alt="" class="img-responsive"></a></div>
+              <div class="image"><a href="text.html">Text.html</a></div>
               <h3><a href="text.html">Vestibulum erat wisi</a></h3>
               <p class="post__intro">ellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
               <p class="read-more"><a href="text.html" class="btn btn-ghost">Continue reading     </a></p>

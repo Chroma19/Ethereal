@@ -3,7 +3,13 @@ session_start();
 require_once "includes/functions.php";
 $con = spajanje();
 if($_SESSION['role'] !== "1"){
-	die("Nemate ovlasti za pristupanje ovoj stranici! Za povratak na početnu kliknite <a href='index.php'><b>ovdje</b></a>");
+	die('<div class="alert" style="background:yellow;"> 
+	<a href="index.php" class="close" data-dismiss="alert" aria-label="close">
+	&times;
+	</a>
+	<strong>Nemate ovlasti za pristup ovoj stranici!</strong>
+	
+	</div>');
 }
 else{
 if(!empty($_POST['spremi'])){
@@ -41,7 +47,12 @@ if(!empty($_POST['spremi'])){
 	$rez = mysqli_query($con, $sql);
 	
 	if($rez){
-	echo "Polaznik ažuriran";
+		echo    '<div class="alert" style="background:#0090bc; color:white;"> 
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">
+		&times;
+		</a>
+		<strong>Korisnik uspješno ažuriran!</strong>
+		</div>';
 	}
 	else{
 		echo mysqli_error($con);
@@ -71,7 +82,13 @@ if (mysqli_num_rows($result)==1){
 }
 else {
 	$user = null;
-	die("Nije pronađen polaznik");
+	die('<div class="alert" style="background:yellow;"> 
+        <a href="index.php" class="close" data-dismiss="alert" aria-label="close">
+        &times;
+        </a>
+        <strong>Nije odabran niti jedan korisnik!</strong>
+        
+        </div>');
 }
 }
 require_once "includes/header.php";

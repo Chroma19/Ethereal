@@ -5,19 +5,27 @@ session_start();
     require_once ("includes/functions.php");
     $con = spajanje();
     if($_SESSION['role'] !== "1"){
-        die("Nemate ovlasti za pristupanje ovoj stranici! Za povratak na početnu kliknite <a href='index.php'><b>ovdje</b></a>");
+        die('<div class="alert" style="background:yellow;"> 
+            <a href="index.php" class="close" data-dismiss="alert" aria-label="close">
+            &times;
+            </a>
+            <strong>Nemate ovlasti za pristup ovoj stranici!</strong>
+            
+            </div>');
     }
     else{
     if(!empty($_POST['posalji'])){
         
         $id_users_fk = ocisti_tekst($_POST['id_users_fk']);
+        $id_smjer_fk = ocisti_tekst($_POST['id_smjer_fk']);
         $id_grupa_fk = ocisti_tekst($_POST['id_grupa_fk']);
 
         $sql = "INSERT INTO
                 upisi 
-                (id_users_fk,id_grupa_fk)
+                (id_users_fk,id_smjer_fk,id_grupa_fk)
                 VALUES (
                     '$id_users_fk',
+                    '$id_smjer_fk',
                     '$id_grupa_fk'
                  );";
         $res = mysqli_query($con,$sql);
@@ -41,7 +49,7 @@ session_start();
                 <?php
                 // Catching users
 
-                    $sql = "SELECT id, ime, prezime FROM users ORDER BY prezime ASC";
+                    $sql = "SELECT id, ime, prezime FROM users WHERE id_status_fk = '3' ORDER BY prezime ASC";
                     $res_osobe = mysqli_query($con, $sql); 
 
                     if(mysqli_num_rows($res_osobe)>0){
@@ -61,21 +69,21 @@ session_start();
 
         <!-- select -->
         <div class="form-group">
-          <label class="col-sm-2 control-label" for="id_grupa_fk">Odaberite grupu:</label>
+          <label class="col-sm-2 control-label" for="id_smjer_fk">Odaberite smjer:</label>
             <div class = "col-sm-7">
-                <select class ="form-control" type="text" name='id_grupa_fk' id='id_grupa_fk' required>
+                <select class ="form-control" type="text" name='id_smjer_fk' id='id_smjer_fk' required onchange = "traziGrupe(this.options[this.selectedIndex].value)">
                 <option value="NULL" disabled selected>--</option>
 
                 <?php
-                // Catching groups
+                // Catching courses
 
-                    $sql = "SELECT * FROM grupa WHERE datum_zavrsetka > NOW();";
-                    $res_grupe = mysqli_query($con, $sql); 
-                    if(mysqli_num_rows($res_grupe)>0){
-                        while($grupa = mysqli_fetch_assoc($res_grupe)){
+                    $sql = "SELECT * FROM tecaj";
+                    $res_tecaj = mysqli_query($con, $sql); 
+                    if(mysqli_num_rows($res_tecaj)>0){
+                        while($tecaj = mysqli_fetch_assoc($res_tecaj)){
                             
-                            echo '<option value="'.$grupa['id'].'">';
-                            echo $grupa['naziv'];
+                            echo '<option value="'.$tecaj['id'].'">';
+                            echo $tecaj['smjer'];
                             echo '</option>';
                         }
                     }
@@ -85,6 +93,19 @@ session_start();
             </div>
             </div>
 
+
+
+        <!-- select -->
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="id_grupa_fk">Odaberite grupu:</label>
+            <div class = "col-sm-7">
+                <select class ="form-control" type="text" name='id_grupa_fk' id='id_grupa_fk' required>
+                <option value="NULL" disabled selected>--</option>
+
+                </select>
+            </div>
+            </div>
+ 
 
         <div class="form-group">
           <div class="col-sm-2 col-sm-offset-5">

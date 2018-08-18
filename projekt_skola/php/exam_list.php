@@ -7,7 +7,7 @@ $title = "Popis ispita";
 require_once "includes/header.php";
 $con = spajanje();
 
-$sql = "SELECT ispit.id, ispit.datum_ispita, tecaj.naziv, lessons.lesson_name FROM tecaj
+$sql = "SELECT ispit.id, ispit.datum_ispita, tecaj.smjer, lessons.lesson_name FROM tecaj
  INNER JOIN ispit ON ispit.id_tecaj_fk = tecaj.id 
  INNER JOIN lessons ON lessons.id = ispit.id_lesson_fk;";
 
@@ -30,7 +30,7 @@ if(mysqli_num_rows($res)>0){
         echo "
 			<tr>
 				<td>".$res_ispiti['id']."</td>
-				<td>".$res_ispiti['naziv']."</td>
+				<td>".$res_ispiti['smjer']."</td>
 				<td>".$res_ispiti['lesson_name']."</td>
 				<td>".$res_ispiti['datum_ispita']."</td>
 				<td>

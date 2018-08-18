@@ -7,6 +7,17 @@ require_once "includes/functions.php";
     
     $con = spajanje();
 
+    if($_SESSION['role'] !== "1" or $_SESSION['role' !== "2"]){
+        die('<div class="alert" style="background:yellow;"> 
+            <a href="index.php" class="close" data-dismiss="alert" aria-label="close">
+            &times;
+            </a>
+            <strong>Nemate ovlasti za pristup ovoj stranici!</strong>
+            
+            </div>');
+    }
+    else{
+
     if(isset($_POST['posalji'])){
         if(!empty($_POST['rjesenje'])){
         
@@ -40,7 +51,7 @@ require_once "includes/functions.php";
             exit("Popunite sva polja!");
         }
     }
-
+    }
         require_once ("includes/header.php"); 
 ?>
 
@@ -57,14 +68,14 @@ require_once "includes/functions.php";
                 
                 <?php
                     // Catching course
-                    $sql = "SELECT id, naziv FROM tecaj";
+                    $sql = "SELECT id, smjer FROM tecaj";
                     $res_tecaj = mysqli_query($con, $sql); 
 
                     if(mysqli_num_rows($res_tecaj)>0){
                         while($tecaj = mysqli_fetch_assoc($res_tecaj)){
                             
                             echo '<option value="'.$tecaj['id'].'">';
-                            echo $tecaj['naziv'];
+                            echo $tecaj['smjer'];
                             echo '</option>';
                         }
                     }

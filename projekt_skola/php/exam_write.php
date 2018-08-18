@@ -4,14 +4,14 @@ require_once "includes/functions.php";
 
 $con = spajanje();
 $id=$_GET['id'];
-$sql = "SELECT ispit.id, tecaj.naziv, lessons.lesson_name FROM tecaj
+$sql = "SELECT ispit.id, tecaj.smjer, lessons.lesson_name FROM tecaj
 		INNER JOIN ispit ON ispit.id_tecaj_fk = tecaj.id
 		INNER JOIN lessons ON lessons.id = ispit.id_lesson_fk
 		WHERE ispit.id = $id;";
 
 $res = mysqli_fetch_assoc(mysqli_query($con, $sql));
 
-$title = "Ispit_".$res['naziv']."_".$res['lesson_name'];
+$title = "Ispit_".$res['smjer']."_".$res['lesson_name'];
 
 require_once "includes/header.php";
 
@@ -70,7 +70,13 @@ if (mysqli_num_rows($result)==1){
 }
 else {
 	$ispit = null;
-	die("Nije pronađen ispit!");
+	die('<div class="alert" style="background:yellow;"> 
+        <a href="index.php" class="close" data-dismiss="alert" aria-label="close">
+        &times;
+        </a>
+        <strong>Nije odabran niti jedan ispit!</strong>
+        
+        </div>');
 }
 
 ?>

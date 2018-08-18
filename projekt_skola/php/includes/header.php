@@ -7,29 +7,6 @@
     <meta name="robots" content="all,follow">
     <title><?=$title?></title>
 
-    <style>
-        #site {
-            display : none;
-        }
-        #top-container{
-        margin-top:50px;
-        }
-        .table > thead > tr > th{
-          text-align:center;
-        }
-        #myTable_wrapper{
-          margin-bottom:3px;
-        }
-        #scroll-to-bottom{
-          position:absolute;
-          right:0;
-          top:120px;
-        }
-        #table > tbody > tr > td {
-         text-align:center;
-        }
-        
-    </style>
 
     <!-- Bootstrap core CSS --> 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
@@ -45,10 +22,35 @@
     <!-- theme stylesheet-->
     <link rel="stylesheet" href="../css/style.default.css" id="theme-stylesheet">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
         <!-- datatables -->
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+        <style>
+            #site {
+                display : none;
+            }
+            #top-container{
+            margin-top:50px;
+            }
+            .table > thead > tr > th{
+              text-align:center;
+            }
+            #myTable_wrapper{
+              margin-bottom:3px;
+            }
+            #scroll-to-bottom{
+              position:absolute;
+              right:0;
+              top:120px;
+            }
+            #table > tbody > tr > td {
+             text-align:center;
+            }
+            .alert {
+              margin-bottom: 0px;
+            }
+        </style>
 </head>
 
 <body id="site" onload = "blockFill();">
@@ -91,7 +93,9 @@
                 <li><a href="user_add.php">Unos korisnika u bazu</a></li>
                 <li><a href="users.php">Popis svih korisnika</a></li>
                 <li><a href="course_add.php">Unos tečaja u bazu</a></li>
+                <li><a href="courses.php">Popis svih tečaja</a></li>
                 <li><a href="enrol.php">Upis korisnika na tečaj</a></li>
+                <li><a href="groups.php">Popis svih grupa</a></li>
                 <li><a href="group_add.php">Upis grupe</a></li>
                 <li><a href="mjesto_add.php">Unos mjesta u bazu</a></li>
               </ul>

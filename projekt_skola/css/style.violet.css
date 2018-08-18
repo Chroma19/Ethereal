@@ -1134,8 +1134,8 @@ FOOTER AND COPYRIGHT
   text-align: left;
 }
 .footer__copyright {
-  background: #333333;
-  color: #ccc;
+  background:transparent;
+  color: #333333;
   padding: 20px 0;
   font-size: 13px;
   line-height: 28px;

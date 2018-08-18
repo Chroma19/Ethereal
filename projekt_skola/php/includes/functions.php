@@ -42,21 +42,6 @@ $greska ="";
 }
 		}
 		
-		function login_check(){
-			if(!isset($_SESSION['login'])){
-				
-				if(isset($_COOKIE['username'])){
-					$_SESSION['login'] = true;
-					$_SESSION['username'] = $_COOKIE['username'];
-				}
-				else{
-					header("Location : index.php/?prijava");
-					exit("Prvo se prijavite!");
-				}
-			}
-			
-		}
-		
 		function ocisti_tekst($string){
 			global $con;
 			$string = trim($string);

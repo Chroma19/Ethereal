@@ -6,21 +6,27 @@ session_start();
     require_once ("includes/functions.php");
     $con = spajanje();
     if($_SESSION['role'] !== "1"){
-        die("Nemate ovlasti za pristupanje ovoj stranici! Za povratak na početnu kliknite <a href='index.php'><b>ovdje</b></a>");
+        die('<div class="alert" style="background:yellow;"> 
+            <a href="index.php" class="close" data-dismiss="alert" aria-label="close">
+            &times;
+            </a>
+            <strong>Nemate ovlasti za pristup ovoj stranici!</strong>
+            
+            </div>');
     }
     else{
     if(!empty($_POST['posalji'])){
         
-        $naziv = ocisti_tekst($_POST['naziv']);
+        $smjer = ocisti_tekst($_POST['smjer']);
         $broj_sati = ocisti_tekst($_POST['broj_sati']);
         $cijena = ocisti_tekst($_POST['cijena']);
        
 
         $sql = "INSERT INTO
                 tecaj 
-                (naziv,broj_sati,cijena)
+                (smjer,broj_sati,cijena)
                 VALUES (
-                    '$naziv',
+                    '$smjer',
                     '$broj_sati',
                     '$cijena'
                      );";
@@ -36,9 +42,9 @@ session_start();
     <form class = "form-horizontal" action="" method = "post">
 
         <div class="form-group">
-            <label for ="naziv" class="col-sm-2 control-label">Naziv</label>
+            <label for ="smjer" class="col-sm-2 control-label">smjer</label>
                 <div class = "col-sm-7">
-                    <input type="text" id="naziv" name="naziv" class ="form-control" value="" required/>
+                    <input type="text" id="smjer" name="smjer" class ="form-control" value="" required/>
                 </div>
         </div>
 

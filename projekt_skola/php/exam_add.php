@@ -2,8 +2,17 @@
 session_start();
 require_once "includes/functions.php";
 $title = "Unos novog ispita";
-
-        $con = spajanje();
+$con = spajanje();
+if($_SESSION['role'] !== "1" or $_SESSION['role' !== "2"]){
+    die('<div class="alert" style="background:yellow;"> 
+        <a href="index.php" class="close" data-dismiss="alert" aria-label="close">
+        &times;
+        </a>
+        <strong>Nemate ovlasti za pristup ovoj stranici!</strong>
+        
+        </div>');
+}
+else{
 if(!empty($_POST['posalji'])){
     if(!empty($_POST['pitanja']) or !empty($_POST['vrijeme_ispita']) or !empty($_POST['trajanje_ispita'])){
     
@@ -37,7 +46,7 @@ else{
     die("Popunite sva područja! Za povratak na stranicu kliknite <a href='exam_add.php'><b>ovdje</b></a>");
 }
 }
-
+}
 require_once ("includes/header.php");
 
 ?>
@@ -56,14 +65,14 @@ require_once ("includes/header.php");
         
                     <?php
                 // Catching course 
-                $sql = "SELECT id, naziv FROM tecaj";
+                $sql = "SELECT id, smjer FROM tecaj";
                 $res_tecaj = mysqli_query($con, $sql); 
                 
                 if(mysqli_num_rows($res_tecaj)>0){
                     while($tecaj = mysqli_fetch_assoc($res_tecaj)){
                         
                         echo '<option value="'.$tecaj['id'].'">';
-                        echo $tecaj['naziv'];
+                        echo $tecaj['smjer'];
                         echo '</option>';
                     }
                 }
@@ -107,14 +116,14 @@ require_once ("includes/header.php");
         <div class="form-group">
             <label class = "control-label col-sm-2" for="datum_ispita">Unesite datum pisanja ispita:</label>
             <div class="col-sm-7">
-                <input name='datum_ispita' id='datum_ispita' type = "date" value = "" required> 
+                <input name='datum_ispita' id='datum_ispita' class = "form-control" type = "date" value = "" required> 
             </div>  
         </div> 
 
         <div class="form-group">
             <label class = "control-label col-sm-2" for="vrijeme_ispita">Unesite vrijeme pisanja ispita:</label>
             <div class="col-sm-7">
-                <input name='vrijeme_ispita' id='vrijeme_ispita' class = "timepicker" value = "" required> 
+                <input name='vrijeme_ispita' id='vrijeme_ispita' class = "form-control timepicker" value = "" required> 
             </div>  
         </div> 
 
@@ -122,7 +131,7 @@ require_once ("includes/header.php");
         <div class="form-group">
             <label class = "control-label col-sm-2" for="trajanje_ispita">Odaberite trajanje ispita u minutama</label>
             <div class="col-sm-7">
-                <input type = "number" name="trajanje_ispita" id="trajanje_ispita" min = "15" max = "300">
+                <input type = "number" class = "form-control" name="trajanje_ispita" id="trajanje_ispita" min = "15" max = "300">
             </div>  
         </div> 
         
@@ -135,61 +144,5 @@ require_once ("includes/header.php");
     </article>   
 </form>   
 
-
-<script>
-
-function checkAll(){
-                
-            let password = document.getElementById("sifra")
-
-            if (password.value.length<8){
-                password.style = "border-color:red";
-                password.setCustomValidity("Lozinka je prekratka!")
-            }
-            else {
-                password.removeAttribute("style");
-                password.setCustomValidity("");
-
-                var q = new Date();
-                var m = q.getMonth();
-                var d = q.getDay();
-                var y = q.getFullYear();
-                var h = q.getHours();
-
-                var date = q;
-
-                var date_exam = document.getElementById("datum_ispita").value;
-                var date_exam = Date.parse(date_exam);
-                var date = Date.parse(date);
-                var input = document.getElementById("datum_ispita");
-
-                if(date>date_exam){
-                        input.style = "border-color:red";
-                        input.setCustomValidity("Unesite važeći datum i vrijeme!"); 
-                    }
-                else{    
-                        input.removeAttribute("style");
-                        input.setCustomValidity(""); 
-
-                        let dur = document.getElementById("trajanje_ispita");
-                        if(isNaN(dur.value)){
-                            dur.style = "border-color:red";
-                            dur.setCustomValidity("Unesite važeće trajanje!");
-                        }
-                        else if(dur.value>300 || dur.value<15){
-                            dur.style = "border-color:red";
-                            dur.setCustomValidity("Unesite važeće trajanje!");
-                        }
-                        else{
-                            dur.removeAttribute("style");
-                            dur.setCustomValidity("");
-                        }
-
-                        }
-                
-            }
-
-} 
-</script>
     <?php require_once("includes/footer.php");?>
         

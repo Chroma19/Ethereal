@@ -37,7 +37,15 @@ $('.js-scroll-trigger').click(function() {
     $('.navbar-collapse').collapse('hide');
 });
 
-function traziLekcija(id_tecaj_fk){
+function traziGrupe(id_tecaj_fk){
+    $.post("ajax/trazilica_grupe.php", {odabrani_tecaj:id_tecaj_fk}, function(data){
+        if(data.length > 0){
+            $("#id_grupa_fk").html(data);
+        }
+    });
+}
+
+function traziLekcija(id_tecaj_fk){ 
         $.post("ajax/trazilica_lekcija.php", {odabrani_tecaj:id_tecaj_fk}, function(data){
             //ovaj kod izvrsavamo nakon sto nam je dosao rezultat iz baze
             if(data.length > 0){
@@ -48,13 +56,17 @@ function traziLekcija(id_tecaj_fk){
             }
         });
     }
-    function traziPitanja(id_lesson_fk){
+
+
+function traziPitanja(id_lesson_fk){
     $.post("ajax/trazilica_pitanje.php", {odabrana_lekcija:id_lesson_fk}, function(data){
         if(data.length > 0){
             $("#pitanje").html(data);
         }
     });
 }
+
+
 function createInputs(){
     var option = document.getElementById("id_tip_pitanja");
     var forma = document.getElementById("solution");
@@ -147,4 +159,55 @@ var oib = document.getElementById("oib");
     }
 }  
 
+function checkAll(){
+                
+    let password = document.getElementById("sifra")
 
+    if (password.value.length<8){
+        password.style = "border-color:red";
+        password.setCustomValidity("Lozinka je prekratka!")
+    }
+    else {
+        password.removeAttribute("style");
+        password.setCustomValidity("");
+
+        var q = new Date();
+        var m = q.getMonth();
+        var d = q.getDay();
+        var y = q.getFullYear();
+        var h = q.getHours();
+
+        var date = q;
+
+        var date_exam = document.getElementById("datum_ispita").value;
+        var date_exam = Date.parse(date_exam);
+        var date = Date.parse(date);
+        var input = document.getElementById("datum_ispita");
+
+        if(date>date_exam){
+                input.style = "border-color:red";
+                input.setCustomValidity("Unesite važeći datum i vrijeme!"); 
+            }
+        else{    
+                input.removeAttribute("style");
+                input.setCustomValidity(""); 
+
+                let dur = document.getElementById("trajanje_ispita");
+                if(isNaN(dur.value)){
+                    dur.style = "border-color:red";
+                    dur.setCustomValidity("Unesite važeće trajanje!");
+                }
+                else if(dur.value>300 || dur.value<15){
+                    dur.style = "border-color:red";
+                    dur.setCustomValidity("Unesite važeće trajanje!");
+                }
+                else{
+                    dur.removeAttribute("style");
+                    dur.setCustomValidity("");
+                }
+
+                }
+        
+    }
+
+} 
