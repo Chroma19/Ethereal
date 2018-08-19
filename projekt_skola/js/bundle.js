@@ -1,13 +1,3 @@
-function blockFill(){
-    var tecaj=document.getElementById("id_tecaj_fk").value;
-    if(tecaj=="NULL"){
-        $("article").hide();
-    }
-}
-$(document).on("change","#id_tecaj_fk",function(){
-    $("article").show();
-});
-
 
 $(document).ready(function(){
     $('#noJS').hide();
@@ -45,12 +35,10 @@ function traziGrupe(id_tecaj_fk){
     });
 }
 
-function traziLekcija(id_tecaj_fk){ 
-        $.post("ajax/trazilica_lekcija.php", {odabrani_tecaj:id_tecaj_fk}, function(data){
-            //ovaj kod izvrsavamo nakon sto nam je dosao rezultat iz baze
+function traziLekcija(id_grupa_fk){ 
+        $.post("ajax/trazilica_lekcija.php", {odabrana_grupa:id_grupa_fk}, function(data){
             if(data.length > 0){
                 $("#id_lesson_fk").html(data);
-                
                 var id_lesson_fk = $("#id_lesson_fk option:selected").val();
                 traziPitanja(id_lesson_fk);
             }
@@ -211,3 +199,32 @@ function checkAll(){
     }
 
 } 
+
+
+            var password = document.getElementById("password");
+            var confirm_password = document.getElementById("password_check");
+
+            function validatePassword(){
+            if(password.value != confirm_password.value) {
+                confirm_password.style = "border-color:red";
+                confirm_password.setCustomValidity("Lozinke se ne podudaraju!");
+            } else {
+                confirm_password.removeAttribute("style");
+                confirm_password.setCustomValidity('');
+            }
+            }
+
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
+
+
+        function pas_val(){
+            if (password.value.length<8){
+                password.style = "border-color:red";
+                password.setCustomValidity("Lozinka je prekratka!")
+            }
+            else {
+                password.removeAttribute("style");
+                password.setCustomValidity("");
+            }
+        }

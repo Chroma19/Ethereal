@@ -3,6 +3,16 @@ session_start();
 require_once "includes/functions.php";
 
 $con = spajanje();
+if(!isset($_SESSION['role'])){
+    die('<div class="alert" style="background:yellow;"> 
+        <a href="index.php" class="close" data-dismiss="alert" aria-label="close">
+        &times;
+        </a>
+        <strong>Nemate ovlasti za pristup ovoj stranici!</strong>
+        </div><br>');
+}
+else{
+
 $id=$_GET['id'];
 $sql = "SELECT ispit.id, tecaj.smjer, lessons.lesson_name FROM tecaj
 		INNER JOIN ispit ON ispit.id_tecaj_fk = tecaj.id
@@ -53,7 +63,7 @@ if(!empty($_POST['spremi'])){
 		$greska.="Ispit nije predan. ".mysqli_error($con);
 	}
 }
-
+}
 if(!isset($id)){
 	die("Nije predan id parametar!");
 }

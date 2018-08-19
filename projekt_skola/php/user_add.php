@@ -49,6 +49,8 @@
         if($res){
             $id = mysqli_insert_id($con);
             header("Location:user.php?id=$id");
+            $_POST=array();
+            exit();
             
         }
         else{
@@ -66,7 +68,7 @@
         <div class="form-group">
 		    <label for ="ime" class="col-sm-2 control-label">Ime</label>
 		        <div class = "col-sm-7">
-			        <input type="text" id="ime" name="ime" class ="form-control" value="" required/>
+			        <input type="text" id="ime" name="ime" class ="form-control" value="" required>
 		        </div>
 	    </div>
 
@@ -196,41 +198,6 @@
           </div>
         </div>
     </form>   
-
-
-    <script>
-
-            var password = document.getElementById("password");
-            var confirm_password = document.getElementById("password_check");
-
-            function validatePassword(){
-            if(password.value != confirm_password.value) {
-                confirm_password.style = "border-color:red";
-                confirm_password.setCustomValidity("Lozinke se ne podudaraju!");
-            } else {
-                confirm_password.removeAttribute("style");
-                confirm_password.setCustomValidity('');
-            }
-            }
-
-        password.onchange = validatePassword;
-        confirm_password.onkeyup = validatePassword;
-
-
-        function pas_val(){
-            if (password.value.length<8){
-                password.style = "border-color:red";
-                password.setCustomValidity("Lozinka je prekratka!")
-            }
-            else {
-                password.removeAttribute("style");
-                password.setCustomValidity("");
-            }
-        }
-        
-
-            
-    </script>
 
 
 <?php require_once("includes/footer.php");?>

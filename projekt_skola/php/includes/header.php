@@ -27,6 +27,12 @@
         <!-- datatables -->
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
         <style>
+            body{
+              background:#fffefa;
+            }
+            .navbar{
+              background:#fffefa;
+            }
             #site {
                 display : none;
             }
@@ -53,7 +59,7 @@
         </style>
 </head>
 
-<body id="site" onload = "blockFill();">
+<body id="site">
 
 <noscript>
   <div id = "noJS">

@@ -3,7 +3,7 @@ session_start();
 require_once "includes/functions.php";
 $title = "Unos novog ispita";
 $con = spajanje();
-if($_SESSION['role'] !== "1" or $_SESSION['role' !== "2"]){
+if($_SESSION['role'] !== "1" and $_SESSION['role'] !=="2"){
     die('<div class="alert" style="background:yellow;"> 
         <a href="index.php" class="close" data-dismiss="alert" aria-label="close">
         &times;
@@ -24,11 +24,12 @@ if(!empty($_POST['posalji'])){
     $datum_ispita = ocisti_tekst($_POST['datum_ispita']);
     $vrijeme_ispita = ocisti_tekst($_POST['vrijeme_ispita']);
     $trajanje_ispita = ocisti_tekst($_POST['trajanje_ispita']);
+    $autor  = ocisti_tekst($_SESSION['username']);
     
     
     $sql = "INSERT INTO
     ispit 
-    (id_tecaj_fk,id_lesson_fk,pitanja_string,exam_code,datum_ispita, vrijeme_ispita, trajanje_ispita)
+    (id_tecaj_fk,id_lesson_fk,pitanja_string,exam_code,datum_ispita, vrijeme_ispita, trajanje_ispita, autor)
     VALUES (
         $id_tecaj_fk,
         $id_lesson_fk,
@@ -36,7 +37,8 @@ if(!empty($_POST['posalji'])){
         '$exam_code',
         '$datum_ispita',
         '$vrijeme_ispita',
-        '$trajanje_ispita'
+        '$trajanje_ispita',
+        '$autor'
     );";
     $res = mysqli_query($con,$sql);
     header("Location: ".$_SERVER['PHP_SELF']);
@@ -83,8 +85,6 @@ require_once ("includes/header.php");
     </div>
 
 
-        
-        
     <article>
         <div class="form-group">
         <label class = "control-label col-sm-2" for="id_lesson_fk">Odaberite lekciju:</label>

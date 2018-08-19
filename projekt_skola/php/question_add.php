@@ -7,7 +7,8 @@ require_once "includes/functions.php";
     
     $con = spajanje();
 
-    if($_SESSION['role'] !== "1" or $_SESSION['role' !== "2"]){
+
+    if($_SESSION['role'] !== "1" and $_SESSION['role'] !== "2"){
         die('<div class="alert" style="background:yellow;"> 
             <a href="index.php" class="close" data-dismiss="alert" aria-label="close">
             &times;

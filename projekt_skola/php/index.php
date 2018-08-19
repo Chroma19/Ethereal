@@ -2,9 +2,6 @@
 
 session_start();
 $title = "Prijava";
-$naslov = "Prijava";
-$poruka = "";
-$greska = "";
 
 require_once "includes/functions.php";
 $con = spajanje();
@@ -36,7 +33,6 @@ if(isset($_POST['prijava'])){
 				$_SESSION['login'] = true;
         $_SESSION['username'] = $username;
         $_SESSION['role'] = $user['id_status_fk'];
-				$poruka.="Ulogirani ste kao ".$username."." ;
 				
 				if(isset($_POST['zapamti'])){
           setcookiealive('username',$username, time()+7*24*60*60);
@@ -73,7 +69,6 @@ if(!isset ($_SESSION['login'])){
 	}
 	
 } 
-
 
 require_once "includes/header.php";
 
