@@ -35,8 +35,8 @@ function traziGrupe(id_tecaj_fk){
     });
 }
 
-function traziLekcija(id_grupa_fk){ 
-        $.post("ajax/trazilica_lekcija.php", {odabrana_grupa:id_grupa_fk}, function(data){
+function traziLekcija(id_tecaj_fk){ 
+        $.post("ajax/trazilica_lekcija.php", {odabrani_tecaj:id_tecaj_fk}, function(data){
             if(data.length > 0){
                 $("#id_lesson_fk").html(data);
                 var id_lesson_fk = $("#id_lesson_fk option:selected").val();
@@ -228,3 +228,27 @@ function checkAll(){
                 password.setCustomValidity("");
             }
         }
+
+        function startcheck(){
+            var q = new Date();
+                    var m = q.getMonth();
+                    var d = q.getDay();
+                    var y = q.getFullYear();
+                    var h = q.getHours();
+    
+                    var date = q;
+    
+                    var date_group = document.getElementById("datum_pocetka").value;
+                    var date_group = Date.parse(date_group);
+                    var date = Date.parse(date);
+                    var input = document.getElementById("datum_pocetka");
+    
+                    if(date>date_group){
+                            input.style = "border-color:red";
+                            input.setCustomValidity("Unesite važeći datum i vrijeme!"); 
+                        }
+                    else{    
+                            input.removeAttribute("style");
+                            input.setCustomValidity(""); 
+                    }
+                }

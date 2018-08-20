@@ -54,7 +54,7 @@
             
         }
         else{
-            echo "korisnik nije upisan " .mysqli_error($con);
+            echo "Korisnik nije upisan " .mysqli_error($con);
         }
     }
     }
@@ -89,14 +89,14 @@
         <div class="form-group">
             <label class="col-sm-2 control-label" for="password">Unesite lozinku (min 8 znakova):</label>
                 <div class = "col-sm-7">
-                    <input class ="form-control" type="password" name='password' id='password'  value = "" required>
+                    <input class ="form-control" min = "8" type="password" name='password' id='password'  value = "" required>
                 </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label" for="password_check">Potvrdite lozinku</label>
                 <div id = "div_pc" class = "col-sm-7">
-                    <input class ="form-control" type="password" name='password_check' id='password_check' value = "" required>
+                    <input class ="form-control" min = "8" type="password" name='password_check' id='password_check' value = "" required>
                 </div>
         </div>
 

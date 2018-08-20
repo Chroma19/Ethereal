@@ -24,39 +24,10 @@
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-        <!-- datatables -->
+    <!-- datatables -->
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-        <style>
-            body{
-              background:#fffefa;
-            }
-            .navbar{
-              background:#fffefa;
-            }
-            #site {
-                display : none;
-            }
-            #top-container{
-            margin-top:50px;
-            }
-            .table > thead > tr > th{
-              text-align:center;
-            }
-            #myTable_wrapper{
-              margin-bottom:3px;
-            }
-            #scroll-to-bottom{
-              position:absolute;
-              right:0;
-              top:120px;
-            }
-            #table > tbody > tr > td {
-             text-align:center;
-            }
-            .alert {
-              margin-bottom: 0px;
-            }
-        </style>
+    <!-- Custom user css -->
+    <link rel="stylesheet" href="../css/custom.css">
 </head>
 
 <body id="site">
@@ -184,7 +155,7 @@ else if($_SESSION['role'] == "3"){
             <!-- student access -->
             <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Studenti<b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="exam_list.php">Popis ispita</a></li>
+                <li><a href="exam_list.php">Popis nadolazećih ispita</a></li>
               </ul>
             </li> 
 
@@ -206,7 +177,7 @@ else if($_SESSION['role'] == "3"){
             </div>
           </div>
           <div id="navigation" class="collapse navbar-collapse navbar-right">
-            <a id = "btn-adjust" href="#" data-toggle="modal" data-target="#login-modal" class="btn navbar-btn btn-ghost pull-left"><i class="fa fa-sign-in"></i>Prijava</a>
+            <a id = "btn-adjust" href="#" data-toggle="modal" data-target="#login-modal" class="btn navbar-btn btn-ghost pull-left"><i class="fa fa-sign-in"></i>Log in</a>
           </div>
         </div>
       </div>
@@ -218,7 +189,7 @@ else if($_SESSION['role'] == "3"){
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
-            <h4 id="Login" class="modal-title">Customer login</h4>
+            <h4 style = "text-align:center; color:#bbb;" id="Login" class="modal-title">Prijava</h4>
           </div>
           <div class="modal-body">
             <form action="index.php" method="post">
@@ -237,8 +208,6 @@ else if($_SESSION['role'] == "3"){
                 <button type="submit" id = "prijava" value = "prijava" name = "prijava" class="btn btn-primary"><i class="fa fa-sign-in"></i>Prijavi se</button>
               </p>
             </form>
-            <p class="text-center text-muted">Not registered yet?</p>
-            <p class="text-center text-muted"><a href="#"><strong>Register now</strong></a>! It is easy and done in 1 minute and gives you access to special discounts and much more!</p>
           </div>
         </div>
       </div>

@@ -64,7 +64,7 @@ session_start();
 
         <div class="form-group">
           <div class="col-sm-2 col-sm-offset-5">
-            <input class ="form-control btn btn-ghost" id="posalji" value = "Dodaj tečaj" name="posalji" type="submit">
+            <input class ="form-control btn btn-ghost submit" id="posalji" value = "Dodaj tečaj" name="posalji" type="submit">
           </div>
         </div>
 

@@ -8,7 +8,7 @@ if(isset($_POST['odabrani_tecaj'])){
     $id = $_POST['odabrani_tecaj'];
 
     if($id == 'NULL'){
-        echo '<option selected disabled>Odaberite grupu</option>';
+        echo '<option selected disabled>Odaberite tecaj</option>';
     }
     else{
 

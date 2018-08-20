@@ -163,7 +163,7 @@ require_once "includes/functions.php";
 
         <div class = "form-group">
         <div class="col-sm-2 col-sm-offset-5">
-            <button id="posalji" value = "posalji" class = "btn btn-ghost form-control" name="posalji" type="submit">Dodaj pitanje</button>
+            <button id="posalji" value = "posalji" class = "btn btn-ghost form-control submit" name="posalji" type="submit">Dodaj pitanje</button>
         </div>
         </div>
 

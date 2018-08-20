@@ -185,7 +185,7 @@ require_once "includes/header.php";
 
 	<div class="form-group">
 		<div class="col-sm-offset-3 col-sm-3">
-			<input type ="submit" id="spremi" name = "spremi" class ="form-control btn btn-primary" value="Spremi" />
+			<input type ="submit" id="spremi" name = "spremi" class ="submit form-control btn btn-primary" value="Spremi" />
 		</div>
 	</div>
 	

@@ -85,7 +85,6 @@ require_once ("includes/header.php");
     </div>
 
 
-    <article>
         <div class="form-group">
         <label class = "control-label col-sm-2" for="id_lesson_fk">Odaberite lekciju:</label>
             <div class="col-sm-7">
@@ -141,7 +140,7 @@ require_once ("includes/header.php");
         </div>
         </div>
 
-    </article>   
+
 </form>   
 
     <?php require_once("includes/footer.php");?>

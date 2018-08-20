@@ -54,11 +54,11 @@ if (mysqli_num_rows($result)>0){
 				<td>".$course['cijena']." kn</td>
 				
 				<td>
-					<a href='course.php?id=".$course["id"]."'><button class = 'btn btn-primary' value = 'uredi' name='uredi' id='uredi''>Uredi</button></a>
+					<a href='course.php?id=".$course["id"]."'><button class = 'btn btn-ghost submit' value = 'uredi' name='uredi' id='uredi''>Uredi</button></a>
 				</td>
 				<td>
 					<a href='courses.php?obrisi=true&id=".$course['id']."' onclick='return confirm(\"Jeste li sigurni da želite obrisati tečaj?\")'>
-                        <button class = 'btn btn-primary' value = 'obrisi' name='obrisi' id='obrisi'>Obriši</button>
+                        <button class = 'btn btn-ghost submit' value = 'obrisi' name='obrisi' id='obrisi'>Obriši</button>
                     </a>
 				</td>
 			</tr>";

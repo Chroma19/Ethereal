@@ -142,36 +142,10 @@ require_once "includes/functions.php";
 
         <div class = "form-group">
         <div class="col-sm-2 col-sm-offset-5">
-            <button onclick = "startcheck();" class = "btn-ghost btn form-control" id="posalji" value = "posalji" name="posalji" type="submit">Dodaj grupu</button>
+            <button onclick = "startcheck();" class = "btn-ghost btn form-control submit" id="posalji" value = "posalji" name="posalji" type="submit">Dodaj grupu</button>
         </div>
         </div>
 
     </form>  
 
-        <script>
-        function startcheck(){
-        var q = new Date();
-                var m = q.getMonth();
-                var d = q.getDay();
-                var y = q.getFullYear();
-                var h = q.getHours();
-
-                var date = q;
-
-                var date_group = document.getElementById("datum_pocetka").value;
-                var date_group = Date.parse(date_group);
-                var date = Date.parse(date);
-                var input = document.getElementById("datum_pocetka");
-
-                if(date>date_group){
-                        input.style = "border-color:red";
-                        input.setCustomValidity("Unesite važeći datum i vrijeme!"); 
-                    }
-                else{    
-                        input.removeAttribute("style");
-                        input.setCustomValidity(""); 
-                }
-            }
-        </script>
-    
 <?php require_once("includes/footer.php");?>

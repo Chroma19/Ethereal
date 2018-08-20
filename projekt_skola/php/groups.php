@@ -65,11 +65,11 @@ if (mysqli_num_rows($result)>0){
 				<td>".$group['smjer']."</td>
 				
 				<td>
-					<a href='user.php?id=".$group["id"]."'><button class = 'btn btn-primary' value = 'uredi' name='uredi' id='uredi''>Uredi</button></a>
+					<a href='user.php?id=".$group["id"]."'><button class = 'btn btn-ghost submit' value = 'uredi' name='uredi' id='uredi''>Uredi</button></a>
 				</td>
 				<td>
 					<a href='users.php?obrisi=true&id=".$group['id']."' onclick='return confirm(\"Jeste li sigurni da zelite obrisati grupu?\")'>
-                        <button class = 'btn btn-primary' value = 'obrisi' name='obrisi' id='obrisi'>Obriši</button>
+                        <button class = 'btn btn-ghost submit' value = 'obrisi' name='obrisi' id='obrisi'>Obriši</button>
                     </a>
 				</td>
 			</tr>";
