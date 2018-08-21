@@ -24,10 +24,52 @@ $res = mysqli_fetch_assoc(mysqli_query($con, $sql));
 $title = "Ispit: ".$res['smjer']."_".$res['lesson_name'];
 }
 
-if(!empty($_POST['predaj'])){
-	// $_SESSION['odgovori'] = $_POST['odgovori'];
-	ispisi_polje($_POST['odgovori']);
+$sql_pitanja = "SELECT ispit.pitanja_string 
+FROM ispit
+WHERE ispit.id = {$_GET['id']}";
+$pitanja_string = mysqli_query($con,$sql_pitanja);
+$pitanja_array = mysqli_fetch_assoc($pitanja_string);
+$pitanja_array = implode(",", $pitanja_array);
+$pitanja_array = explode(",", $pitanja_array);
+// Needed for later sql queries
+$pitanja_string = implode(",", $pitanja_array);
+
+
+
+foreach ($pitanja_array as $k => $pitanje_id){
+	global $pitanje_id;
 }
+	if(isset($_POST['predaj']) and !empty($_POST['odgovori'.$pitanje_id])){
+		for ($a=0;$a<count($pitanja_array);$a++){
+			$odgovor[$a] =  $_POST['odgovori'.$pitanja_array[$a]];
+			$odgovor[$a] = implode(",", $odgovor[$a]);
+			$odgovor[$a] = explode(",", $odgovor[$a]);
+			$_SESSION['odgovor'.$a] = $odgovor[$a];
+		}
+
+		$sql = "SELECT id, id_tip_pitanja_fk, rjesenje
+					FROM baza_pitanja
+					WHERE id IN ($pitanja_string);";
+
+			$pitanja = mysqli_query($con, $sql);
+			if(mysqli_num_rows($pitanja)>0){
+				$all_q = array();
+				while($pitanje = mysqli_fetch_assoc($pitanja)){
+					for($a=0; $a<count($pitanja_array); $a++){
+							$all_q[$a] = $pitanje;
+						}
+					ispisi_polje($pitanje);
+				}
+				ispisi_polje($all_q);
+			}
+			else{
+				echo mysqli_error($con);
+			}
+		
+		
+		
+
+	}	
 
 require_once "includes/header.php";
 
@@ -37,13 +79,7 @@ require_once "includes/header.php";
 	
     <?php 
     // Catching questions in string format
-	$sql = "SELECT ispit.pitanja_string 
-			FROM ispit
-			WHERE ispit.id = {$_GET['id']}";
-	$pitanja_string = mysqli_query($con,$sql);
-	$pitanja_string = mysqli_fetch_assoc($pitanja_string);
-	$pitanja_array = implode(",", $pitanja_string);
-	$pitanja_array = explode(",", $pitanja_array);
+	
 
 
 	echo "<div class = 'form-group exam'><ol>";
@@ -69,28 +105,33 @@ require_once "includes/header.php";
 		switch($pitanje['id_tip_pitanja_fk']){
 			case "1":
 				// Checkbox
+				$tmp.= '<div>';
+				
 				for($i=0; $i<count($odgovori);$i++){
-						$tmp.= '<div><input class = "checkbox" type="checkbox" value = "" name = "odgovor'.$i.'" id = "odgovor'.$i.'">';
-						$tmp.= '<label for="odgovori[]" class = "control-label">'.ucfirst($odgovori[$i]).'</label></div>';
+					$tmp.= '<input name = "odgovori'.$pitanje_id.'[]" class = "checkbox single-checkbox" type="checkbox" value = "'.$i.'" id = "odgovori'.$i.$pitanje_id.'">';
+					$tmp.= '<label for = "odgovori'.$i.$pitanje_id.'">'.ucfirst($odgovori[$i]).'</label>
+								<br>';
 					}
-				$tmp.= '<p class = "text-muted"><small>Dva su odgovora točna</small></p>';
+				$tmp.= '</div><p class = "text-muted"><small>Dva su odgovora točna</small></p>';
 				break;
 				
 			case "2":
 				// Radio
+				$tmp.= '<div>';
 				for($i=0; $i<count($odgovori);$i++){
-						$tmp.= '<div><input class = "radio" type="radio" value = "" name = "odgovor'.$i.'" id = "odgovor'.$i.'">';
-						$tmp.= '<label for="odgovori[]" class = "control-label">'.ucfirst($odgovori[$i]).'</label></div>';
+						$tmp.= '<input name = "odgovori'.$pitanje_id.'[]" class = "radio" type="radio" value = "'.$i.'" id = "odgovori'.$i.$pitanje_id.'">';
+						$tmp.= '<label for = "odgovori'.$i.$pitanje_id.'">'.ucfirst($odgovori[$i]).'</label>
+						<br>';
 					}
-				$tmp.= '<p class = "text-muted"><small>Jedan je odgovor točan</small></p>';
+				$tmp.= '</div><p class = "text-muted"><small>Jedan je odgovor točan</small></p>';
 				break;
 
 			default:
 				// Text
-					$tmp.= '<div><input class = "col-sm-7 form-control" type="text" placeholder = "Upišite točan odgovor!" value = "" name = "odgovor" id = "odgovor">';
-					$tmp.= '<label for="odgovor" class = "control-label">'.ucfirst($odgovori[0]).'</label></div>';
+					$tmp.= '<div><input name = "odgovori'.$pitanje_id.'[]" class = "col-sm-7 form-control" type="text" placeholder = "Upišite točan odgovor!" value = "">';
+					$tmp.= '<label for="odgovori[]" class = "control-label">'.ucfirst($odgovori[0]).'</label></div>';
 	}
-		$tmp .= '';
+		$tmp .= '</li>';
 		echo $tmp;
 	}
 		
@@ -107,7 +148,16 @@ require_once "includes/header.php";
 	
 </form>
 
+
 <?php
 require "includes/footer.php";
 ?>
+<script>
+var limit = 2;
+$('input.single-checkbox').on('change', function(evt) {
+    if($(this).siblings(':checked').length >= limit) {
+        this.checked = false;
+    }
+});
+</script>
 							

@@ -40,43 +40,26 @@ if (mysqli_num_rows($result)>0){
 	<table id = "table" class="table table-hover">
 		<thead>
 			<tr>
-				<th>ID</th>
 				<th>Ime</th>
 				<th>Prezime</th>
-				<th>OIB</th>
-				<th>E-mail</th>
-                <th>Broj telefona</th>
-                <th>Mjesto prebivališta</th>
-                <th>Adresa</th>
 				<th>Status</th>
-				<th style = "display : none"></th>
-				<th style = "display : none"></th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>';
 
 	while($user = mysqli_fetch_assoc($result)){
 		echo "
-			<tr>
-				<td>".$user['id']."</td>
+		<a href='user.php?id=".$user["id"]."'><tr>
 				<td>".$user['ime']."</td>
 				<td>".$user['prezime']."</td>
-				<td>".$user['oib']."</td>
-				<td>".$user['email']."</td>
-				<td>".$user['telefon']."</td>
-				<td>".$user['naziv']."</td>
-				<td>".$user['adresa']."</td>
 				<td>".$user['status']."</td>
-				
-				<td>
-					<a href='user.php?id=".$user["id"]."'><button class = 'btn btn-primary' value = 'uredi' name='uredi' id='uredi''>Uredi</button></a>
-				</td>
 				<td>
 					<a href='users.php?obrisi=true&id=".$user['id']."' onclick='return confirm(\"Jeste li sigurni da zelite obrisati korisnika?\")'>
                         <button class = 'btn btn-primary' value = 'obrisi' name='obrisi' id='obrisi'>Obriši</button>
                     </a>
 				</td>
-			</tr>";
+			</tr></a>";
 	}
 	echo "</tbody></table>";
 }

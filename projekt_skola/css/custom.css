@@ -1,4 +1,4 @@
-body, .navbar, .question{
+body, .navbar, .question, table.dataTable tbody tr{
     background:#fffefa;
   }
   #site {
@@ -14,9 +14,12 @@ body, .navbar, .question{
     margin-bottom:3px;
   }
   #scroll-to-bottom{
-    position:absolute;
+    position:fixed;
     right:0;
-    top:120px;
+    top:105px;
+  }
+  #style-switch-button{
+    top:105px;
   }
   #table > tbody > tr > td {
    text-align:center;

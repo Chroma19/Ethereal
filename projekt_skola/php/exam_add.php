@@ -14,7 +14,7 @@ if($_SESSION['role'] !== "1" and $_SESSION['role'] !=="2"){
 }
 else{
 if(!empty($_POST['posalji'])){
-    if(!empty($_POST['pitanja']) or !empty($_POST['vrijeme_ispita']) or !empty($_POST['trajanje_ispita'])){
+    if(!empty($_POST['pitanja']) and !empty($_POST['vrijeme_ispita']) and !empty($_POST['trajanje_ispita'])){
     
     $id_tecaj_fk = ocisti_tekst($_POST['id_tecaj_fk']);
     $id_lesson_fk = ocisti_tekst($_POST['id_lesson_fk']);

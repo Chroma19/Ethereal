@@ -154,7 +154,7 @@ require_once "includes/functions.php";
             </div>    
         </div>
         
-        <div class = "form-inline form-group">
+        <div class = "form-group">
             <label class = "col-sm-2 control-label" for="rjesenje[]">Unesite rješenje:</label>
             <div class = "col-sm-7" id = "solution">
             </div>

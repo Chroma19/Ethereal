@@ -3,10 +3,9 @@ $(document).ready(function(){
     $('#noJS').hide();
     $('#site').show();
     $('input.timepicker').timepicker({});
+    $('#table').DataTable();
 });
-$(document).ready( function () {
-$('#table').DataTable();
-} );
+
 
 // Smooth scrolling using jQuery easing
 $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
@@ -252,3 +251,5 @@ function checkAll(){
                             input.setCustomValidity(""); 
                     }
                 }
+
+                
