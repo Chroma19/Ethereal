@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 18, 2018 at 12:02 PM
+-- Generation Time: Aug 21, 2018 at 09:38 PM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -44,10 +44,12 @@ CREATE TABLE `baza_pitanja` (
 
 INSERT INTO `baza_pitanja` (`id`, `id_tecaj_fk`, `id_lesson_fk`, `id_tip_pitanja_fk`, `pitanje`, `ponudeni_odgovori`, `rjesenje`) VALUES
 (1, 6, 5, 1, 'Ajax vise ponudenih', 'ajax1,ajax2,ajax3,ajax4', '0,3'),
-(8, 8, 5, 2, 'Ajax vise ponudenih', 'ajax1,ajax1,ajax2,ajax13', '3'),
-(21, 3, 3, 2, 'Ajax vise ponudenih', 'ajax1,ajax1,ajax1,ajax1', '2'),
-(30, 6, 5, 2, 'Ajax vise ponudenih', 'ajax1,ajax1,ajax1,ajax1', '3'),
-(31, 10, 6, 2, 'Koji je nastavak za 3.l.jd.?', '-st,-t,-est,-/', '1');
+(8, 8, 5, 1, 'Ajax vise ponudenih', 'ajax1,ajax1,ajax2,ajax13', '2,3'),
+(21, 3, 3, 1, 'Ajax vise ponudenih', 'ajax1,ajax1,ajax1,ajax1', '2,3'),
+(30, 6, 5, 2, 'Ajax vise ponudeno', 'ajax1,ajax1,ajax1,ajax1', '3'),
+(31, 10, 6, 2, 'Koji je nastavak za 3.l.jd.?', '-st,-t,-est,-/', '1'),
+(32, 1, 1, 2, 'Ajax vise ponudenih', 'ajax1,ajax1,ajax1,ajax1', '0'),
+(33, 6, 4, 3, 'Test tekstualno pitanje', '', 'Neki odgovor');
 
 -- --------------------------------------------------------
 
@@ -84,21 +86,23 @@ CREATE TABLE `ispit` (
   `id` int(5) NOT NULL,
   `id_tecaj_fk` int(5) NOT NULL,
   `id_lesson_fk` int(5) NOT NULL,
-  `pitanja_string` varchar(2000) NOT NULL,
+  `pitanja_string` varchar(255) NOT NULL,
   `exam_code` varchar(255) NOT NULL,
   `datum_ispita` date NOT NULL,
   `vrijeme_ispita` time NOT NULL,
-  `trajanje_ispita` varchar(255) NOT NULL
+  `trajanje_ispita` varchar(255) NOT NULL,
+  `autor` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ispit`
 --
 
-INSERT INTO `ispit` (`id`, `id_tecaj_fk`, `id_lesson_fk`, `pitanja_string`, `exam_code`, `datum_ispita`, `vrijeme_ispita`, `trajanje_ispita`) VALUES
-(23, 3, 3, '21', '179ad45c6ce2cb97cf1029e212046e81', '2018-08-16', '01:30:00', '84'),
-(24, 10, 6, '31', '179ad45c6ce2cb97cf1029e212046e81', '2018-08-14', '09:00:00', '45'),
-(25, 6, 5, '', '179ad45c6ce2cb97cf1029e212046e81', '2018-08-17', '02:00:00', '140');
+INSERT INTO `ispit` (`id`, `id_tecaj_fk`, `id_lesson_fk`, `pitanja_string`, `exam_code`, `datum_ispita`, `vrijeme_ispita`, `trajanje_ispita`, `autor`) VALUES
+(2, 6, 5, '1,8,30,33', '25f9e794323b453885f5181f1b624d0b', '2018-08-29', '01:00:00', '145', 'admin'),
+(3, 3, 3, '21', '179ad45c6ce2cb97cf1029e212046e81', '2018-08-22', '01:30:00', '123', 'admin'),
+(4, 1, 1, '32', '179ad45c6ce2cb97cf1029e212046e81', '2018-08-25', '02:00:00', '142', 'admin'),
+(5, 6, 4, '33', '05a671c66aefea124cc08b76ea6d30bb', '2018-08-24', '02:00:00', '142', 'admin');
 
 -- --------------------------------------------------------
 
@@ -134,7 +138,7 @@ INSERT INTO `lessons` (`id`, `lesson_name`, `id_tecaj_fk`) VALUES
 CREATE TABLE `mjesto` (
   `id` int(5) NOT NULL,
   `naziv` varchar(255) NOT NULL,
-  `pbr` int(10) NOT NULL
+  `pbr` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -142,10 +146,10 @@ CREATE TABLE `mjesto` (
 --
 
 INSERT INTO `mjesto` (`id`, `naziv`, `pbr`) VALUES
-(1, 'Vinkovci', 32100),
-(2, 'Cerna', 3210),
-(3, 'Županja', 32121),
-(4, 'Ivankovo', 32281);
+(1, 'Vinkovci', '32100'),
+(2, 'Cerna', '3210'),
+(3, 'Županja', '32121'),
+(4, 'Ivankovo', '32281');
 
 -- --------------------------------------------------------
 
@@ -235,6 +239,7 @@ INSERT INTO `tip_pitanja` (`id`, `type`, `opis`) VALUES
 CREATE TABLE `upisi` (
   `id` int(11) NOT NULL,
   `id_users_fk` int(11) NOT NULL,
+  `id_smjer_fk` int(255) NOT NULL,
   `id_grupa_fk` int(11) NOT NULL,
   `datum_upisa` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci;
@@ -243,11 +248,10 @@ CREATE TABLE `upisi` (
 -- Dumping data for table `upisi`
 --
 
-INSERT INTO `upisi` (`id`, `id_users_fk`, `id_grupa_fk`, `datum_upisa`) VALUES
-(1, 1, 2, '2018-07-31 02:54:51'),
-(2, 2, 2, '2018-07-31 02:54:58'),
-(3, 6, 3, '2018-08-04 18:05:21'),
-(4, 1, 3, '2018-08-13 18:28:24');
+INSERT INTO `upisi` (`id`, `id_users_fk`, `id_smjer_fk`, `id_grupa_fk`, `datum_upisa`) VALUES
+(6, 6, 1, 1, '2018-08-19 20:12:40'),
+(7, 6, 6, 2, '2018-08-20 12:00:24'),
+(8, 14, 1, 1, '2018-08-20 13:21:12');
 
 -- --------------------------------------------------------
 
@@ -278,8 +282,8 @@ INSERT INTO `users` (`id`, `ime`, `prezime`, `username`, `password`, `oib`, `ema
 (1, 'Zdravko', 'Petričušić', 'zdrava53', '179ad45c6ce2cb97cf1029e212046e81', '27359479322', 'chromaa19@gmail.com', '095/815-0749', 'Glagoljaška 12', 1, '2018-07-11', 1),
 (2, 'Nenad', 'Trivun', 'nenad', 'aee03111935944a5ad1f1c887bd141e2', '32165498732', 'zdrava53@gmail.com', '095/815-0748', 'Glagoljaška 24', 2, '2018-07-05', 2),
 (6, 'test', 'user', 'testuser', '179ad45c6ce2cb97cf1029e212046e81', '12345678998', 'zdrava54@net.hr', '098348886', 'Rojčani 21', 1, '1997-08-19', 3),
-(7, 'Zdravko', 'asd', 'asd', '202cb962ac59075b964b07152d234b70', '32165498745', 'zdrava55@net.hr', '3216846251', 'wadsa', 4, '2018-08-08', 3),
-(13, 'Admin', 'Test', 'admin', '179ad45c6ce2cb97cf1029e212046e81', '32165465412', 'admin@mail.com', '12345697512', 'Admin 52', 1, '2018-08-08', 1);
+(13, 'Admin', 'Test', 'admin', '179ad45c6ce2cb97cf1029e212046e81', '32165465412', 'admin@mail.com', '12345697512', 'Admin 52', 1, '2018-08-08', 1),
+(14, 'Test', 'User 2', 'testuser2', '179ad45c6ce2cb97cf1029e212046e81', '46554612300', 'e@mail.com', '654987651354', 'opawd', 1, '2018-08-07', 3);
 
 --
 -- Indexes for dumped tables
@@ -308,6 +312,7 @@ ALTER TABLE `grupa`
 --
 ALTER TABLE `ispit`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `pitanja_string` (`pitanja_string`),
   ADD KEY `smjer_id_fk` (`id_tecaj_fk`),
   ADD KEY `id` (`id`),
   ADD KEY `lesson_id_fk` (`id_lesson_fk`);
@@ -366,7 +371,8 @@ ALTER TABLE `tip_pitanja`
 ALTER TABLE `upisi`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_osobe_fk` (`id_users_fk`),
-  ADD KEY `id_grupa_fk` (`id_grupa_fk`);
+  ADD KEY `id_grupa_fk` (`id_grupa_fk`),
+  ADD KEY `id_smjer_fk` (`id_smjer_fk`);
 
 --
 -- Indexes for table `users`
@@ -386,7 +392,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `baza_pitanja`
 --
 ALTER TABLE `baza_pitanja`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `grupa`
@@ -398,7 +404,7 @@ ALTER TABLE `grupa`
 -- AUTO_INCREMENT for table `ispit`
 --
 ALTER TABLE `ispit`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `lessons`
@@ -440,13 +446,13 @@ ALTER TABLE `tip_pitanja`
 -- AUTO_INCREMENT for table `upisi`
 --
 ALTER TABLE `upisi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables
@@ -456,50 +462,51 @@ ALTER TABLE `users`
 -- Constraints for table `baza_pitanja`
 --
 ALTER TABLE `baza_pitanja`
-  ADD CONSTRAINT `baza_pitanja_ibfk_1` FOREIGN KEY (`id_tip_pitanja_fk`) REFERENCES `tip_pitanja` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `baza_pitanja_ibfk_2` FOREIGN KEY (`id_tecaj_fk`) REFERENCES `tecaj` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `baza_pitanja_ibfk_3` FOREIGN KEY (`id_lesson_fk`) REFERENCES `lessons` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `baza_pitanja_ibfk_1` FOREIGN KEY (`id_tip_pitanja_fk`) REFERENCES `tip_pitanja` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `baza_pitanja_ibfk_2` FOREIGN KEY (`id_tecaj_fk`) REFERENCES `tecaj` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `baza_pitanja_ibfk_3` FOREIGN KEY (`id_lesson_fk`) REFERENCES `lessons` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `grupa`
 --
 ALTER TABLE `grupa`
-  ADD CONSTRAINT `grupa_ibfk_1` FOREIGN KEY (`id_tecaj_fk`) REFERENCES `tecaj` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `grupa_ibfk_2` FOREIGN KEY (`id_predavac_fk`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `grupa_ibfk_1` FOREIGN KEY (`id_tecaj_fk`) REFERENCES `tecaj` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `grupa_ibfk_2` FOREIGN KEY (`id_predavac_fk`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `ispit`
 --
 ALTER TABLE `ispit`
-  ADD CONSTRAINT `ispit_ibfk_1` FOREIGN KEY (`id_tecaj_fk`) REFERENCES `tecaj` (`id`),
-  ADD CONSTRAINT `ispit_ibfk_2` FOREIGN KEY (`id_lesson_fk`) REFERENCES `lessons` (`id`);
+  ADD CONSTRAINT `ispit_ibfk_1` FOREIGN KEY (`id_tecaj_fk`) REFERENCES `tecaj` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ispit_ibfk_2` FOREIGN KEY (`id_lesson_fk`) REFERENCES `lessons` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `lessons`
 --
 ALTER TABLE `lessons`
-  ADD CONSTRAINT `lessons_ibfk_1` FOREIGN KEY (`id_tecaj_fk`) REFERENCES `tecaj` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `lessons_ibfk_1` FOREIGN KEY (`id_tecaj_fk`) REFERENCES `tecaj` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `results`
 --
 ALTER TABLE `results`
-  ADD CONSTRAINT `results_ibfk_1` FOREIGN KEY (`id_osobe_fk`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `results_ibfk_2` FOREIGN KEY (`id_ispit_fk`) REFERENCES `ispit` (`id`);
+  ADD CONSTRAINT `results_ibfk_1` FOREIGN KEY (`id_osobe_fk`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `results_ibfk_2` FOREIGN KEY (`id_ispit_fk`) REFERENCES `ispit` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `upisi`
 --
 ALTER TABLE `upisi`
-  ADD CONSTRAINT `upisi_ibfk_1` FOREIGN KEY (`id_grupa_fk`) REFERENCES `grupa` (`id`),
-  ADD CONSTRAINT `upisi_ibfk_2` FOREIGN KEY (`id_users_fk`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `upisi_ibfk_1` FOREIGN KEY (`id_grupa_fk`) REFERENCES `grupa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `upisi_ibfk_2` FOREIGN KEY (`id_users_fk`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `upisi_ibfk_3` FOREIGN KEY (`id_smjer_fk`) REFERENCES `tecaj` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`id_status_fk`) REFERENCES `roles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`id_mjesto_fk`) REFERENCES `mjesto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`id_status_fk`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`id_mjesto_fk`) REFERENCES `mjesto` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
