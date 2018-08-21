@@ -41,13 +41,14 @@ foreach ($pitanja_array as $k => $pitanje_id){
 }
 	if(isset($_POST['predaj']) and !empty($_POST['odgovori'.$pitanje_id])){
 		for ($a=0;$a<count($pitanja_array);$a++){
-			$odgovor[$a] =  $_POST['odgovori'.$pitanja_array[$a]];
-			$odgovor[$a] = implode(",", $odgovor[$a]);
-			$odgovor[$a] = explode(",", $odgovor[$a]);
-			$_SESSION['odgovor'.$a] = $odgovor[$a];
+			$odgovor = array();
+			$odgovor[$pitanje_id] =  $_POST['odgovori'.$pitanje_id];
+			$odgovor[$pitanje_id] = implode(",", $odgovor[$pitanje_id]);
+			$odgovor[$pitanje_id] = explode(",", $odgovor[$pitanje_id]);
+			$_SESSION['odgovor'] = $odgovor[$pitanje_id];
 		}
 
-		$sql = "SELECT id, id_tip_pitanja_fk, rjesenje
+		$sql = "SELECT id, rjesenje
 					FROM baza_pitanja
 					WHERE id IN ($pitanja_string);";
 
@@ -55,12 +56,11 @@ foreach ($pitanja_array as $k => $pitanje_id){
 			if(mysqli_num_rows($pitanja)>0){
 				$all_q = array();
 				while($pitanje = mysqli_fetch_assoc($pitanja)){
-					for($a=0; $a<count($pitanja_array); $a++){
-							$all_q[$a] = $pitanje;
-						}
-					ispisi_polje($pitanje);
+					$all_q[$pitanje['id']] = $pitanje;
 				}
-				ispisi_polje($all_q);
+				$_SESSION['pitanje'] = $all_q;
+				ispisi_polje($_SESSION['pitanje']);
+				ispisi_polje($_SESSION['odgovor']);
 			}
 			else{
 				echo mysqli_error($con);

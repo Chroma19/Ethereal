@@ -4,6 +4,15 @@ $(document).ready(function(){
     $('#site').show();
     $('input.timepicker').timepicker({});
     $('#table').DataTable();
+    $(".clickable-row-users").click(function() {
+        window.location.assign("user.php?id="+$(this).attr('id'));   
+    });
+    $(".clickable-row-exam").click(function() {
+        window.location.assign("exam_write.php?id="+$(this).attr('id'));   
+    });
+    $(".clickable-row-course").click(function() {
+        window.location.assign("course.php?id="+$(this).attr('id'));   
+    });
 });
 
 
@@ -251,5 +260,3 @@ function checkAll(){
                             input.setCustomValidity(""); 
                     }
                 }
-
-                

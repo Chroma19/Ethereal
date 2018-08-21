@@ -35,11 +35,9 @@ if (mysqli_num_rows($result)>0){
 	<table id = "table" class="table table-hover">
 		<thead>
 			<tr>
-				<th>ID</th>
 				<th>smjer</th>
 				<th>Broj sati</th>
 				<th>Cijena</th>
-				<th></th>
 				<th></th>
 			</tr>
 		</thead>
@@ -47,20 +45,14 @@ if (mysqli_num_rows($result)>0){
 
 	while($course = mysqli_fetch_assoc($result)){
 		echo "
-			<tr>
-				<td>".$course['id']."</td>
+			<tr class = 'clickable-row-course' id = '".$course["id"]."'>
 				<td>".$course['smjer']."</td>
 				<td>".$course['broj_sati']."</td>
 				<td>".$course['cijena']." kn</td>
 				
-				<td>
-					<a href='course.php?id=".$course["id"]."'><button class = 'btn btn-ghost submit' value = 'uredi' name='uredi' id='uredi''>Uredi</button></a>
-				</td>
-				<td>
 					<a href='courses.php?obrisi=true&id=".$course['id']."' onclick='return confirm(\"Jeste li sigurni da želite obrisati tečaj?\")'>
                         <button class = 'btn btn-ghost submit' value = 'obrisi' name='obrisi' id='obrisi'>Obriši</button>
                     </a>
-				</td>
 			</tr>";
 	}
 	echo "</tbody></table>";

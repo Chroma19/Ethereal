@@ -12,6 +12,14 @@ if($_SESSION['role'] !== "1"){
 	</div>');
 }
 else{
+
+if(isset($_POST['obrisi']) and isset($_GET['id']) ){
+	drop("users");
+	$_POST=array();
+	header("Location:users.php");
+	exit();	
+}
+
 if(!empty($_POST['spremi'])){
 	
 	$ime= $_POST['ime'];
@@ -210,11 +218,17 @@ require_once "includes/header.php";
 	
 
 	<div class="form-group">
-		<div class="col-sm-offset-3 col-sm-3">
-			<input type ="submit" id="spremi" name = "spremi" class ="form-control btn btn-primary" value="Spremi" />
+		<div class="col-sm-offset-1 col-sm-3">
+			<input type ="submit" id="spremi" name = "spremi" class ="form-control btn btn-ghost submit" value="Spremi" />
+		</div>
+	
+
+	
+		<div class="col-sm-offset-1 col-sm-3">
+			<button type ="submit" id="obrisi" name = "obrisi" class ="form-control btn btn-ghost submit"
+			onclick='return confirm("Jeste li sigurni da želite obrisati tečaj?")' value="obrisi">Obriši</button>
 		</div>
 	</div>
-	
 </form>
 
 

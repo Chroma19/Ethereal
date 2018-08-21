@@ -14,12 +14,18 @@ body, .navbar, .question, table.dataTable tbody tr{
     margin-bottom:3px;
   }
   #scroll-to-bottom{
-    position:fixed;
+    position:absolute;
     right:0;
     top:105px;
   }
   #style-switch-button{
+    position:absolute;
+    left:0;
     top:105px;
+  }
+  #top_container{
+    margin:0;
+    padding:0;
   }
   #table > tbody > tr > td {
    text-align:center;
@@ -63,4 +69,7 @@ body, .navbar, .question, table.dataTable tbody tr{
   -webkit-transform: scale(1.3); /* Safari and Chrome */
   -o-transform: scale(1.3); /* Opera */
   padding: 10px;
+}
+.clickable-row-exam:hover,.clickable-row-course:hover,.clickable-row-users:hover{
+  cursor:pointer;
 }

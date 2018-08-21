@@ -24,14 +24,6 @@ INNER JOIN roles ON roles.id = users.id_status_fk ;";
 $result = mysqli_query($con, $sql);
 
 
-	
-
-if(isset($_GET['obrisi']) and isset($_GET['id']) ){
-	drop("users");
-	header("Location:users.php");
-	
-}
-
 require_once "includes/header.php";
 
 
@@ -39,27 +31,21 @@ if (mysqli_num_rows($result)>0){
 	echo '
 	<table id = "table" class="table table-hover">
 		<thead>
-			<tr>
+			<tr >
 				<th>Ime</th>
 				<th>Prezime</th>
 				<th>Status</th>
-				<th></th>
 			</tr>
 		</thead>
 		<tbody>';
 
 	while($user = mysqli_fetch_assoc($result)){
 		echo "
-		<a href='user.php?id=".$user["id"]."'><tr>
+			<tr class = 'clickable-row-users' id=".$user['id'].">
 				<td>".$user['ime']."</td>
 				<td>".$user['prezime']."</td>
 				<td>".$user['status']."</td>
-				<td>
-					<a href='users.php?obrisi=true&id=".$user['id']."' onclick='return confirm(\"Jeste li sigurni da zelite obrisati korisnika?\")'>
-                        <button class = 'btn btn-primary' value = 'obrisi' name='obrisi' id='obrisi'>Obriši</button>
-                    </a>
-				</td>
-			</tr></a>";
+			</tr>";
 	}
 	echo "</tbody></table>";
 }
