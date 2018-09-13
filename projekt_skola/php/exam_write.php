@@ -35,18 +35,10 @@ $pitanja_array = explode(",", $pitanja_array);
 $pitanja_string = implode(",", $pitanja_array);
 
 
-
 foreach ($pitanja_array as $k => $pitanje_id){
 	global $pitanje_id;
 }
-	if(isset($_POST['predaj']) and !empty($_POST['odgovori'.$pitanje_id])){
-		for ($a=0;$a<count($pitanja_array);$a++){
-			$odgovor = array();
-			$odgovor[$pitanje_id] =  $_POST['odgovori'.$pitanje_id];
-			$odgovor[$pitanje_id] = implode(",", $odgovor[$pitanje_id]);
-			$odgovor[$pitanje_id] = explode(",", $odgovor[$pitanje_id]);
-			$_SESSION['odgovor'] = $odgovor[$pitanje_id];
-		}
+	if(isset($_POST['predaj']) and !empty($_POST[$pitanje_id])){
 
 		$sql = "SELECT id, rjesenje
 					FROM baza_pitanja
@@ -55,22 +47,38 @@ foreach ($pitanja_array as $k => $pitanje_id){
 			$pitanja = mysqli_query($con, $sql);
 			if(mysqli_num_rows($pitanja)>0){
 				$all_q = array();
+				global $bodovi;
+				$bodovi = 0;
 				while($pitanje = mysqli_fetch_assoc($pitanja)){
 					$all_q[$pitanje['id']] = $pitanje;
+					$tocno_rj = $all_q[$pitanje['id']];
+					
+					for($c = 0; $c<=$pitanje_id; $c++){
+						global $c;
+					}
+					global $max_bodovi;
+					$max_bodovi = count($pitanja_array);
+						$ponudeno_rj[$c] = implode(",",$_POST[$pitanje['id']]); 
+						if($ponudeno_rj[$c] == $tocno_rj['rjesenje']){
+							$bodovi++;
+						}
+					}
+					global $total;
+					$total = round($bodovi/$max_bodovi*100, 2) ."%";
 				}
-				$_SESSION['pitanje'] = $all_q;
-				ispisi_polje($_SESSION['pitanje']);
-				ispisi_polje($_SESSION['odgovor']);
-			}
 			else{
 				echo mysqli_error($con);
 			}
+		$user = $_SESSION['userid'];
+		$id=$_GET['id'];
+		$send = 'INSERT INTO results (id_osobe_fk, id_ispit_fk, result)
+				VALUES ("$user",  "$id", "$total");';
 		
-		
-		
+		$res = 	mysqli_query($con, $send);
 
+		if(!$res){echo mysqli_error($con); }
 	}	
-
+ispisi_polje($_SESSION);
 require_once "includes/header.php";
 
 ?>
@@ -87,7 +95,6 @@ require_once "includes/header.php";
 		$type = mysqli_query($con, $sql);
 		if(mysqli_num_rows($type)>0){
 			while($type_id = mysqli_fetch_assoc($type)){
-				// ispisi_polje ($type_id);
 				global $type_id;
 			}
 		}
@@ -108,7 +115,7 @@ require_once "includes/header.php";
 				$tmp.= '<div>';
 				
 				for($i=0; $i<count($odgovori);$i++){
-					$tmp.= '<input name = "odgovori'.$pitanje_id.'[]" class = "checkbox single-checkbox" type="checkbox" value = "'.$i.'" id = "odgovori'.$i.$pitanje_id.'">';
+					$tmp.= '<input name = "'.$pitanje_id.'[]" class = "checkbox single-checkbox" type="checkbox" value = "'.$i.'" id = "odgovori'.$i.$pitanje_id.'">';
 					$tmp.= '<label for = "odgovori'.$i.$pitanje_id.'">'.ucfirst($odgovori[$i]).'</label>
 								<br>';
 					}
@@ -119,7 +126,7 @@ require_once "includes/header.php";
 				// Radio
 				$tmp.= '<div>';
 				for($i=0; $i<count($odgovori);$i++){
-						$tmp.= '<input name = "odgovori'.$pitanje_id.'[]" class = "radio" type="radio" value = "'.$i.'" id = "odgovori'.$i.$pitanje_id.'">';
+						$tmp.= '<input name = "'.$pitanje_id.'[]" class = "radio" type="radio" value = "'.$i.'" id = "odgovori'.$i.$pitanje_id.'">';
 						$tmp.= '<label for = "odgovori'.$i.$pitanje_id.'">'.ucfirst($odgovori[$i]).'</label>
 						<br>';
 					}
@@ -128,8 +135,8 @@ require_once "includes/header.php";
 
 			default:
 				// Text
-					$tmp.= '<div><input name = "odgovori'.$pitanje_id.'[]" class = "col-sm-7 form-control" type="text" placeholder = "Upišite točan odgovor!" value = "">';
-					$tmp.= '<label for="odgovori[]" class = "control-label">'.ucfirst($odgovori[0]).'</label></div>';
+					$tmp.= '<div><input name = "'.$pitanje_id.'[]" class = "col-sm-7 form-control" type="text" placeholder = "Upišite točan odgovor!" id = "odgovori'.$i.$pitanje_id.'" value = "">';
+					$tmp.= '<label for="odgovori'.$i.$pitanje_id.'" class = "control-label">'.ucfirst($odgovori[0]).'</label></div>';
 	}
 		$tmp .= '</li>';
 		echo $tmp;

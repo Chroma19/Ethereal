@@ -32,10 +32,12 @@ if(isset($_POST['prijava'])){
 				
 				$_SESSION['login'] = true;
         $_SESSION['username'] = $username;
+        $_SESSION['userid'] = $user['id'];
         $_SESSION['role'] = $user['id_status_fk'];
 				
 				if(isset($_POST['zapamti'])){
           setcookiealive('username',$username, time()+7*24*60*60);
+          setcookiealive('userid',$userid, time()+7*24*60*60);
           setcookiealive('role', $user['id_status_fk'], time()+7*24*60*60);
 				}
 				else{
@@ -65,6 +67,7 @@ if(!isset ($_SESSION['login'])){
 	if(isset($_COOKIE['username'])){
 		$_SESSION['login'] = true;
     $_SESSION['username'] = $_COOKIE['username'];
+    $_SESSION['userid'] = $_COOKIE['userid'];
     $_SESSION['role'] = $_COOKIE['role'];
 	}
 	
