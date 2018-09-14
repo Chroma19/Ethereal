@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 21, 2018 at 09:38 PM
+-- Generation Time: Sep 15, 2018 at 12:32 AM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -102,7 +102,8 @@ INSERT INTO `ispit` (`id`, `id_tecaj_fk`, `id_lesson_fk`, `pitanja_string`, `exa
 (2, 6, 5, '1,8,30,33', '25f9e794323b453885f5181f1b624d0b', '2018-08-29', '01:00:00', '145', 'admin'),
 (3, 3, 3, '21', '179ad45c6ce2cb97cf1029e212046e81', '2018-08-22', '01:30:00', '123', 'admin'),
 (4, 1, 1, '32', '179ad45c6ce2cb97cf1029e212046e81', '2018-08-25', '02:00:00', '142', 'admin'),
-(5, 6, 4, '33', '05a671c66aefea124cc08b76ea6d30bb', '2018-08-24', '02:00:00', '142', 'admin');
+(5, 6, 4, '33', '05a671c66aefea124cc08b76ea6d30bb', '2018-08-24', '02:00:00', '142', 'admin'),
+(6, 6, 5, '1,8,30', '179ad45c6ce2cb97cf1029e212046e81', '2018-09-15', '02:30:00', '142', 'admin');
 
 -- --------------------------------------------------------
 
@@ -163,6 +164,17 @@ CREATE TABLE `results` (
   `id_ispit_fk` int(255) NOT NULL,
   `result` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `results`
+--
+
+INSERT INTO `results` (`id`, `id_osobe_fk`, `id_ispit_fk`, `result`) VALUES
+(16, 13, 6, '33.33%'),
+(17, 13, 6, '66.67%'),
+(18, 13, 6, '66.67%'),
+(19, 13, 6, '0%'),
+(20, 13, 2, '25%');
 
 -- --------------------------------------------------------
 
@@ -404,7 +416,7 @@ ALTER TABLE `grupa`
 -- AUTO_INCREMENT for table `ispit`
 --
 ALTER TABLE `ispit`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `lessons`
@@ -422,7 +434,7 @@ ALTER TABLE `mjesto`
 -- AUTO_INCREMENT for table `results`
 --
 ALTER TABLE `results`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -490,8 +502,8 @@ ALTER TABLE `lessons`
 -- Constraints for table `results`
 --
 ALTER TABLE `results`
-  ADD CONSTRAINT `results_ibfk_1` FOREIGN KEY (`id_osobe_fk`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `results_ibfk_2` FOREIGN KEY (`id_ispit_fk`) REFERENCES `ispit` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `results_ibfk_1` FOREIGN KEY (`id_osobe_fk`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `results_ibfk_2` FOREIGN KEY (`id_ispit_fk`) REFERENCES `ispit` (`id`);
 
 --
 -- Constraints for table `upisi`
