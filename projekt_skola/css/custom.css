@@ -1,5 +1,5 @@
 body, .navbar, .question, table.dataTable tbody tr{
-    background:#fffefa;
+    background:#fffbeb;
   }
   #site {
       display : none;
@@ -72,4 +72,8 @@ body, .navbar, .question, table.dataTable tbody tr{
 }
 .clickable-row-exam:hover,.clickable-row-course:hover,.clickable-row-users:hover{
   cursor:pointer;
+}
+.transparent{
+  border-color: transparent;
+  background-color:transparent;
 }

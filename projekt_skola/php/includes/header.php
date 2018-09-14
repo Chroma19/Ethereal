@@ -49,6 +49,8 @@
 
 
 <?php  
+error_reporting(0);
+$id = $_SESSION['userid'];
   if(isset($_SESSION['login']) and $_SESSION['login'] == true){
     if($_SESSION['role'] == "1"){
       
@@ -77,25 +79,6 @@
                 <li><a href="mjesto_add.php">Unos mjesta u bazu</a></li>
               </ul>
             </li>        
-          
-
-            <!-- professor access -->
-            <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Profesori<b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="exam_list.php">Popis svih ispita</a></li>
-                <li><a href="exam_add.php">Unos ispita</a></li>
-                <li><a href="lesson_add.php">Unos lekcije</a></li>
-                <li><a href="question_add.php">Unos pitanja u bazu</a></li>
-              </ul>
-            </li>    
-
-            <!-- student access -->
-            <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Studenti<b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="exam_list.php">Popis ispita</a></li>
-              </ul>
-            </li> 
-
 
             </ul><a id = "btn-adjust"  href="odjava.php" class="btn navbar-btn btn-ghost  pull-left"><i class="fa fa-sign-in"></i>Odjava</a>
         </div>
@@ -128,9 +111,6 @@ else if($_SESSION['role'] == "2"){
               </ul>
             </li>     
 
-
-         
-            
           </ul><a id = "btn-adjust"  href="odjava.php" class="btn navbar-btn btn-ghost  pull-left"><i class="fa fa-sign-in"></i>Odjava</a>
         </div>
       </div>
@@ -153,12 +133,8 @@ else if($_SESSION['role'] == "3"){
             <li class="active"><a href="index.php">Početna</a></li> 
 
             <!-- student access -->
-            <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Studenti<b class="caret"></b></a>
-              <ul class="dropdown-menu">
                 <li><a href="exam_list.php">Popis nadolazećih ispita</a></li>
-              </ul>
-            </li> 
-
+                <li><a href="profile.php?id='.$id.'">'.$_SESSION['username'].'</a></li> 
           </ul><a id = "btn-adjust"  href="odjava.php" class="btn navbar-btn btn-ghost  pull-left"><i class="fa fa-sign-in"></i>Odjava</a>
         </div>
       </div>

@@ -13,7 +13,7 @@
             <div class="col-md-4">
             </div>
             <div class="col-md-4">
-              <p class="credit"><a href="https://bootstrapious.com/free-templates" class="external">Template by Bootstrapious templates</a></p>
+              <p class="credit"><a style = "color:#222;" href="https://bootstrapious.com/free-templates" class="external">Template by Bootstrapious templates</a></p>
             </div>
           </div>
         </div>

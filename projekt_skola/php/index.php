@@ -28,7 +28,7 @@ if(isset($_POST['prijava'])){
 			
 			$user= mysqli_fetch_assoc($rezultat);
 		
-			if($password == $user['password'] and $username = $user['username']){
+			if($password == $user['password'] and $username = $user['username'] and $userid = $user['id']){
 				
 				$_SESSION['login'] = true;
         $_SESSION['username'] = $username;
@@ -42,6 +42,7 @@ if(isset($_POST['prijava'])){
 				}
 				else{
           setcookiealive('username',$username, time()-7*24*60*60);
+          setcookiealive('userid',$userid, time()-7*24*60*60);
           setcookiealive('role', $user['id_status_fk'], time()-7*24*60*60);
 				}
 
@@ -115,7 +116,7 @@ require_once "includes/header.php";
       <div class="container">
         <h1> Mauris placerat eleifend leo.</h1>
         <p class="lead">Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat.</p>
-        <p> <a href="text.html" class="btn btn-ghost">Continue reading   </a></p>
+        <p> <a href="#" class="btn btn-ghost">Continue reading   </a></p>
       </div>
     </section>
     <section class="section--padding-bottom-small">
@@ -123,44 +124,40 @@ require_once "includes/header.php";
         <div class="row">
           <div class="col-sm-6">
             <div class="post">
-              <div class="image"><a href="text.html">Text.html</a></div>
-              <h3><a href="text.html">Rit eget tincidunt condimentum</a></h3>
+              <h3><a href="#">Rit eget tincidunt condimentum</a></h3>
               <p class="post__intro">ellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-              <p class="read-more"><a href="text.html" class="btn btn-ghost">Continue reading   </a></p>
+              <p class="read-more"><a href="#" class="btn btn-ghost">Continue reading   </a></p>
             </div>
           </div>
           <div class="col-sm-6">
             <div class="post">
-              <div class="image"><a href="text.html">Text.html</a></div>
-              <h3><a href="text.html">Tempor sit amet</a></h3>
+              <h3><a href="#">Tempor sit amet</a></h3>
               <p class="post__intro"> Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
-              <p class="read-more"><a href="text.html" class="btn btn-ghost">Continue reading   </a></p>
+              <p class="read-more"><a href="#" class="btn btn-ghost">Continue reading   </a></p>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-4">
             <div class="post">
-              <div class="image"><a href="text.html">Text.html</a></div>
-              <h3><a href="text.html">Rit eget tincidunt condimentum</a></h3>
+              <h3><a href="#">Rit eget tincidunt condimentum</a></h3>
               <p class="post__intro">ellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-              <p class="read-more"><a href="text.html" class="btn btn-ghost">Continue reading     </a></p>
+              <p class="read-more"><a href="#" class="btn btn-ghost">Continue reading     </a></p>
             </div>
           </div>
           <div class="col-sm-4">
             <div class="post">
-              <div class="image"><a href="text.html">Text.html</a></div>
-              <h3><a href="text.html">Tempor sit amet</a></h3>
+              <h3><a href="#">Tempor sit amet</a></h3>
               <p class="post__intro"> Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
-              <p class="read-more"><a href="text.html" class="btn btn-ghost">Continue reading     </a></p>
+              <p class="read-more"><a href="#" class="btn btn-ghost">Continue reading     </a></p>
             </div>
           </div>
           <div class="col-sm-4">
             <div class="post">
-              <div class="image"><a href="text.html">Text.html</a></div>
-              <h3><a href="text.html">Vestibulum erat wisi</a></h3>
+              <div class="image"><a href="#">#</a></div>
+              <h3><a href="#">Vestibulum erat wisi</a></h3>
               <p class="post__intro">ellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-              <p class="read-more"><a href="text.html" class="btn btn-ghost">Continue reading     </a></p>
+              <p class="read-more"><a href="#" class="btn btn-ghost">Continue reading     </a></p>
             </div>
           </div>
         </div>

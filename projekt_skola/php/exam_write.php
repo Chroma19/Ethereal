@@ -3,6 +3,8 @@ session_start();
 require_once "includes/functions.php";
 
 $con = spajanje();
+$id=$_GET['id'];
+global $id;
 if(!isset($_SESSION['role'])){
     die('<div class="alert" style="background:yellow;"> 
         <a href="index.php" class="close" data-dismiss="alert" aria-label="close">
@@ -11,9 +13,21 @@ if(!isset($_SESSION['role'])){
         <strong>Nemate ovlasti za pristup ovoj stranici!</strong>
         </div><br>');
 }
-else{
+else {
 
-$id=$_GET['id'];
+	$date = "SELECT datum_ispita FROM ispit WHERE id = $id";
+	$date_res = mysqli_query($con,$date);
+	$date_res = mysqli_fetch_assoc($date_res);
+	$now = getDate();
+	if(strtotime($date_res['datum_ispita'])>$now['0']){
+		die('<div class="alert" style="background:yellow;"> 
+        <a href="index.php" class="close" data-dismiss="alert" aria-label="close">
+        &times;
+        </a>
+        <strong>Ispit još nije dostupan za polaganje!</strong>
+        </div><br>');
+	}
+	else{
 $sql = "SELECT ispit.id, tecaj.smjer, lessons.lesson_name FROM tecaj
 		INNER JOIN ispit ON ispit.id_tecaj_fk = tecaj.id
 		INNER JOIN lessons ON lessons.id = ispit.id_lesson_fk
@@ -70,14 +84,14 @@ foreach ($pitanja_array as $k => $pitanje_id){
 				echo mysqli_error($con);
 			}
 		$user = $_SESSION['userid'];
-		$id=$_GET['id'];
-		$send = 'INSERT INTO results (id_osobe_fk, id_ispit_fk, result)
-				VALUES ("$user",  "$id", "$total");';
+		$send = "INSERT INTO results (id_osobe_fk, id_ispit_fk, result)
+				VALUES (".$user.", ".$id.", '$total');";
 		
 		$res = 	mysqli_query($con, $send);
-
-		if(!$res){echo mysqli_error($con); }
+		header("Location: index.php");
+		exit();
 	}	
+}
 ispisi_polje($_SESSION);
 require_once "includes/header.php";
 
