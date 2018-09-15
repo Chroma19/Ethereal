@@ -41,8 +41,13 @@ if(!empty($_POST['posalji'])){
         '$autor'
     );";
     $res = mysqli_query($con,$sql);
+    if($res){
     header("Location: ".$_SERVER['PHP_SELF']);
     exit;
+}
+else{
+    echo mysqli_error($con);
+}
 }
 else{
     die("Popunite sva područja! Za povratak na stranicu kliknite <a href='exam_add.php'><b>ovdje</b></a>");

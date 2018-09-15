@@ -88,12 +88,18 @@ foreach ($pitanja_array as $k => $pitanje_id){
 				VALUES (".$user.", ".$id.", '$total');";
 		
 		$res = 	mysqli_query($con, $send);
-		header("Location: index.php");
+		header("refresh:3;Location: index.php");
+		echo '<div class="alert" style="background:#0090bc; color:white;"> 
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">
+		&times;
+		</a>
+		<strong>Ispit predan!</strong>
+		</div>';
 		exit();
 	}	
-}
-ispisi_polje($_SESSION);
-require_once "includes/header.php";
+	}
+	ispisi_polje($_SESSION);
+	require_once "includes/header.php";
 
 ?>
 
