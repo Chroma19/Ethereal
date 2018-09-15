@@ -226,7 +226,7 @@ require_once "includes/header.php";
 	
 		<div class="col-sm-offset-1 col-sm-3">
 			<button type ="submit" id="obrisi" name = "obrisi" class ="form-control btn btn-ghost submit"
-			onclick='return confirm("Jeste li sigurni da želite obrisati tečaj?")' value="obrisi">Obriši</button>
+			onclick='return confirm("Jeste li sigurni da želite obrisati korisnika?")' value="obrisi">Obriši</button>
 		</div>
 	</div>
 </form>
