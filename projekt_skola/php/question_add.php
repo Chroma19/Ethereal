@@ -94,24 +94,6 @@ require_once "includes/functions.php";
                 <select  name='id_lesson_fk' class = "form-control" id='id_lesson_fk' required>
                 <option value="NULL" disabled selected>--</option>
 
-                
-                <?php
-                    // Catching lesson
-                    $sql = "SELECT 
-                            *
-                            FROM lessons";
-                    $res_lesson = mysqli_query($con, $sql); 
-
-                    if(mysqli_num_rows($res_lesson)>0){
-                        while($lesson = mysqli_fetch_assoc($res_lesson)){
-                            
-                            echo '<option value="'.$lesson['id'].'">';
-                            echo $lesson['lesson_name'];
-                            echo '</option>';
-                        }
-                    }
-                
-                ?>
                 </select>
                 </div>
         </div>

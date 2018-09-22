@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="../css/pe-icon-7-stroke.css">
     <!-- Google fonts - Roboto Condensed & Roboto-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed:700|Roboto:300,400">
+    <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet"> 
     <!-- lightbox-->
     <link rel="stylesheet" href="../css/lightbox.min.css">
     <!-- theme stylesheet-->
@@ -67,18 +68,36 @@ $id = $_SESSION['userid'];
           <ul class="nav navbar-nav">
             <li class="active"><a href="index.php">Početna</a></li>
             <!-- Admin access  -->
-            <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Administratori<b class="caret"></b></a>
+            <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Osnovni podaci<b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="user_add.php">Unos korisnika u bazu</a></li>
                 <li><a href="users.php">Popis svih korisnika</a></li>
+                <li><a href="mjesto_add.php">Unos mjesta u bazu</a></li>
+              </ul>
+            </li>        
+
+
+            <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Upisi i tečajevi<b class="caret"></b></a>
+              <ul class="dropdown-menu">
                 <li><a href="course_add.php">Unos tečaja u bazu</a></li>
                 <li><a href="courses.php">Popis svih tečaja</a></li>
                 <li><a href="enrol.php">Upis korisnika na tečaj</a></li>
                 <li><a href="groups.php">Popis svih grupa</a></li>
                 <li><a href="group_add.php">Upis grupe</a></li>
-                <li><a href="mjesto_add.php">Unos mjesta u bazu</a></li>
               </ul>
-            </li>        
+            </li>   
+
+
+            <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Ispiti<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="exam_list.php">Popis svih ispita</a></li>
+                <li><a href="exam_add.php">Unos ispita</a></li>
+                <li><a href="lesson_add.php">Unos lekcije</a></li>
+                <li><a href="question_add.php">Unos pitanja u bazu</a></li>
+              </ul>
+            </li>   
+
+            
 
             </ul><a id = "btn-adjust"  href="odjava.php" class="btn navbar-btn btn-ghost  pull-left"><i class="fa fa-sign-in"></i>Odjava</a>
         </div>
@@ -87,6 +106,7 @@ $id = $_SESSION['userid'];
   </header>';
 }
 else if($_SESSION['role'] == "2"){
+  error_reporting(0);
 	echo '<!-- navbar-->
   <header class="header">
     <div role="navigation" class="navbar navbar-default">
@@ -102,14 +122,12 @@ else if($_SESSION['role'] == "2"){
                  
           
           <!-- professor access -->
-            <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Profesori<b class="caret"></b></a>
-              <ul class="dropdown-menu">
+            
                 <li><a href="exam_list.php">Popis svih ispita</a></li>
                 <li><a href="exam_add.php">Unos ispita</a></li>
                 <li><a href="lesson_add.php">Unos lekcije</a></li>
                 <li><a href="question_add.php">Unos pitanja u bazu</a></li>
-              </ul>
-            </li>     
+                
 
           </ul><a id = "btn-adjust"  href="odjava.php" class="btn navbar-btn btn-ghost  pull-left"><i class="fa fa-sign-in"></i>Odjava</a>
         </div>
@@ -119,6 +137,7 @@ else if($_SESSION['role'] == "2"){
 }
 
 else if($_SESSION['role'] == "3"){
+  error_reporting(0);
 	echo '<!-- navbar-->
   <header class="header">
     <div role="navigation" class="navbar navbar-default">
@@ -134,7 +153,7 @@ else if($_SESSION['role'] == "3"){
 
             <!-- student access -->
                 <li><a href="exam_list.php">Popis nadolazećih ispita</a></li>
-                <li><a href="profile.php?id='.$id.'">'.$_SESSION['username'].'</a></li> 
+                <li><a href="profile.php?id='.$id.'">Moj profil</a></li> 
           </ul><a id = "btn-adjust"  href="odjava.php" class="btn navbar-btn btn-ghost  pull-left"><i class="fa fa-sign-in"></i>Odjava</a>
         </div>
       </div>
@@ -142,6 +161,8 @@ else if($_SESSION['role'] == "3"){
   </header>';
 }
   }
+
+
   else{
     echo '<!-- navbar-->
     <header class="header">

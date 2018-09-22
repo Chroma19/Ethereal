@@ -16,6 +16,7 @@ else{
 if(!empty($_POST['posalji'])){
     if(!empty($_POST['pitanja']) and !empty($_POST['vrijeme_ispita']) and !empty($_POST['trajanje_ispita'])){
     
+    $naziv = ocisti_tekst($_POST['naziv']);
     $id_tecaj_fk = ocisti_tekst($_POST['id_tecaj_fk']);
     $id_lesson_fk = ocisti_tekst($_POST['id_lesson_fk']);
     $pitanja_string = implode(",",$_POST['pitanja']);
@@ -26,11 +27,13 @@ if(!empty($_POST['posalji'])){
     $trajanje_ispita = ocisti_tekst($_POST['trajanje_ispita']);
     $autor  = ocisti_tekst($_SESSION['username']);
     
-    
+
+
     $sql = "INSERT INTO
     ispit 
-    (id_tecaj_fk,id_lesson_fk,pitanja_string,exam_code,datum_ispita, vrijeme_ispita, trajanje_ispita, autor)
+    (naziv,id_tecaj_fk,id_lesson_fk,pitanja_string,exam_code,datum_ispita, vrijeme_ispita, trajanje_ispita, autor)
     VALUES (
+        '$naziv',
         $id_tecaj_fk,
         $id_lesson_fk,
         '$pitanja_string',
@@ -40,7 +43,19 @@ if(!empty($_POST['posalji'])){
         '$trajanje_ispita',
         '$autor'
     );";
-    $res = mysqli_query($con,$sql);
+
+    $qlen = explode(",",$pitanja_string);
+    $qlen = implode("",$qlen);
+    if(strlen($qlen)>=10){
+        $res = mysqli_query($con,$sql);
+        global $res;
+    }
+    else{
+       echo 
+        '<script>
+            alert("Ispit mora sadržavati najmanje 10 pitanja!");
+        </script>';
+    }
     if($res){
     header("Location: ".$_SERVER['PHP_SELF']);
     exit;
@@ -62,6 +77,13 @@ require_once ("includes/header.php");
 
 <form class = "form-horizontal" action="" method = 'post'>
 
+
+    <div class="form-group">
+        <label class = "control-label col-sm-2" for="naziv">Unesite naziv ispita:</label>
+            <div class="col-sm-7">
+                <input class = "form-control" type="password" name='naziv' id='naziv' value = "" required>
+            </div>
+    </div>   
 
     <!-- select -->
     <div class="form-group">

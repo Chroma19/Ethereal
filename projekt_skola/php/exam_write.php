@@ -28,14 +28,11 @@ else {
         </div><br>');
 	}
 	else{
-$sql = "SELECT ispit.id, tecaj.smjer, lessons.lesson_name FROM tecaj
-		INNER JOIN ispit ON ispit.id_tecaj_fk = tecaj.id
-		INNER JOIN lessons ON lessons.id = ispit.id_lesson_fk
-		WHERE ispit.id = $id;";
+$sql = "SELECT naziv from ispit";
 
 $res = mysqli_fetch_assoc(mysqli_query($con, $sql));
 
-$title = "Ispit: ".$res['smjer']."_".$res['lesson_name'];
+$title = $res['naziv'];
 }
 
 $sql_pitanja = "SELECT ispit.pitanja_string 

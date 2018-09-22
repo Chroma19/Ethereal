@@ -2,13 +2,8 @@
 
 session_start();
 $title = "Prijava";
-
 require_once "includes/functions.php";
 $con = spajanje();
-
-//--------------------------------
-//naš kod ide ovdje
-//--------------------------------
 
 //provjera forme
 if(isset($_POST['prijava'])){
@@ -45,7 +40,9 @@ if(isset($_POST['prijava'])){
           setcookiealive('userid',$userid, time()-7*24*60*60);
           setcookiealive('role', $user['id_status_fk'], time()-7*24*60*60);
 				}
-
+        
+        header("Location: index.php");
+        exit();
       }
       else{
         echo '<div class="alert" style="background:yellow;"> 

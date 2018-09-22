@@ -25,7 +25,7 @@ else{
 			$id = $res_asoc['id'];
 			
 
-			$sql = "SELECT
+			$sql = "SELECT 
 						ispit.id,
 						ispit.datum_ispita,
 						ispit.autor,

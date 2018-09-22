@@ -102,129 +102,163 @@ else {
 require_once "includes/header.php";
 ?>
 <form class="form-horizontal" action ="" method = "post">
-	
-	<div class="form-group">
-		<label for="id_polaznik" class="col-sm-2 control-label">ID</label>
-		<div class="col-sm-5">
-		  <input type="text" class="form-control" placeholder="id_polaznik" value="<?php if(isset($user['id'])) echo  $user['id'];?>" disabled="disabled">
-		  <input type="text" id="id_polaznik" name="id_polaznik" placeholder="id_polaznik" value="<?php if(isset($user['id'])) echo $user['id'] ?>" hidden="hidden">
-		</div>
-	</div>
-	
-	
-	<div class="form-group">
-		<label for ="ime" class="col-sm-2 control-label">Ime</label>
-		<div class="col-sm-5">
-			<input type="text" id="ime" name="ime" class ="form-control" value="<?=$user['ime'];?>"/>
-		</div>
-	</div>
-	
-	<div class="form-group">
-		<label for ="prezime" class="col-sm-2 control-label">Prezime</label>
-		<div class="col-sm-5">
-			<input type="text" id="prezime" name="prezime" class ="form-control" value="<?=$user['prezime'];?>"/>
-		</div>
-	</div>
-	
-	<div class="form-group">
-		<label for ="adresa" class="col-sm-2 control-label">Adresa</label>
-		<div class="col-sm-5">
-			<input type="text" id="adresa" name="adresa" class ="form-control" value="<?=$user['adresa'];?>"/>
-		</div>
-	</div>
-	
-	<div class="form-group">
-		<label for ="oib" class="col-sm-2 control-label">OIB</label>
-		<div class="col-sm-5">
-			<input type="text" id="oib" name="oib" class ="form-control" value="<?=$user['oib'];?>"/>
-		</div>
-	</div>
-	
-	<div class="form-group">
-		<label for ="email" class="col-sm-2 control-label">Email</label>
-		<div class="col-sm-5">
-			<input type="email" id="email" name="email" class ="form-control" value="<?=$user['email'];?>"/>
-		</div>
-	</div>
-	
-	<div class="form-group">
-		<label for ="telefon" class="col-sm-2 control-label">Telefon</label>
-		<div class="col-sm-5">
-			<input type="text" id="telefon" name="telefon" class ="form-control" value="<?=$user['telefon'];?>"/>
-		</div>
-	</div>
-	
-	<div class="form-group">
-		<label for ="mjesto" class="col-sm-2 control-label">Mjesto</label>
-		<div class="col-sm-5">
-			<select id="mjesto" name="mjesto" class ="form-control">
-				<option selected disabled value="" >Odaberite mjesto</option>
-			<?php 
-			
-				$sql = "SELECT * FROM mjesto;";
-				$res_mjesto = mysqli_query($con, $sql);
-				
-				if(mysqli_num_rows($res_mjesto)>0){
-					while($mjesto = mysqli_fetch_assoc($res_mjesto)){
-						error_reporting(0);
+	<div class="col-sm-6">
 
-						echo '<option value="'.$mjesto['id'].'"';
-						
-						if($mjesto['id'] == $user['id_mjesto_fk'])
-							echo "selected";
-					
-						echo '>';
-						echo $mjesto['naziv'];
-						echo '</option>';
-					}
-				}
-				
-			?>
-			</select>
+	<h4>Podaci o korisniku</h4>
+
+		<div class="form-group">
+			<label for="id_polaznik" class="col-sm-2 control-label">ID</label>
+			<div class="col-sm-10">
+			<input type="text" class="form-control" placeholder="id_polaznik" value="<?php if(isset($user['id'])) echo  $user['id'];?>" disabled="disabled">
+			<input type="text" id="id_polaznik" name="id_polaznik" placeholder="id_polaznik" value="<?php if(isset($user['id'])) echo $user['id'] ?>" hidden="hidden">
+			</div>
 		</div>
-	</div>
 	
-
-	<div class="form-group">
-		<label for ="status" class="col-sm-2 control-label">Status</label>
-		<div class="col-sm-5">
-			<select id="status" name="status" class ="form-control">
-				<option selected disabled value="" >Odaberite status</option>
-	<?php
 	
-	$sql = "SELECT * FROM ROLES;";
-
-	$res = mysqli_query($con, $sql);
-
-	if(mysqli_num_rows($res)>0){
-		while($role = mysqli_fetch_assoc($res)){
-			error_reporting(0);
-
-			echo '<option value="'.$role['id'].'"';
-			
-			if($role['id'] == $user['id_status_fk'])
-				echo "selected";
+		<div class="form-group">
+			<label for ="ime" class="col-sm-2 control-label">Ime</label>
+			<div class="col-sm-10">
+				<input type="text" id="ime" name="ime" class ="form-control" value="<?=$user['ime'];?>"/>
+			</div>
+		</div>
+	
+		<div class="form-group">
+			<label for ="prezime" class="col-sm-2 control-label">Prezime</label>
+			<div class="col-sm-10">
+				<input type="text" id="prezime" name="prezime" class ="form-control" value="<?=$user['prezime'];?>"/>
+			</div>
+		</div>
+	
+		<div class="form-group">
+			<label for ="adresa" class="col-sm-2 control-label">Adresa</label>
+			<div class="col-sm-10">
+				<input type="text" id="adresa" name="adresa" class ="form-control" value="<?=$user['adresa'];?>"/>
+			</div>
+		</div>
+	
+		<div class="form-group">
+			<label for ="oib" class="col-sm-2 control-label">OIB</label>
+			<div class="col-sm-10">
+				<input type="text" id="oib" name="oib" class ="form-control" value="<?=$user['oib'];?>"/>
+			</div>
+		</div>
+	
+		<div class="form-group">
+			<label for ="email" class="col-sm-2 control-label">Email</label>
+			<div class="col-sm-10">
+				<input type="email" id="email" name="email" class ="form-control" value="<?=$user['email'];?>"/>
+			</div>
+		</div>
+	
+		<div class="form-group">
+			<label for ="telefon" class="col-sm-2 control-label">Telefon</label>
+			<div class="col-sm-10">
+				<input type="text" id="telefon" name="telefon" class ="form-control" value="<?=$user['telefon'];?>"/>
+			</div>
+		</div>
 		
-			echo '>';
-			echo $role['status'];
-			echo '</option>';
+		<div class="form-group">
+			<label for ="mjesto" class="col-sm-2 control-label">Mjesto</label>
+			<div class="col-sm-10">
+				<select id="mjesto" name="mjesto" class ="form-control">
+					<option selected disabled value="" >Odaberite mjesto</option>
+				<?php 
+				
+					$sql = "SELECT * FROM mjesto;";
+					$res_mjesto = mysqli_query($con, $sql);
+					
+					if(mysqli_num_rows($res_mjesto)>0){
+						while($mjesto = mysqli_fetch_assoc($res_mjesto)){
+							error_reporting(0);
+
+							echo '<option value="'.$mjesto['id'].'"';
+							
+							if($mjesto['id'] == $user['id_mjesto_fk'])
+								echo "selected";
+						
+							echo '>';
+							echo $mjesto['naziv'];
+							echo '</option>';
+						}
+					}
+					
+				?>
+				</select>
+			</div>
+		</div>
+		
+
+		<div class="form-group">
+			<label for ="status" class="col-sm-2 control-label">Status</label>
+			<div class="col-sm-10">
+				<select id="status" name="status" class ="form-control">
+					<option selected disabled value="" >Odaberite status</option>
+		<?php
+		
+		$sql = "SELECT * FROM ROLES;";
+
+		$res = mysqli_query($con, $sql);
+
+		if(mysqli_num_rows($res)>0){
+			while($role = mysqli_fetch_assoc($res)){
+				error_reporting(0);
+
+				echo '<option value="'.$role['id'].'"';
+				
+				if($role['id'] == $user['id_status_fk'])
+					echo "selected";
+			
+				echo '>';
+				echo $role['status'];
+				echo '</option>';
+			}
 		}
-	}
-	
-	?>
-		</select>
+		
+		?>
+					</select>
+				</div>
+			</div>
+	</div>	
+
+	<div class="col-sm-6" id = "load_div">
+		<label for ="results" class="col-sm-12 control-label">
+			<h4>
+				<span onclick = "toggleResults();" id = "loadMore">Rezultati ispita</span>
+			</h4>
+		</label>
+
+		
+            <div class="col-sm-12 results">
+			<?php
+			$id = $_GET['id'];
+            $sql = "SELECT results.id, results.id_ispit_fk, results.result, lessons.lesson_name, tecaj.smjer FROM results
+                    INNER JOIN ispit ON results.id_ispit_fk = ispit.id
+                    INNER JOIN lessons ON ispit.id_lesson_fk = lessons.id
+                    INNER JOIN tecaj ON ispit.id_tecaj_fk = tecaj.id
+                    WHERE id_osobe_fk = $id";
+
+            $result = mysqli_query($con,$sql);
+            if(mysqli_num_rows($result)>0){
+                while($ispit = mysqli_fetch_assoc($result)){
+                        echo "<pre>".$ispit['smjer']." ".$ispit['lesson_name']." => ".$ispit['result'].'</pre>';
+				}
+			}
+			
+            else{
+                echo "<div>Nema dostupnih rezultata!</div>";
+			}
+			?>
+			
 		</div>
 	</div>
-	
-
-	<div class="form-group">
-		<div class="col-sm-offset-1 col-sm-3">
+	<div class="col-sm-12">
+		<div class="col-sm-offset-2 col-sm-3">
 			<input type ="submit" id="spremi" name = "spremi" class ="form-control btn btn-ghost submit" value="Spremi" />
 		</div>
 	
 
 	
-		<div class="col-sm-offset-1 col-sm-3">
+		<div class="col-sm-offset-3 col-sm-2">
 			<button type ="submit" id="obrisi" name = "obrisi" class ="form-control btn btn-ghost submit"
 			onclick='return confirm("Jeste li sigurni da želite obrisati korisnika?")' value="obrisi">Obriši</button>
 		</div>
