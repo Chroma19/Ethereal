@@ -54,6 +54,7 @@ if(!empty($_POST['posalji'])){
        echo 
         '<script>
             alert("Ispit mora sadržavati najmanje 10 pitanja!");
+            return false;
         </script>';
     }
     if($res){
@@ -81,7 +82,7 @@ require_once ("includes/header.php");
     <div class="form-group">
         <label class = "control-label col-sm-2" for="naziv">Unesite naziv ispita:</label>
             <div class="col-sm-7">
-                <input class = "form-control" type="password" name='naziv' id='naziv' value = "" required>
+                <input class = "form-control" type="text" name='naziv' id='naziv' value = "" required>
             </div>
     </div>   
 

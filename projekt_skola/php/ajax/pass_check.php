@@ -14,21 +14,18 @@ $sql = "SELECT exam_code FROM ispit WHERE id = $id";
 $rez = mysqli_query($con, $sql);
 
 
-if(mysqli_num_rows($rez) == 0){
+if(mysqli_num_rows($rez) == 1){
         $testpass = mysqli_fetch_assoc($rez);
 
         if($pass != $testpass['exam_code']){
-            header("refresh:2;url=exam_list.php");
-            exit("Netočna lozinka! Preusmjeravam na popis ispita.");
+            echo "false";
         }
-        else{
-            return true;
+        else {
+            echo "true";
         }
     }   
+    else{
+        echo $id."<br>".$pass;   
+    }
 }
-// else{
-//     // return true
-//     echo $pass."<br>";
-//     echo $testpass;
-// }
 ?>

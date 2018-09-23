@@ -51,60 +51,70 @@ else {
 require_once "includes/header.php";
 ?>
 <form class="form-horizontal" action ="" method = "get">
-
+<div class="col-sm-6">
+<h4>Moji podaci</h4>
 	<div class="form-group">
 		<label for ="ime" class="col-sm-2 control-label">Ime</label>
-		<div class="col-sm-5">
-			<input type="text" disabled id="ime" name="ime" class ="form-control transparent" value="<?=$user['ime'];?>"/>
+		<div class="col-sm-10">
+			<input type="text" disabled id="ime" name="ime" class ="form-control" value="<?=$user['ime'];?>"/>
 		</div>
 	</div>
 	
 	<div class="form-group">
 		<label for ="prezime" class="col-sm-2 control-label">Prezime</label>
-		<div class="col-sm-5">
-			<input type="text" disabled id="prezime" name="prezime" class ="form-control transparent" value="<?=$user['prezime'];?>"/>
+		<div class="col-sm-10">
+			<input type="text" disabled id="prezime" name="prezime" class ="form-control" value="<?=$user['prezime'];?>"/>
 		</div>
 	</div>
 	
 	<div class="form-group">
 		<label for ="adresa" class="col-sm-2 control-label">Adresa</label>
-		<div class="col-sm-5">
-			<input type="text" disabled id="adresa" name="adresa" class ="form-control transparent" value="<?=$user['adresa'];?>"/>
+		<div class="col-sm-10">
+			<input type="text" disabled id="adresa" name="adresa" class ="form-control" value="<?=$user['adresa'];?>"/>
 		</div>
 	</div>
 	
 	<div class="form-group">
 		<label for ="oib" class="col-sm-2 control-label">OIB</label>
-		<div class="col-sm-5">
-			<input type="text" disabled id="oib" name="oib" class ="form-control transparent" value="<?=$user['oib'];?>"/>
+		<div class="col-sm-10">
+			<input type="text" disabled id="oib" name="oib" class ="form-control" value="<?=$user['oib'];?>"/>
 		</div>
 	</div>
 	
 	<div class="form-group">
 		<label for ="email" class="col-sm-2 control-label">Email</label>
-		<div class="col-sm-5">
-			<input type="email" disabled id="email" name="email" class ="form-control transparent" value="<?=$user['email'];?>"/>
+		<div class="col-sm-10">
+			<input type="email" disabled id="email" name="email" class ="form-control" value="<?=$user['email'];?>"/>
 		</div>
 	</div>
 	
 	<div class="form-group">
 		<label for ="telefon" class="col-sm-2 control-label">Telefon</label>
-		<div class="col-sm-5">
-			<input type="text" disabled id="telefon" name="telefon" class ="form-control transparent" value="<?=$user['telefon'];?>"/>
+		<div class="col-sm-10">
+			<input type="text" disabled id="telefon" name="telefon" class ="form-control" value="<?=$user['telefon'];?>"/>
 		</div>
 	</div>
 	
 	<div class="form-group">
 		<label for ="mjesto" class="col-sm-2 control-label">Mjesto</label>
-            <div class="col-sm-5">
-                <input type="text" disabled id="mjesto" name="mjesto" class ="form-control transparent" value="<?=$user['naziv'];?>"/>
+            <div class="col-sm-10">
+                <input type="text" disabled id="mjesto" name="mjesto" class ="form-control" value="<?=$user['naziv'];?>"/>
             </div>
 	</div>
+
+	</div>
 	
-    <div class="form-group">
-		<label for ="mjesto" class="col-sm-2 control-label">Rezultati ispita</label>
-            <div class="col-sm-5">
-            <?php
+	<div class="col-sm-6" id = "load_div">
+		<label for ="results" class="col-sm-12 control-label">
+			<h4>
+				<span onclick = "toggleResults();" id = "loadMore">Rezultati ispita</span>
+			</h4>
+		</label>
+
+		
+            <div class="col-sm-12 results">
+			<?php
+			$id = $_GET['id'];
             $sql = "SELECT results.id, results.id_ispit_fk, results.result, lessons.lesson_name, tecaj.smjer FROM results
                     INNER JOIN ispit ON results.id_ispit_fk = ispit.id
                     INNER JOIN lessons ON ispit.id_lesson_fk = lessons.id
@@ -114,16 +124,16 @@ require_once "includes/header.php";
             $result = mysqli_query($con,$sql);
             if(mysqli_num_rows($result)>0){
                 while($ispit = mysqli_fetch_assoc($result)){
-                        echo "<pre><p>".$ispit['smjer']." ".$ispit['lesson_name']."</p>";
-                        echo '<input type="text" disabled id = "'.$ispit['id'].'" class="form-control transparent" name = "'.$ispit['id'].'" value = "'.$ispit['result'].'"/></pre>';
-                }
-            }
-
+                        echo "<pre>".$ispit['smjer']." ".$ispit['lesson_name']." => ".$ispit['result'].'</pre>';
+				}
+			}
+			
             else{
-                echo "Nema dostupnih rezultata!";
-            }
-            ?>
-            </div>
+                echo "<div>Nema dostupnih rezultata!</div>";
+			}
+			?>
+			
+		</div>
 	</div>
 
 	</div>

@@ -73,7 +73,7 @@ foreach ($pitanja_array as $k => $pitanje_id){
 				VALUES (".$user.", ".$id.", '$total');";
 		
 		$res = 	mysqli_query($con, $send);
-		header("refresh:3;Location: index.php");
+		header("refresh:3;url=index.php");
 		echo '<div class="alert" style="background:#0090bc; color:white;"> 
 		<a href="#" class="close" data-dismiss="alert" aria-label="close">
 		&times;
@@ -82,10 +82,8 @@ foreach ($pitanja_array as $k => $pitanje_id){
 		</div>';
 		exit();
 	}	
-	ispisi_polje($_SESSION);
-	ispisi_polje($_POST);
-	ispisi_polje($_GET);
-
+ispisi_polje($_GET);
+echo $total;
 	require_once "includes/header.php";
 
 ?>
@@ -142,8 +140,8 @@ foreach ($pitanja_array as $k => $pitanje_id){
 
 			default:
 				// Text
-					$tmp.= '<div><input name = "'.$pitanje_id.'[]" class = "col-sm-7 form-control" type="text" placeholder = "Upišite točan odgovor!" id = "odgovori'.$i.$pitanje_id.'" value = "">';
-					$tmp.= '<label for="odgovori'.$i.$pitanje_id.'" class = "control-label">'.ucfirst($odgovori[0]).'</label></div>';
+					$tmp.= '<div><input name = "'.$pitanje_id.'[]" class = "col-sm-7 form-control" type="text" placeholder = "Upišite točan odgovor!" id = "odgovori'.$pitanje_id.'" value = "">';
+					$tmp.= '<label for="odgovori'.$pitanje_id.'" class = "control-label">'.ucfirst($odgovori[0]).'</label></div>';
 	}
 		$tmp .= '</li>';
 		echo $tmp;

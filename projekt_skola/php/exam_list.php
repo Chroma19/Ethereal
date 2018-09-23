@@ -25,20 +25,17 @@ else{
 			$id = $res_asoc['id'];
 			
 
-			$sql = "SELECT 
+			$sql = "SELECT
 						ispit.id,
 						ispit.datum_ispita,
 						ispit.autor,
-						lessons.lesson_name,
-						tecaj.smjer
+						ispit.naziv
 					FROM
 						ispit
-					INNER JOIN lessons ON ispit.id_lesson_fk = lessons.id
-					INNER JOIN tecaj ON ispit.id_tecaj_fk = tecaj.id
 					INNER JOIN upisi ON upisi.id_smjer_fk = ispit.id_tecaj_fK
 					WHERE
-						upisi.id_users_fk = '$id' AND ispit.datum_ispita > NOW();
-			";
+						upisi.id_users_fk = 6 AND ispit.datum_ispita > NOW();
+					";
 
 			$res = mysqli_query($con, $sql);
 			
@@ -79,9 +76,7 @@ else{
 				exit();	
 			}
 
-		$sql = "SELECT ispit.id, ispit.datum_ispita, ispit.autor, tecaj.smjer, lessons.lesson_name FROM tecaj
-		INNER JOIN ispit ON ispit.id_tecaj_fk = tecaj.id 
-		INNER JOIN lessons ON lessons.id = ispit.id_lesson_fk WHERE ispit.datum_ispita>NOW();";
+		$sql = "SELECT ispit.id,ispit.naziv, ispit.datum_ispita, ispit.autor FROM ispit WHERE ispit.datum_ispita>NOW();";
 
 		$res = mysqli_query($con, $sql);
 
@@ -92,10 +87,11 @@ else{
 			echo '<table id="table" class="table table-hover">
 				<thead>
 					<tr>
-					<th>Smjer</th>
-					<th>Lekcija</th>
+					<th>Naziv ispita</th>
 					<th>Datum</th>
 					<th>Profesor</th>
+					<th></th>
+					<th></th>
 					</tr>
 				</thead>
 			<tbody>'
@@ -103,14 +99,17 @@ else{
 			
 			while($res_ispiti = mysqli_fetch_assoc($res)){
 				echo "
-					<tr class = 'clickable-row-exam' onclick = 'pass_check(this.id);' id=".$res_ispiti['id'].">
-						<td>".$res_ispiti['smjer']."</td>
-						<td>".$res_ispiti['lesson_name']."</td>
+					<tr>
+						<td>".$res_ispiti['naziv']."</td>
 						<td>".$res_ispiti['datum_ispita']."</td>
 						<td>".$res_ispiti['autor']."</td>
-						</tr>";
+						<td><input class = 'btn btn-ghost submit' type = 'button' value = 'Prijavi rok' name = 'prijava_rok'></td>
+						<td><input type='submit'  id=".$res_ispiti['id']." class = 'btn btn-ghost submit clickable-row-exam' value = 'Piši ispit'></td>
+						";
 			}
-			echo "</tbody></table>";
+
+			// onclick = 'pass_check(this.id);' dodaj nekako krv ti jebem
+			echo "</tr></tbody></table>";
 		}
 		else {
 			echo "<p>U bazi nema rezultata za ovaj upit: $sql </p>";
