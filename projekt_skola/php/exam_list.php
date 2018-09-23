@@ -103,7 +103,7 @@ else{
 			
 			while($res_ispiti = mysqli_fetch_assoc($res)){
 				echo "
-					<tr class = 'clickable-row-exam' id=".$res_ispiti['id'].">
+					<tr class = 'clickable-row-exam' onclick = 'pass_check();' id=".$res_ispiti['id'].">
 						<td>".$res_ispiti['smjer']."</td>
 						<td>".$res_ispiti['lesson_name']."</td>
 						<td>".$res_ispiti['datum_ispita']."</td>

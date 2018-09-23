@@ -15,19 +15,7 @@ if(!isset($_SESSION['role'])){
 }
 else {
 
-	$date = "SELECT datum_ispita FROM ispit WHERE id = $id";
-	$date_res = mysqli_query($con,$date);
-	$date_res = mysqli_fetch_assoc($date_res);
-	$now = getDate();
-	if(strtotime($date_res['datum_ispita'])>$now['0']){
-		die('<div class="alert" style="background:yellow;"> 
-        <a href="index.php" class="close" data-dismiss="alert" aria-label="close">
-        &times;
-        </a>
-        <strong>Ispit još nije dostupan za polaganje!</strong>
-        </div><br>');
-	}
-	else{
+	
 $sql = "SELECT naziv from ispit";
 
 $res = mysqli_fetch_assoc(mysqli_query($con, $sql));
@@ -94,8 +82,8 @@ foreach ($pitanja_array as $k => $pitanje_id){
 		</div>';
 		exit();
 	}	
-	}
-	ispisi_polje($_SESSION);
+	
+
 	require_once "includes/header.php";
 
 ?>
