@@ -82,7 +82,9 @@ foreach ($pitanja_array as $k => $pitanje_id){
 		</div>';
 		exit();
 	}	
-	
+	ispisi_polje($_SESSION);
+	ispisi_polje($_POST);
+	ispisi_polje($_GET);
 
 	require_once "includes/header.php";
 
