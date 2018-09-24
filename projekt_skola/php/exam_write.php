@@ -82,8 +82,6 @@ foreach ($pitanja_array as $k => $pitanje_id){
 		</div>';
 		exit();
 	}	
-ispisi_polje($_GET);
-echo $total;
 	require_once "includes/header.php";
 
 ?>

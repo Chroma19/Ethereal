@@ -274,4 +274,8 @@ function toggleResults() {
 //     });
 // }
 
-
+function ispitPrijava(id_ispit) {
+    $.post("ajax/prijava_ispit.php", { prijava: id_ispit }, function (data) {
+        alert(data);
+    });
+}

@@ -15,6 +15,9 @@ if(!isset($_SESSION['role'])){
 }
 else{
 		
+	if(!isset($_POST['prijava_rok'])){
+
+	}
 
 		if($_SESSION['role'] == "3"){
 
@@ -99,12 +102,12 @@ else{
 			
 			while($res_ispiti = mysqli_fetch_assoc($res)){
 				echo "
-					<tr>
+					<tr id=".$res_ispiti['id']." class = 'clickable-row-exam'>
 						<td>".$res_ispiti['naziv']."</td>
 						<td>".$res_ispiti['datum_ispita']."</td>
 						<td>".$res_ispiti['autor']."</td>
-						<td><input class = 'btn btn-ghost submit' type = 'button' value = 'Prijavi rok' name = 'prijava_rok'></td>
-						<td><input type='submit'  id=".$res_ispiti['id']." class = 'btn btn-ghost submit clickable-row-exam' value = 'Piši ispit'></td>
+						<td><input onclick = 'return ispitPrijava(this.id);' id=".$res_ispiti['id']." class = 'btn btn-ghost submit' type = 'button' value = 'Prijavi rok' name = 'prijava_rok'></td>
+						<td><input type='submit' class = 'btn btn-ghost submit' value = 'Piši ispit'></td>
 						";
 			}
 
