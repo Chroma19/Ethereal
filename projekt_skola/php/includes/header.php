@@ -50,7 +50,7 @@
 
 
 <?php  
-// error_reporting(0);
+error_reporting(0);
 $id = $_SESSION['userid'];
   if(isset($_SESSION['login']) and $_SESSION['login'] == true){
     if($_SESSION['role'] == "1"){
