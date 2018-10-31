@@ -1,76 +1,72 @@
 <?php
 session_start();
+
 require_once "includes/functions.php";
+
 $con = spajanje();
-if($_SESSION['role'] !== "1"){
-	die('<div class="alert" style="background:yellow;"> 
-	<a href="index.php" class="close" data-dismiss="alert" aria-label="close">
-	&times;
-	</a>
-	<strong>Nemate ovlasti za pristup ovoj stranici!</strong>
-	
-	</div>');
+
+$isAdmin = checkStatus();
+
+if($isAdmin !== 1){
+	header("refresh:2;url=index.php");
+	die("Nemate ovlasti za pristup ovoj stranici! Prebacujem na index.php...");
 }
+
 else{
-
-if(isset($_POST['obrisi']) and isset($_GET['id']) ){
-	drop("users");
-	$_POST=array();
-	header("Location:users.php");
-	exit();	
-}
-
-if(!empty($_POST['spremi'])){
-	
-	$ime= $_POST['ime'];
-	$prezime= $_POST['prezime'];
-	$adresa= $_POST['adresa'];
-	$oib= $_POST['oib'];
-	$email= $_POST['email'];
-	$telefon= $_POST['telefon'];
-	$adresa = $_POST['adresa'];
-	$status = $_POST['status'];
-	if(!empty($_POST['mjesto']))
-		$mjesto = $_POST['mjesto'];
-	else{
-		$mjesto = "NULL";
+	if(isset($_POST['obrisi']) and isset($_GET['id']) ){
+		drop("users");
+		$_POST=array();
+		header("Location:users.php");
+		exit();	
 	}
-	
 
-	$sql = "UPDATE users
-			SET
-				ime = '$ime',
-				prezime = '$prezime',
-				adresa = '$adresa',
-				oib = '$oib',
-				email = '$email',
-				telefon = '$telefon',
-				adresa = '$adresa',
-				id_mjesto_fk = '$mjesto',
-				id_status_fk = '$status' 
-			WHERE
-				id = {$_GET['id']}
-			";
-	
-	$rez = mysqli_query($con, $sql);
-	
-	if($rez){
-		echo    '<div class="alert" style="background:#0090bc; color:white;"> 
-		<a href="#" class="close" data-dismiss="alert" aria-label="close">
-		&times;
-		</a>
-		<strong>Korisnik uspješno ažuriran!</strong>
-		</div>';
-	}
-	else{
-		echo mysqli_error($con);
-	}
-	
+	if(!empty($_POST['spremi'])){
+		
+		$ime= $_POST['ime'];
+		$prezime= $_POST['prezime'];
+		$adresa= $_POST['adresa'];
+		$oib= $_POST['oib'];
+		$email= $_POST['email'];
+		$telefon= $_POST['telefon'];
+		$adresa = $_POST['adresa'];
+		$status = $_POST['status'];
+		
+
+		$sql = "UPDATE users
+				SET
+					ime = '$ime',
+					prezime = '$prezime',
+					adresa = '$adresa',
+					oib = '$oib',
+					email = '$email',
+					telefon = '$telefon',
+					adresa = '$adresa',
+					id_status_fk = '$status' 
+				WHERE
+					id = {$_GET['id']}
+				";
+		
+		$rez = mysqli_query($con, $sql);
+		
+		if($rez){
+			echo    '<div class="alert" style="background:#0090bc; color:white;"> 
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">
+			&times;
+			</a>
+			<strong>Korisnik uspješno ažuriran!</strong>
+			</div>';
+		}
+		else{
+			echo mysqli_error($con);
+		}
+		
 }
 
 if(!isset($_GET['id'])){
 	die("Nije predan id parametar!");
 }
+
+// Set title of page to user's name
 $id=$_GET['id'];
 $get_name = "SELECT users.ime, users.prezime FROM users WHERE users.id = $id;";
 $res = mysqli_query($con, $get_name);
@@ -85,19 +81,17 @@ $sql = "SELECT *
 
 $result = mysqli_query($con, $sql);
 
-if (mysqli_num_rows($result)==1){
-	$user = mysqli_fetch_assoc($result);
-}
-else {
-	$user = null;
-	die('<div class="alert" style="background:yellow;"> 
-        <a href="index.php" class="close" data-dismiss="alert" aria-label="close">
-        &times;
-        </a>
-        <strong>Nije odabran niti jedan korisnik!</strong>
-        
-        </div>');
-}
+	if (mysqli_num_rows($result)==1){
+		$user = mysqli_fetch_assoc($result);
+	}
+	else {
+		$user = null;
+		die('<div class="alert" style="background:yellow;"> 
+			<a href="index.php" class="close" data-dismiss="alert" aria-label="close">
+			&times;
+			</a>
+			<strong>Nije odabran niti jedan korisnik!</strong></div>');
+	}
 }
 require_once "includes/header.php";
 ?>
@@ -156,65 +150,35 @@ require_once "includes/header.php";
 				<input type="text" id="telefon" name="telefon" class ="form-control" value="<?=$user['telefon'];?>"/>
 			</div>
 		</div>
-		
-		<div class="form-group">
-			<label for ="mjesto" class="col-sm-2 control-label">Mjesto</label>
-			<div class="col-sm-10">
-				<select id="mjesto" name="mjesto" class ="form-control">
-					<option selected disabled value="" >Odaberite mjesto</option>
-				<?php 
-				
-					$sql = "SELECT * FROM mjesto;";
-					$res_mjesto = mysqli_query($con, $sql);
-					
-					if(mysqli_num_rows($res_mjesto)>0){
-						while($mjesto = mysqli_fetch_assoc($res_mjesto)){
-							error_reporting(0);
-
-							echo '<option value="'.$mjesto['id'].'"';
-							
-							if($mjesto['id'] == $user['id_mjesto_fk'])
-								echo "selected";
-						
-							echo '>';
-							echo $mjesto['naziv'];
-							echo '</option>';
-						}
-					}
-					
-				?>
-				</select>
-			</div>
-		</div>
-		
 
 		<div class="form-group">
 			<label for ="status" class="col-sm-2 control-label">Status</label>
 			<div class="col-sm-10">
 				<select id="status" name="status" class ="form-control">
 					<option selected disabled value="" >Odaberite status</option>
-		<?php
-		
-		$sql = "SELECT * FROM ROLES;";
 
-		$res = mysqli_query($con, $sql);
+						<?php
+						
+						$sql = "SELECT * FROM roles;";
 
-		if(mysqli_num_rows($res)>0){
-			while($role = mysqli_fetch_assoc($res)){
-				error_reporting(0);
+						$res = mysqli_query($con, $sql);
 
-				echo '<option value="'.$role['id'].'"';
-				
-				if($role['id'] == $user['id_status_fk'])
-					echo "selected";
-			
-				echo '>';
-				echo $role['status'];
-				echo '</option>';
-			}
-		}
-		
-		?>
+						if(mysqli_num_rows($res)>0){
+							while($role = mysqli_fetch_assoc($res)){
+								error_reporting(0);
+
+								echo '<option value="'.$role['id'].'"';
+								
+								if($role['id'] == $user['id_status_fk'])
+									echo "selected";
+							
+								echo '>';
+								echo $role['status'];
+								echo '</option>';
+							}
+						}
+						?>
+
 					</select>
 				</div>
 			</div>

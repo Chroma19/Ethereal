@@ -5,20 +5,18 @@ require_once "includes/functions.php";
 $title = "Popis korisnika";
 
 $con = spajanje();
-if($_SESSION['role'] !== "1"){
-	die('<div class="alert" style="background:yellow;"> 
-	<a href="index.php" class="close" data-dismiss="alert" aria-label="close">
-	&times;
-	</a>
-	<strong>Nemate ovlasti za pristup ovoj stranici!</strong>
-	
-	</div>');
-}
-else{
 
-$sql = "SELECT users.id, users.ime, users.prezime, users.oib, users.email, users.telefon, users.adresa, mjesto.naziv, roles.status  
-FROM mjesto
-INNER JOIN users ON mjesto.id = users.id_mjesto_fk
+$isAdmin = checkStatus();
+
+if($isAdmin !== 1){
+	header("refresh:2;url=index.php");
+	die("Nemate ovlasti za pristup ovoj stranici! Prebacujem na index.php...");
+}
+	
+else{
+		
+$sql = "SELECT users.id, users.ime, users.prezime, roles.status  
+FROM users
 INNER JOIN roles ON roles.id = users.id_status_fk ;";
 
 $result = mysqli_query($con, $sql);
@@ -31,7 +29,7 @@ if (mysqli_num_rows($result)>0){
 	echo '
 	<table id = "table" class="table table-hover">
 		<thead>
-			<tr >
+			<tr>
 				<th>Ime</th>
 				<th>Prezime</th>
 				<th>Status</th>

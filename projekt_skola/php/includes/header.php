@@ -50,9 +50,12 @@
 
 
 <?php  
-error_reporting(0);
+
 $id = $_SESSION['userid'];
+
   if(isset($_SESSION['login']) and $_SESSION['login'] == true){
+
+// If logged in as an administrator:
     if($_SESSION['role'] == "1"){
       
   echo '<!-- navbar-->
@@ -72,7 +75,6 @@ $id = $_SESSION['userid'];
               <ul class="dropdown-menu">
                 <li><a href="user_add.php">Unos korisnika u bazu</a></li>
                 <li><a href="users.php">Popis svih korisnika</a></li>
-                <li><a href="mjesto_add.php">Unos mjesta u bazu</a></li>
               </ul>
             </li>        
 
@@ -105,8 +107,8 @@ $id = $_SESSION['userid'];
     </div>
   </header>';
 }
+// If logged in as a professor:
 else if($_SESSION['role'] == "2"){
-  error_reporting(0);
 	echo '<!-- navbar-->
   <header class="header">
     <div role="navigation" class="navbar navbar-default">
@@ -135,9 +137,8 @@ else if($_SESSION['role'] == "2"){
     </div>
   </header>';
 }
-
+// If logged in as a student:
 else if($_SESSION['role'] == "3"){
-  error_reporting(0);
 	echo '<!-- navbar-->
   <header class="header">
     <div role="navigation" class="navbar navbar-default">
@@ -162,7 +163,7 @@ else if($_SESSION['role'] == "3"){
 }
   }
 
-
+// If not logged in:
   else{
     echo '<!-- navbar-->
     <header class="header">
@@ -209,10 +210,9 @@ else if($_SESSION['role'] == "3"){
         </div>
       </div>
     </div>
-    <!-- *** LOGIN MODAL END ***-->'
-  ;
+    <!-- *** LOGIN MODAL END ***-->';
   }
-  ?>
+?>
   
       <div class="container" id = "top-container">
 

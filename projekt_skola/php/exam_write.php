@@ -3,26 +3,25 @@ session_start();
 require_once "includes/functions.php";
 
 $con = spajanje();
+
 $id=$_GET['id'];
 global $id;
-if(!isset($_SESSION['role'])){
-    die('<div class="alert" style="background:yellow;"> 
-        <a href="index.php" class="close" data-dismiss="alert" aria-label="close">
-        &times;
-        </a>
-        <strong>Nemate ovlasti za pristup ovoj stranici!</strong>
-        </div><br>');
+
+if($_SESSION['login'] !== true){
+    header("refresh:2;url=index.php");
+	die("Nemate ovlasti za pristup ovoj stranici! Prebacujem na index.php...");
 }
 else {
 
-	
-$sql = "SELECT naziv from ispit";
+	$sql = "SELECT naziv from ispit";
 
-$res = mysqli_fetch_assoc(mysqli_query($con, $sql));
+	$res = mysqli_fetch_assoc(mysqli_query($con, $sql));
 
-$title = $res['naziv'];
+	$title = $res['naziv'];
+
 }
 
+// Fetching questions in an array and transforming to string for sql query
 $sql_pitanja = "SELECT ispit.pitanja_string 
 FROM ispit
 WHERE ispit.id = {$_GET['id']}";
@@ -30,7 +29,7 @@ $pitanja_string = mysqli_query($con,$sql_pitanja);
 $pitanja_array = mysqli_fetch_assoc($pitanja_string);
 $pitanja_array = implode(",", $pitanja_array);
 $pitanja_array = explode(",", $pitanja_array);
-// Needed for later sql queries
+// SQL query (WHERE IN...)
 $pitanja_string = implode(",", $pitanja_array);
 
 
@@ -52,19 +51,20 @@ foreach ($pitanja_array as $k => $pitanje_id){
 					$all_q[$pitanje['id']] = $pitanje;
 					$tocno_rj = $all_q[$pitanje['id']];
 					
-					for($c = 0; $c<=$pitanje_id; $c++){
-						global $c;
+					for($question_index = 0; $question_index<=$pitanje_id; $question_index++){
+						global $question_index;
 					}
 					global $max_bodovi;
 					$max_bodovi = count($pitanja_array);
-						$ponudeno_rj[$c] = implode(",",$_POST[$pitanje['id']]); 
-						if($ponudeno_rj[$c] == $tocno_rj['rjesenje']){
+						$ponudeno_rj[$question_index] = implode(",",$_POST[$pitanje['id']]); 
+						if($ponudeno_rj[$question_index] == $tocno_rj['rjesenje']){
 							$bodovi++;
 						}
 					}
 					global $total;
 					$total = round($bodovi/$max_bodovi*100, 2) ."%";
 				}
+
 			else{
 				echo mysqli_error($con);
 			}
@@ -91,8 +91,6 @@ foreach ($pitanja_array as $k => $pitanje_id){
     <?php 
     // Catching questions in string format
 	
-
-
 	echo "<div class = 'form-group exam'><ol>";
 		$sql = 'SELECT type FROM tip_pitanja';
 		$type = mysqli_query($con, $sql);
@@ -160,8 +158,10 @@ foreach ($pitanja_array as $k => $pitanje_id){
 
 
 <?php
-require "includes/footer.php";
+	require "includes/footer.php";
 ?>
+
+
 <script>
 var limit = 2;
 $('input.single-checkbox').on('change', function(evt) {

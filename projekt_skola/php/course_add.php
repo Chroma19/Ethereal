@@ -1,64 +1,46 @@
 <?php
 
 session_start();
-    $title = "Upis novog tečaja";
 
-    require_once ("includes/functions.php");
-    $con = spajanje();
-    if($_SESSION['role'] !== "1"){
-        die('<div class="alert" style="background:yellow;"> 
-            <a href="index.php" class="close" data-dismiss="alert" aria-label="close">
-            &times;
-            </a>
-            <strong>Nemate ovlasti za pristup ovoj stranici!</strong>
-            
-            </div>');
-    }
-    else{
+$title = "Upis novog tečaja";
+
+require_once ("includes/functions.php");
+
+$con = spajanje();
+
+$isAdmin = checkStatus();
+
+if($isAdmin !== 1){
+	header("refresh:2;url=index.php");
+	die("Nemate ovlasti za pristup ovoj stranici! Prebacujem na index.php...");
+}
+
+else{
     if(!empty($_POST['posalji'])){
         
-        $smjer = ocisti_tekst($_POST['smjer']);
-        $broj_sati = ocisti_tekst($_POST['broj_sati']);
-        $cijena = ocisti_tekst($_POST['cijena']);
-       
+        $smjer = ocisti_tekst($_POST['smjer']);       
 
         $sql = "INSERT INTO
                 tecaj 
-                (smjer,broj_sati,cijena)
+                (smjer)
                 VALUES (
-                    '$smjer',
-                    '$broj_sati',
-                    '$cijena'
-                     );";
+                    '$smjer'
+                    );";
         $res = mysqli_query($con,$sql);
         header("Location: ".$_SERVER['PHP_SELF']);
         exit;
     }
-    }
-    require_once ("includes/header.php");
+}
+require_once ("includes/header.php");
 ?>
 
 
     <form class = "form-horizontal" action="" method = "post">
 
         <div class="form-group">
-            <label for ="smjer" class="col-sm-2 control-label">smjer</label>
+            <label for ="smjer" class="col-sm-2 control-label">Smjer:</label>
                 <div class = "col-sm-7">
                     <input type="text" id="smjer" name="smjer" class ="form-control" value="" required/>
-                </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label" for="broj_sati">Unesite broj sati:</label>
-                <div class = "col-sm-7">
-                    <input class ="form-control" type="number" name='broj_sati' id='broj_sati'  value = "" required> 
-                </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label" for="cijena">Unesite cijenu tečaja:</label>
-                <div class = "col-sm-7">
-                    <input class ="form-control" type="number" step = "0.01" name='cijena' id='cijena'  value = "" required>
                 </div>
         </div>
 

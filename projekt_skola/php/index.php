@@ -5,7 +5,7 @@ $title = "Prijava";
 require_once "includes/functions.php";
 $con = spajanje();
 
-//provjera forme
+//form check for cookies etc.
 if(isset($_POST['prijava'])){
 	
 	if(isset($_POST['username']) and isset($_POST['password'])){

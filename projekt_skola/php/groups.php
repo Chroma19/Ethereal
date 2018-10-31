@@ -5,21 +5,25 @@ require_once "includes/functions.php";
 $title = "Popis grupa";
 
 $con = spajanje();
-if($_SESSION['role'] !== "1"){
-	die('<div class="alert" style="background:yellow;"> 
-	<a href="index.php" class="close" data-dismiss="alert" aria-label="close">
-	&times;
-	</a>
-	<strong>Nemate ovlasti za pristup ovoj stranici!</strong>
-	
-	</div>');
+
+$status = checkStatus();
+
+//Professor are only eligible to see those groups/classes which they teach
+// Solution: something similar to group.php comment
+
+
+if($status !== 1 && $status !== 2){
+	header("refresh:2;url=index.php");
+	die("Nemate ovlasti za pristup ovoj stranici! Prebacujem na index.php...");
 }
+
 else{
 
-$sql = "SELECT grupa.id, grupa.naziv, grupa.datum_pocetka, grupa.datum_zavrsetka, grupa.max_polaznika, users.ime, users.prezime, tecaj.smjer  
+$sql = "SELECT grupa.id, grupa.naziv, users.ime, users.prezime, tecaj.smjer  
 FROM grupa
 INNER JOIN users ON users.id = grupa.id_predavac_fk
-INNER JOIN tecaj ON tecaj.id = grupa.id_tecaj_fk ;";
+INNER JOIN tecaj ON tecaj.id = grupa.id_tecaj_fk 
+WHERE users.id_status_fk = 2;";
 
 $result = mysqli_query($con, $sql);
 
@@ -42,10 +46,7 @@ if (mysqli_num_rows($result)>0){
 			<tr>
 				<th>ID</th>
 				<th>Naziv</th>
-				<th>Datum početka</th>
-				<th>Datum završetka</th>
                 <th>Predavač</th>
-				<th>Maksimalan broj polaznika</th>
                 <th>Tečaj</th>
 				<th></th>
 				<th></th>
@@ -58,17 +59,15 @@ if (mysqli_num_rows($result)>0){
 			<tr>
 				<td>".$group['id']."</td>
 				<td>".$group['naziv']."</td>
-				<td>".$group['datum_pocetka']."</td>
-				<td>".$group['datum_zavrsetka']."</td>
 				<td>".$group['ime']." ".$group['prezime']."</td>
-				<td>".$group['max_polaznika']."</td>
 				<td>".$group['smjer']."</td>
 				
 				<td>
-					<a href='user.php?id=".$group["id"]."'><button class = 'btn btn-ghost submit' value = 'uredi' name='uredi' id='uredi''>Uredi</button></a>
+					<a class = 'NOUNDERLINE' href='group.php?id=".$group["id"]."'><button class = 'btn btn-ghost submit' value = 'uredi' name='uredi' id='uredi''>Uredi</button></a>
 				</td>
+				
 				<td>
-					<a href='users.php?obrisi=true&id=".$group['id']."' onclick='return confirm(\"Jeste li sigurni da zelite obrisati grupu?\")'>
+					<a class = 'NOUNDERLINE' href='groups.php?obrisi=true&id=".$group['id']."' onclick='return confirm(\"Jeste li sigurni da zelite obrisati grupu?\")'>
                         <button class = 'btn btn-ghost submit' value = 'obrisi' name='obrisi' id='obrisi'>Obriši</button>
                     </a>
 				</td>

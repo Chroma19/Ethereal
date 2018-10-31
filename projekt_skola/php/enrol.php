@@ -1,19 +1,20 @@
 <?php
 session_start();
-    $title = "Upis polaznika na tečaj";
 
-    require_once ("includes/functions.php");
-    $con = spajanje();
-    if($_SESSION['role'] !== "1"){
-        die('<div class="alert" style="background:yellow;"> 
-            <a href="index.php" class="close" data-dismiss="alert" aria-label="close">
-            &times;
-            </a>
-            <strong>Nemate ovlasti za pristup ovoj stranici!</strong>
-            
-            </div>');
-    }
-    else{
+$title = "Upis polaznika na tečaj";
+
+require_once ("includes/functions.php");
+
+$con = spajanje();
+
+$status = checkStatus();
+
+if($status !== 2 && $status !== 1){
+	header("refresh:2;url=index.php");
+	die("Nemate ovlasti za pristup ovoj stranici! Prebacujem na index.php...");
+}
+
+else{
     if(!empty($_POST['posalji'])){
         
         $id_users_fk = ocisti_tekst($_POST['id_users_fk']);
@@ -27,19 +28,18 @@ session_start();
                     '$id_users_fk',
                     '$id_smjer_fk',
                     '$id_grupa_fk'
-                 );";
+                    );";
         $res = mysqli_query($con,$sql);
-       
+        
         header("Location: ".$_SERVER['PHP_SELF']);
-        exit;
+        exit();
     }
-    }
-    require_once "includes/header.php";
+}
+require_once "includes/header.php";
 ?>
 
 
 <form class = "form-horizontal" action="" method = "post">
-        <!-- select -->
         <div class="form-group">
           <label class="col-sm-2 control-label" for="id_users_fk">Odaberite korisnika:</label>
             <div class = "col-sm-7">
@@ -67,7 +67,6 @@ session_start();
             </div>
 
 
-        <!-- select -->
         <div class="form-group">
           <label class="col-sm-2 control-label" for="id_smjer_fk">Odaberite smjer:</label>
             <div class = "col-sm-7">
@@ -79,7 +78,8 @@ session_start();
 
                     $sql = "SELECT * FROM tecaj";
                     $res_tecaj = mysqli_query($con, $sql); 
-                    if(mysqli_num_rows($res_tecaj)>0){
+
+                    if(mysqli_num_rows($res_tecaj) > 0){
                         while($tecaj = mysqli_fetch_assoc($res_tecaj)){
                             
                             echo '<option value="'.$tecaj['id'].'">';
@@ -95,13 +95,14 @@ session_start();
 
 
 
-        <!-- select -->
         <div class="form-group">
           <label class="col-sm-2 control-label" for="id_grupa_fk">Odaberite grupu:</label>
             <div class = "col-sm-7">
                 <select class ="form-control" type="text" name='id_grupa_fk' id='id_grupa_fk' required>
                 <option value="NULL" disabled selected>--</option>
-
+                    <?php
+                        // Expecting AJAX input from previous <select> element
+                    ?>
                 </select>
             </div>
             </div>

@@ -1,56 +1,62 @@
 <?php
 session_start();
+
 require_once "includes/functions.php";
+
 $con = spajanje();
-if($_SESSION['role'] !== "1"){
-	die('<div class="alert" style="background:yellow;"> 
-        <a href="index.php" class="close" data-dismiss="alert" aria-label="close">
-        &times;
-        </a>
-        <strong>Nemate ovlasti za pristup ovoj stranici!</strong>
-        
-        </div>');
+
+$status = checkStatus();
+
+/**** 
+ * 
+ * If logged in as admin -> print out info about group, e.g. professor, course etc.
+ * 
+ * If logged in as professor -> print out name of group, course and students which belong to said group
+ * 
+****/
+
+
+if($status !== 2 && $status !== 1){
+	header("refresh:2;url=index.php");
+	die("Nemate ovlasti za pristup ovoj stranici! Prebacujem na index.php...");
 }
+
 else{
-if(!empty($_POST['spremi'])){
-	
-	$naziv= $_POST['naziv'];
-	$datum_pocetka= $_POST['datum_pocetka'];
-    $datum_zavrsetka= $_POST['datum_zavrsetka'];
-    $id_predavac_fk  = $_POST['id_predavac_fk'];
-    $max_polaznika = $_POST['max_polaznika'];
-    $id_tecaj_fk = $_POST['id_tecaj_fk'];
-	
+	if(!empty($_POST['spremi'])){
+		
+		$naziv= $_POST['naziv'];
+		$id_predavac_fk  = $_POST['id_predavac_fk'];
+		$id_tecaj_fk = $_POST['id_tecaj_fk'];
+		
 
-	$sql = "UPDATE grupa
-			SET
-            naziv = '$naziv',
-            datum_pocetka = '$datum_pocetka',
-            datum_zavrsetka = '$datum_zavrsetka',
-            id_predavac_fk = '$id_predavac_fk',
-            max_polaznika = '$max_polaznika',
-            id_tecaj_fk = '$id_tecaj_fk'
-			WHERE 
-				id = {$_GET['id']}
-			";
-	
-	$rez = mysqli_query($con, $sql);
-	
-	if($rez){
-	echo    '<div class="alert" style="background:#0090bc; color:white;"> 
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">
-            &times;
-            </a>
-            <strong>Grupa uspješno ažurirana!</strong>
-            </div>';
-            
+		$sql = "UPDATE grupa
+				SET
+				naziv = '$naziv',
+				id_predavac_fk = '$id_predavac_fk',
+				id_tecaj_fk = '$id_tecaj_fk'
+				WHERE 
+					id = {$_GET['id']}
+				";
+		
+		$rez = mysqli_query($con, $sql);
+		
+		if($rez){
+		echo    '<div class="alert" style="background:#0090bc; color:white;"> 
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">
+				&times;
+				</a>
+				<strong>Grupa uspješno ažurirana!</strong>
+				</div>';
+				
+		}
+		else{
+			echo mysqli_error($con);
+		}
+		
 	}
-	else{
-		echo mysqli_error($con);
-	}
-	
-}
 
+
+	
 if(!isset($_GET['id'])){
 	die("Nije predan id parametar!");
 }
@@ -101,20 +107,6 @@ require_once "includes/header.php";
 			<input type="text" id="naziv" name="naziv" class ="form-control" value="<?=$group['naziv'];?>"/>
 		</div>
 	</div>
-	
-	<div class="form-group">
-		<label for ="datum_pocetka" class="col-sm-2 control-label">Datum početka</label>
-		<div class="col-sm-5">
-			<input type="text" id="datum_pocetka" name="datum_pocetka" class ="form-control" value="<?=$group['datum_pocetka'];?>"/>
-		</div>
-	</div>
-	
-	<div class="form-group">
-		<label for ="datum_zavrsetka" class="col-sm-2 control-label">Datum završetka</label>
-		<div class="col-sm-5">
-			<input type="text" id="datum_zavrsetka" name="datum_zavrsetka" class ="form-control" value="<?=$group['datum_zavrsetka'];?>"/>
-		</div>
-    </div>
     
     <div class="form-group">
 		<label for ="id_predavac_fk" class="col-sm-2 control-label">Predavac</label>
@@ -145,13 +137,6 @@ require_once "includes/header.php";
 			</select>
 		</div>
 	</div>
-    
-    <div class="form-group">
-		<label for ="max_polaznika" class="col-sm-2 control-label">Maksimalan broj polaznika</label>
-		<div class="col-sm-5">
-			<input type="number" max = "15" min = "1" id="max_polaznika" name="max_polaznika" class ="form-control" value="<?=$group['max_polaznika'];?>"/>
-		</div>
-    </div>
         
     <div class="form-group">
 		<label for ="id_tecaj_fk" class="col-sm-2 control-label">Tečaj</label>
@@ -195,7 +180,6 @@ require_once "includes/header.php";
 
 <?php
 
-//--------------------------------
 require_once "includes/footer.php";
 							
 ?>

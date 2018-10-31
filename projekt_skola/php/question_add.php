@@ -1,24 +1,20 @@
 <?php
 session_start();
+
 require_once "includes/functions.php";
 
-    $title = "Unos novog pitanja";
-
-    
-    $con = spajanje();
+$title = "Unos novog pitanja";
 
 
-    if($_SESSION['role'] !== "1" and $_SESSION['role'] !== "2"){
-        die('<div class="alert" style="background:yellow;"> 
-            <a href="index.php" class="close" data-dismiss="alert" aria-label="close">
-            &times;
-            </a>
-            <strong>Nemate ovlasti za pristup ovoj stranici!</strong>
-            
-            </div>');
-    }
-    else{
+$con = spajanje();
 
+$status = checkStatus();
+
+if($status !== 2 && $status !== 1){
+	header("refresh:2;url=index.php");
+	die("Nemate ovlasti za pristup ovoj stranici! Prebacujem na index.php...");
+}
+else{
     if(isset($_POST['posalji'])){
         if(!empty($_POST['rjesenje'])){
         
@@ -43,7 +39,7 @@ require_once "includes/functions.php";
                     '$pitanje',
                     '$ponudeni_odgovori',
                     '$rjesenje'
-                 );";
+                    );";
         $res = mysqli_query($con,$sql);
         header("Location: question_add.php");
         }
@@ -52,14 +48,13 @@ require_once "includes/functions.php";
             exit("Popunite sva polja!");
         }
     }
-    }
-        require_once ("includes/header.php"); 
+}
+    require_once ("includes/header.php"); 
 ?>
 
     <form action="" class = "form-horizontal" method = 'post'>
 
 
-        <!-- select -->
         <div class = "form-group">
             <label for="id_tecaj_fk" class = "col-sm-2 control-label">Odaberite tecaj:</label>
             <div class="col-sm-7">
@@ -87,13 +82,14 @@ require_once "includes/functions.php";
         </div>
 
         <article>
-        <!-- select -->
         <div class = "form-group">
             <label class = "col-sm-2 control-label" for="id_lesson_fk">Odaberite lekciju:</label>
             <div class="col-sm-7">
                 <select  name='id_lesson_fk' class = "form-control" id='id_lesson_fk' required>
                 <option value="NULL" disabled selected>--</option>
-
+                <?php 
+                    // Expecting AJAX response from previous <select> element
+                ?>
                 </select>
                 </div>
         </div>
