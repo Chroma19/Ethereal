@@ -18,8 +18,6 @@
     <!-- Google fonts - Roboto Condensed & Roboto-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed:700|Roboto:300,400">
     <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet"> 
-    <!-- lightbox-->
-    <link rel="stylesheet" href="../css/lightbox.min.css">
     <!-- theme stylesheet-->
     <link rel="stylesheet" href="../css/style.default.css" id="theme-stylesheet">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
