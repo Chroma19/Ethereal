@@ -9,24 +9,17 @@
 
 
     <!-- Bootstrap core CSS --> 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <!-- Jquery timepicker -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <!-- Font Awesome & Pixeden Icon Stroke icon font-->
     <link rel="stylesheet" href="../css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/pe-icon-7-stroke.css">
-    <!-- Google fonts - Roboto Condensed & Roboto-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed:700|Roboto:300,400">
-    <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet"> 
     <!-- theme stylesheet-->
     <link rel="stylesheet" href="../css/style.default.css" id="theme-stylesheet">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-    <!-- datatables -->
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <!-- Custom user css -->
-    <link rel="stylesheet" href="../css/custom.css">
+    <link rel="stylesheet" href="../css/custom.min.css">
 </head>
 
 <body id="site">

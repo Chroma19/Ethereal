@@ -48,7 +48,7 @@ if (mysqli_num_rows($result)>0){
 				<td>".$course['smjer']."</td>
 				<td>
 					<a href='courses.php?obrisi=true&id=".$course['id']."' onclick='return confirm(\"Jeste li sigurni da želite obrisati tečaj?\")'>
-                        <button class = 'btn btn-ghost submit' value = 'obrisi' name='obrisi' id='obrisi'>Obriši</button>
+						<i class='fa fa-trash fa-2x' aria-hidden='true'></i>
 					</a>
 				</td>
 			</tr>";

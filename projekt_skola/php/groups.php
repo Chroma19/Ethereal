@@ -49,26 +49,20 @@ if (mysqli_num_rows($result)>0){
                 <th>Predavač</th>
                 <th>Tečaj</th>
 				<th></th>
-				<th></th>
 			</tr>
 		</thead>
 		<tbody>';
 
 	while($group = mysqli_fetch_assoc($result)){
 		echo "
-			<tr>
+			<tr class = 'clickable-row-group' id ='".$group['id']."'>
 				<td>".$group['id']."</td>
 				<td>".$group['naziv']."</td>
 				<td>".$group['ime']." ".$group['prezime']."</td>
-				<td>".$group['smjer']."</td>
-				
-				<td>
-					<a class = 'NOUNDERLINE' href='group.php?id=".$group["id"]."'><button class = 'btn btn-ghost submit' value = 'uredi' name='uredi' id='uredi''>Uredi</button></a>
-				</td>
-				
+				<td>".$group['smjer']."</td>				
 				<td>
 					<a class = 'NOUNDERLINE' href='groups.php?obrisi=true&id=".$group['id']."' onclick='return confirm(\"Jeste li sigurni da zelite obrisati grupu?\")'>
-                        <button class = 'btn btn-ghost submit' value = 'obrisi' name='obrisi' id='obrisi'>Obriši</button>
+						<i class='fa fa-trash fa-2x' aria-hidden='true'></i>
                     </a>
 				</td>
 			</tr>";

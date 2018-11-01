@@ -109,7 +109,10 @@ else{
 						<td>".$res_ispiti['smjer']."</td>
 						<td>".$res_ispiti['lesson_name']."</td>
 						<td>".$res_ispiti['autor']."</td>
-						<td><a href='exam_list.php?obrisi=true&id=".$res_ispiti['id']."'></a></td>
+						<td><a href='exam_list.php?obrisi=true&id=".$res_ispiti['id']."'>
+								<i class='fa fa-trash fa-2x' aria-hidden='true'></i>
+							</a>
+						</td>
 						";
 			}
 
