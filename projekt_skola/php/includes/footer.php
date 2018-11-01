@@ -39,7 +39,9 @@
     <script src="../js/jquery_331.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src = "../js/datatables.min.js"></script>
-    <script src = "../js/bundle.min.js"></script>
+    <script src = "../js/bundle.js"></script>
+    <script src = "../js/jquery.cookie.js"></script>
+    <script src = "../js/front.js"></script>
   </body>
 </html>
 <?php mysqli_close($con);?>
