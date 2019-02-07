@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 31, 2018 at 09:06 PM
+-- Generation Time: Feb 07, 2019 at 09:30 PM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `id7696135_skola`
+-- Database: `skola`
 --
 
 -- --------------------------------------------------------
@@ -56,7 +56,8 @@ INSERT INTO `baza_pitanja` (`id`, `id_tecaj_fk`, `id_lesson_fk`, `id_tip_pitanja
 (37, 6, 5, 3, 'pitanje25', '', 'test'),
 (38, 6, 5, 3, 'pitanje5', '', 'test'),
 (39, 6, 5, 3, 'pitanje6', '', 'test'),
-(40, 6, 5, 3, 'pitanje21', '', 'test');
+(40, 6, 5, 3, 'pitanje21', '', 'test'),
+(41, 11, 9, 2, 'Lorenztova sila ima koji specifican...?', '-(minus),+(plus),nema spec..,nijedno nije točno', '0');
 
 -- --------------------------------------------------------
 
@@ -78,7 +79,7 @@ CREATE TABLE `grupa` (
 INSERT INTO `grupa` (`id`, `naziv`, `id_predavac_fk`, `id_tecaj_fk`) VALUES
 (1, 'Novi smjer 1-1 A1.2', 2, 1),
 (2, 'Web Coding 1-2', 2, 6),
-(3, 'nova', 2, 6);
+(3, 'Nova testna grupa 2.3', 16, 11);
 
 -- --------------------------------------------------------
 
@@ -102,7 +103,6 @@ CREATE TABLE `ispit` (
 INSERT INTO `ispit` (`id`, `naziv`, `id_tecaj_fk`, `id_lesson_fk`, `pitanja_string`, `autor`) VALUES
 (2, '', 6, 5, '1,8,30,33', 'admin'),
 (3, '', 3, 3, '21', 'admin'),
-(4, '', 1, 1, '32', 'admin'),
 (5, '', 6, 4, '33', 'admin'),
 (6, '', 6, 5, '1,8,30', 'admin'),
 (7, 'admin', 6, 5, '1,8,30,34,35,36,37,38,39,40', 'admin');
@@ -131,7 +131,8 @@ INSERT INTO `lessons` (`id`, `lesson_name`, `id_tecaj_fk`) VALUES
 (5, 'Ajax test', 6),
 (6, 'Deklinacija riječi &quot;Hoću&quot;', 10),
 (7, 'Nova Lekcija', 4),
-(8, 'Nova testna lekcija', 10);
+(8, 'Nova testna lekcija', 10),
+(9, 'Elektromagnetika', 11);
 
 -- --------------------------------------------------------
 
@@ -156,7 +157,14 @@ INSERT INTO `results` (`id`, `id_osobe_fk`, `id_ispit_fk`, `result`) VALUES
 (18, 13, 6, '66.67%'),
 (19, 13, 6, '0%'),
 (20, 13, 2, '25%'),
-(21, 13, 7, '60%');
+(21, 13, 7, '60%'),
+(22, 13, 6, '0%'),
+(23, 13, 2, '0%'),
+(24, 13, 2, '0%'),
+(25, 13, 2, '100%'),
+(26, 13, 2, '75%'),
+(27, 13, 2, '50%'),
+(28, 13, 2, '50%');
 
 -- --------------------------------------------------------
 
@@ -194,6 +202,7 @@ CREATE TABLE `tecaj` (
 --
 
 INSERT INTO `tecaj` (`id`, `smjer`) VALUES
+(11, 'Fizika (prvi razred)'),
 (3, 'Novi smjer 1-2'),
 (1, 'Novi Smjer 2-1'),
 (8, 'Novi tečaj2'),
@@ -241,9 +250,7 @@ CREATE TABLE `upisi` (
 --
 
 INSERT INTO `upisi` (`id`, `id_users_fk`, `id_smjer_fk`, `id_grupa_fk`, `datum_upisa`) VALUES
-(6, 6, 1, 1, '2018-08-19 20:12:40'),
-(7, 6, 6, 2, '2018-08-20 12:00:24'),
-(8, 14, 1, 1, '2018-08-20 13:21:12');
+(7, 6, 6, 2, '2018-08-20 12:00:24');
 
 -- --------------------------------------------------------
 
@@ -275,7 +282,8 @@ INSERT INTO `users` (`id`, `ime`, `prezime`, `username`, `password`, `oib`, `ema
 (6, 'test', 'user', 'testuser', '179ad45c6ce2cb97cf1029e212046e81', '12345678998', 'zdrava54@net.hr', '098348886', 'Rojčani 21', '1997-08-19', 3),
 (13, 'Admin', 'Test', 'admin', '179ad45c6ce2cb97cf1029e212046e81', '32165465412', 'admin@mail.com', '12345697512', 'Admin 52', '2018-08-08', 1),
 (14, 'Test', 'User 2', 'testuser2', '179ad45c6ce2cb97cf1029e212046e81', '46554612300', 'e@mail.com', '654987651354', 'opawd', '2018-08-07', 3),
-(15, 'Novi', 'Korisnik', '&lt;script&gt;alert(Hello);&lt;/script&gt;', '179ad45c6ce2cb97cf1029e212046e81', '32165498798', 'xds@mail.com', '09598451651', 'neka', '2018-11-03', 3);
+(15, 'Novi', 'Korisnik', '&lt;script&gt;alert(Hello);&lt;/script&gt;', '179ad45c6ce2cb97cf1029e212046e81', '32165498798', 'xds@mail.com', '09598451651', 'neka', '2018-11-03', 3),
+(16, 'Novi', 'Nenad', 'novinenad', 'aee03111935944a5ad1f1c887bd141e2', '11199922234', 'nenad@mail.ocom', '321651351', 'Test adresa', '2019-02-11', 2);
 
 --
 -- Indexes for dumped tables
@@ -374,13 +382,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `baza_pitanja`
 --
 ALTER TABLE `baza_pitanja`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `grupa`
 --
 ALTER TABLE `grupa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `ispit`
@@ -392,13 +400,13 @@ ALTER TABLE `ispit`
 -- AUTO_INCREMENT for table `lessons`
 --
 ALTER TABLE `lessons`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `results`
 --
 ALTER TABLE `results`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -410,7 +418,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `tecaj`
 --
 ALTER TABLE `tecaj`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tip_pitanja`
@@ -422,13 +430,13 @@ ALTER TABLE `tip_pitanja`
 -- AUTO_INCREMENT for table `upisi`
 --
 ALTER TABLE `upisi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
