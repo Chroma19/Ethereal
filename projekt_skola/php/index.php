@@ -94,6 +94,11 @@ require_once "includes/header.php";
 
 
 ?>
+<style>
+  body{
+    background-color:#f7f7f7;
+  }
+</style>
 <!-- Carousel -->
     <div id="carousel-home" data-ride="carousel" class="carousel slide carousel-fullscreen carousel-fade">
       <!-- Indicators-->
@@ -128,84 +133,34 @@ require_once "includes/header.php";
       </div>
 	</div>
 	
-<section class="background-gray-lightest negative-margin">
-      <div class="container">
-        <h1> Mauris placerat eleifend leo.</h1>
-        <p class="lead">Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat.</p>
-        <p> <a href="#" class="btn btn-ghost">Continue reading   </a></p>
-      </div>
-    </section>
-    <section class="section--padding-bottom-small">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="post">
-              <h3><a href="#">Rit eget tincidunt condimentum</a></h3>
-              <p class="post__intro">ellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-              <p class="read-more"><a href="#" class="btn btn-ghost">Continue reading   </a></p>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="post">
-              <h3><a href="#">Tempor sit amet</a></h3>
-              <p class="post__intro"> Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
-              <p class="read-more"><a href="#" class="btn btn-ghost">Continue reading   </a></p>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-4">
-            <div class="post">
-              <h3><a href="#">Rit eget tincidunt condimentum</a></h3>
-              <p class="post__intro">ellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-              <p class="read-more"><a href="#" class="btn btn-ghost">Continue reading     </a></p>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="post">
-              <h3><a href="#">Tempor sit amet</a></h3>
-              <p class="post__intro"> Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
-              <p class="read-more"><a href="#" class="btn btn-ghost">Continue reading     </a></p>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="post">
-              <div class="image"><a href="#">#</a></div>
-              <h3><a href="#">Vestibulum erat wisi</a></h3>
-              <p class="post__intro">ellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-              <p class="read-more"><a href="#" class="btn btn-ghost">Continue reading     </a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+
     <!--   *** SERVICES ***-->
     <section class="background-gray-lightest">
       <div class="container clearfix">
         <div class="row services">
           <div class="col-md-12">
-            <h2>Services</h2>
-            <p class="lead margin-bottom--medium"> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+            <h2>Usluge</h2>
+            <p class="lead margin-bottom--medium">Ethereal Vam pruža niz mogućnosti, dajući Vam priliku da brzo i jednostavno pripremite svoje polaznike za ispite ili kreirate alate za ponavljanje.</p>
             <div class="row">
               <div class="col-sm-4">
                 <div class="box box-services">
                   <div class="icon"><i class="pe-7s-alarm"></i></div>
-                  <h4 class="services-heading">Webdesign</h4>
-                  <p>Fifth abundantly made Give sixth hath. Cattle creature i be don\'t them.</p>
+                  <h4 class="services-heading">Vremenski neograničeno</h4>
+                  <p>Sami birajte kada ćete rješavati ispite, bez stresa i žurbe.</p>
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="box box-services">
                   <div class="icon"><i class="pe-7s-cloud"></i></div>
-                  <h4 class="services-heading">Print</h4>
-                  <p>Advantage old had otherwise sincerity dependent additions. It in adapted natural.</p>
+                  <h4 class="services-heading">Dostupnost</h4>
+                  <p>Vaši rezultati i alati uvijek su Vam dostupni na našim stranicama, gdje god se nalazili.</p>
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="box box-services">
                   <div class="icon"><i class="pe-7s-coffee"></i></div>
-                  <h4 class="services-heading">SEO and SEM</h4>
-                  <p>Am terminated it excellence invitation projection as. She graceful shy. </p>
+                  <h4 class="services-heading">Sloboda</h4>
+                  <p>Naši ispiti ne iziskuju strogi nadzor, radite po svojim uvjetima i volji.</p>
                 </div>
               </div>
             </div>
@@ -213,22 +168,22 @@ require_once "includes/header.php";
               <div class="col-sm-4">
                 <div class="box box-services">
                   <div class="icon"><i class="pe-7s-monitor"></i></div>
-                  <h4 class="services-heading">Consulting</h4>
-                  <p>Fifth abundantly made Give sixth hath. Cattle creature i be don\'t them.</p>
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="box box-services">
-                  <div class="icon"><i class="pe-7s-signal"></i></div>
-                  <h4 class="services-heading">Email Marketing</h4>
-                  <p>Advantage old had otherwise sincerity dependent additions. It in adapted natural.</p>
+                  <h4 class="services-heading">Digitalizirano</h4>
+                  <p>Naši alati su prilagođeni gotovo svim modernim računalima, pametnim telefonima i tabletima.</p>
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="box box-services">
                   <div class="icon"><i class="pe-7s-id"></i></div>
-                  <h4 class="services-heading">UX &amp; UI</h4>
-                  <p>Am terminated it excellence invitation projection as. She graceful shy. </p>
+                  <h4 class="services-heading">Individualizacija</h4>
+                  <p>Pogledajte informacije o sebi, svojim grupama i nadolazećim ispitima bez ugrožavanja osobnih podataka.</p>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="box box-services">
+                  <div class="icon"><i class="pe-7s-signal"></i></div>
+                  <h4 class="services-heading">Tehnička podrška</h4>
+                  <p>Za sve dodatne upite, prijedloge i informacije molim da nam se javite na <a href="mailto:zdravko.petricusic@gmail.com"> e-mail</a></p>
                 </div>
               </div>
             </div>

@@ -80,7 +80,7 @@ require_once ("includes/header.php");
     
     
     <div class = "form-group">
-        <label for="id_tecaj_fk" class = "col-sm-2 control-label">Odaberite tecaj:</label>
+        <label for="id_tecaj_fk" class = "col-sm-2 control-label">Odaberite tečaj:</label>
         <div class="col-sm-7">
             <select name="id_tecaj_fk" id="id_tecaj_fk" required class = "form-control">
             <option value="NULL" selected disabled>--</option>

@@ -140,7 +140,7 @@ require_once ("includes/header.php");
     <div class="form-group">
         <label class="col-sm-2 control-label" for="telefon">Unesite broj mobitela:</label>
             <div class = "col-sm-7">
-                <input class ="form-control" type="text"  required placeholder = "npr. 095/123-4567" name='telefon' id='telefon' value = "">
+                <input class ="form-control" type="text"  required placeholder = "npr. 0951234567 (Unijeti broj u brojčanom formatu!)" name='telefon' id='telefon' value = "">
             </div>
     </div>
 

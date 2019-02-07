@@ -113,7 +113,6 @@ function createInputs() {
 
     }
 }
-// End of AJAX
 
 
 function check() {

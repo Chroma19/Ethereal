@@ -16,7 +16,7 @@ if(isset($_POST['odabrani_tecaj'])){
 
     else{
 
-        $sql = "SELECT id, naziv FROM grupa WHERE id_tecaj_fk = $id AND datum_zavrsetka > NOW();";
+        $sql = "SELECT id, naziv FROM grupa WHERE id_tecaj_fk = $id";
 
         $rez = mysqli_query($con, $sql);
 
