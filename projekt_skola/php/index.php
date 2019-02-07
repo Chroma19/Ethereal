@@ -1,49 +1,78 @@
 <?php
-
 session_start();
-$title = "Prijava";
+
+$title = "Ethereal - Vježbaonica";
+
 require_once "includes/functions.php";
+
+// Start DB Connection
 $con = spajanje();
 
-//form check for cookies etc.
+// If the user has clicked the login button -> Check sent form
 if(isset($_POST['prijava'])){
-	
+  
+  // If all required fields contain information 
 	if(isset($_POST['username']) and isset($_POST['password'])){
-		
+    
+    // Hash the password (MD5) and remove ability for potential XSS and SQL Injections
+    // via the "ocisti_tekst" ("filter_text") function
+
 		$username = ocisti_tekst($_POST['username']);
 		$password = md5(ocisti_tekst($_POST['password']));
 		
 		$sql = "SELECT *
 			FROM users
 			WHERE username='$username';";
-		
+    
+    
 		$rezultat = mysqli_query($con,$sql);
-		
+    
+    // If there is one and only one user with the entered username in the DB:
 		if(mysqli_num_rows($rezultat) == 1){
 			
-			$user= mysqli_fetch_assoc($rezultat);
-		
+			$user = mysqli_fetch_assoc($rezultat);
+    
+      // Check if entered credentials are correct
 			if($password == $user['password'] and $username = $user['username'] and $userid = $user['id']){
-				
+        
+        // Keep the user logged in throughout all scripts via the $_SESSION array ->
+        // Store the user's necessary information in these $_SESSION keys:
+
 				$_SESSION['login'] = true;
         $_SESSION['username'] = $username;
         $_SESSION['userid'] = $user['id'];
         $_SESSION['role'] = $user['id_status_fk'];
-				
+        
+        // If the user has checked the "Remember me/Zapamti me" checkbox
+        // Create a cookie with the obligatory information
 				if(isset($_POST['zapamti'])){
           setcookiealive('username',$username, time()+7*24*60*60);
           setcookiealive('userid',$userid, time()+7*24*60*60);
           setcookiealive('role', $user['id_status_fk'], time()+7*24*60*60);
-				}
+        }
+        
+        // If the user has not checked the checkbox 
+        // Delete any previously created cookies for safety purposes
 				else{
           setcookiealive('username',$username, time()-7*24*60*60);
           setcookiealive('userid',$userid, time()-7*24*60*60);
           setcookiealive('role', $user['id_status_fk'], time()-7*24*60*60);
 				}
         
+        // Send the user back to the homepage after successfully checking the form 
+        // Log the user in
+        // Clear the post array to stop form resending
+        // And terminate script
         header("Location: index.php");
+        $_POST = array();
         exit();
       }
+
+    }
+      // If the user has entered invalid credentials
+      // Reload the page with an alert <div> element 
+      // Notifying the user of possible mistakes
+      // Clear the $_POST variable to stop form resending
       else{
         echo '<div class="alert" style="background:yellow;"> 
               <a href="#" class="close" data-dismiss="alert" aria-label="close">
@@ -51,24 +80,15 @@ if(isset($_POST['prijava'])){
               </a>
               <strong>Upozorenje! </strong>Netočno korisničko ime ili lozinka!        
               </div>';
+
+        $_POST = array();
         }
-			
-    }
-    
+			    
   }
 }
 
-
-if(!isset ($_SESSION['login'])){
-	
-	if(isset($_COOKIE['username'])){
-		$_SESSION['login'] = true;
-    $_SESSION['username'] = $_COOKIE['username'];
-    $_SESSION['userid'] = $_COOKIE['userid'];
-    $_SESSION['role'] = $_COOKIE['role'];
-	}
-	
-} 
+// Check for cookies
+cookieCheck();
 
 require_once "includes/header.php";
 

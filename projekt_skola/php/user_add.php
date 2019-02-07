@@ -6,16 +6,27 @@ $title = "Upis novog korisnika";
 
 require_once "includes/functions.php";
 
+// Connect to DB
 $con = spajanje();
 
+// Check for cookies
+cookieCheck();
+
+// Check current user's status
 $isAdmin = checkStatus();
 
+// If current user is not an admin redirect to homepage
 if($isAdmin !== 1){
-	header("refresh:2;url=index.php");
-	die("Nemate ovlasti za pristup ovoj stranici! Prebacujem na index.php...");
+
+    header("refresh:2;url=index.php");
+    
+    die("Nemate ovlasti za pristup ovoj stranici! Prebacujem na index.php...");
+    
 }
 
+// If user is an admin allow data manipulation
 else{
+    // If button 'posalji' is clicked prepare an SQL statement and send it off
     if(!empty($_POST['posalji'])){
         
         $ime = ocisti_tekst($_POST['ime']);
@@ -44,15 +55,26 @@ else{
                     '$datum_rodjenja',
                     '$id_status_fk'
                     );";
-        $res = mysqli_query($con,$sql);
+        $res = mysqli_query($con, $sql);
 
+        // If mysqli_query returns true
         if($res){
+
+            // Set $id to last inserted id in DB
             $id = mysqli_insert_id($con);
+
+            // Open user page with newly imported user
             header("Location:user.php?id=$id");
+
+            // Empty $_POST array to prevent form resending
             $_POST=array();
+
+            // Terminate script
             exit();
             
         }
+
+        // If mysqli_query returns false throw error
         else{
             echo "Korisnik nije upisan " .mysqli_error($con);
         }
@@ -146,19 +168,26 @@ require_once ("includes/header.php");
             
             <option value="NULL" selected disabled>--</option>
 
-            <?php 
-            $sql = "SELECT id,status FROM roles";
+        <?php 
+
+            $sql = "SELECT id, status FROM roles";
+
             $res_roles = mysqli_query ($con, $sql);
 
-            if(mysqli_num_rows($res_roles)>0){
+            // If mysqli_query successfully fetches all roles from DB echo them as <select> menu items
+            if(mysqli_num_rows($res_roles) > 0){
+
                 while($roles = mysqli_fetch_assoc($res_roles)){
+
                         echo '<option value="'.$roles['id'].'">';
+
                         echo ucfirst($roles['status']);
+
                         echo '</option>'; 
                 }
             }
 
-            ?>
+        ?>
 
             </select>
         </div>

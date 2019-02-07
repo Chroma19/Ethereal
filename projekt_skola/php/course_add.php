@@ -6,18 +6,29 @@ $title = "Upis novog tečaja";
 
 require_once ("includes/functions.php");
 
+// Connect to DB
 $con = spajanje();
 
+// Check for cookies
+cookieCheck();
+
+// Check if current user has required permissions to view the page
 $isAdmin = checkStatus();
 
+// If checkStatus does not return 1 (admin) redirect to index page
 if($isAdmin !== 1){
-	header("refresh:2;url=index.php");
-	die("Nemate ovlasti za pristup ovoj stranici! Prebacujem na index.php...");
+
+    header("refresh:2;url=index.php");
+    
+    die("Nemate ovlasti za pristup ovoj stranici! Prebacujem na index.php...");
+    
 }
 
+// If checkStatus returns 1 allow the user to input another course into the DB via a POST form
 else{
     if(!empty($_POST['posalji'])){
         
+        // Secure DB from breach using the inputted data via ocisti_tekst function
         $smjer = ocisti_tekst($_POST['smjer']);       
 
         $sql = "INSERT INTO

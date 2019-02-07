@@ -1,20 +1,33 @@
 <?php
+
 session_start();
+
 require_once "includes/functions.php";
 
 $title = "Upis nove grupe";
 
+// Connect to DB
 $con = spajanje();
 
+// Check for cookies
+cookieCheck();
+
+// Check user's status
 $status = checkStatus();
 
+
+// If user is not an admin nor a professor deny access and redirect to homepage
 if($status !== 2 && $status !== 1){
-	header("refresh:2;url=index.php");
-	die("Nemate ovlasti za pristup ovoj stranici! Prebacujem na index.php...");
+
+    header("refresh:2;url=index.php");
+    
+    die("Nemate ovlasti za pristup ovoj stranici! Prebacujem na index.php...");
+    
 }
 
+// If user is either an admin or a professor allow data input for DB inserting
 else{
-
+    // If button 'posalji' is clicked prepare and send off SQL query
     if(!empty($_POST['posalji'])){
         
         $naziv = ocisti_tekst($_POST['naziv']);
@@ -31,8 +44,28 @@ else{
                 );";
 
         $res = mysqli_query($con,$sql);
-        header("Location: ".$_SERVER['PHP_SELF']);
-        exit;
+
+        // If mysqli_query returns true
+        if($res){
+
+            // Set $id to last inserted id in DB
+            $id = mysqli_insert_id($con);
+
+            // Open group page with newly imported group
+            header("Location:group.php?id=$id");
+
+            // Empty $_POST array to prevent form resending
+            $_POST=array();
+
+            // Terminate script
+            exit();
+            
+        }
+
+        // If mysqli_query returns false throw error
+        else{
+            echo "Grupa nije unesena " .mysqli_error($con);
+        }
     }
 }  
     
@@ -58,24 +91,28 @@ else{
                 <option value="NULL" disabled selected>--</option>
 
                 <?php
-                    //  Catching tutors 
+                    //  Fetching tutors 
 
                     $sql = "SELECT id, ime, prezime FROM users WHERE id_status_fk = '2'";
+
                     $res_tutor = mysqli_query($con, $sql); 
 
-                    if(mysqli_num_rows($res_tutor)>0){
+                    // If query returns more than one professor add them all as <select> menu items
+                    if(mysqli_num_rows($res_tutor) > 0){
                         while($tutor = mysqli_fetch_assoc($res_tutor)){
                             
                             echo '<option value="'.$tutor['id'].'">';
+
                             echo $tutor['ime'].' '.$tutor['prezime'];
+
                             echo '</option>';
                         }
                     }
                 
                 ?>
+
                 </select>
-                </div>
-            
+            </div>
         </div>
 
 
@@ -87,20 +124,26 @@ else{
                 <option value="NULL" selected disabled>--</option>
 
                 
-                <?php
-                
+            <?php
+                // Fetching courses
                 $sql = "SELECT * FROM tecaj";
+
                 $res_tecaj = mysqli_query($con, $sql);
 
+                // If query returns more than one course from the DB add them as <select> menu items
                 if(mysqli_num_rows($res_tecaj)>0){
                     while($tecaj = mysqli_fetch_assoc($res_tecaj)){
+
                             echo '<option value="'.$tecaj['id'].'">';
+
                             echo $tecaj['smjer'];
+
                             echo '</option>';
+                            
                     }
                 }
 
-                ?>
+            ?>
 
                 </select>
             </div>

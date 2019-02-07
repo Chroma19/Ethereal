@@ -5,17 +5,30 @@ require_once "includes/functions.php";
 
 $title = "Unos novog ispita";
 
+// Connect to DB
 $con = spajanje();
 
+// Check for cookies
+cookieCheck();
+
+// Check status of user
 $status = checkStatus();
 
+// If user is neither a professor or admin deny access and redirect to homepage
 if($status !== 2 && $status !== 1){
-	header("refresh:2;url=index.php");
-	die("Nemate ovlasti za pristup ovoj stranici! Prebacujem na index.php...");
+
+    header("refresh:2;url=index.php");
+    
+    die("Nemate ovlasti za pristup ovoj stranici! Prebacujem na index.php...");
+    
 }
 
+// Else allow exam form input and DB insertion
 else{
+    // If button 'posalji' is clicked proceed to check form
     if(!empty($_POST['posalji'])){
+        // If there are questions, scheduling or duration information in POST variable proceed 
+        // To prepare and send SQL query for exam creation 
         if(!empty($_POST['pitanja']) and !empty($_POST['vrijeme_ispita']) and !empty($_POST['trajanje_ispita'])){
         
             $naziv = ocisti_tekst($_POST['naziv']);
@@ -38,16 +51,23 @@ else{
                 '$autor'
             );";
 
+
+            // Checking whether there are at least 10 questions in the exam
             $totalQuestions = explode(",",$pitanja_string);
+
             $totalQuestions = implode("",$totalQuestions);
 
             if(strlen($totalQuestions) >= 10){
+
                 mysqli_query($con,$sql);
+
                 header("Location: ".$_SERVER['PHP_SELF']);
 
                 exit();
+
             }
 
+            // If there are 10>questions in the exam call a JS alert function and remain on same page
             else{
                 echo 
                     '<script>
@@ -57,6 +77,7 @@ else{
                 }
         }
     
+        // If lacking duration, scheduling or questions in form reload the page and terminate script
         else{
             die("Popunite sva područja! Za povratak na stranicu kliknite <a href='exam_add.php'><b>ovdje</b></a>");
         }

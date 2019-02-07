@@ -5,17 +5,30 @@ require_once "includes/functions.php";
 
 $title = "Unos novog pitanja";
 
-
+// Connect to DB
 $con = spajanje();
 
+// Check for cookies
+cookieCheck();
+
+// Check current user's status 
 $status = checkStatus();
 
+// If current user is neither admin nor professor redirect to homepage
 if($status !== 2 && $status !== 1){
-	header("refresh:2;url=index.php");
-	die("Nemate ovlasti za pristup ovoj stranici! Prebacujem na index.php...");
+
+    header("refresh:2;url=index.php");
+    
+    die("Nemate ovlasti za pristup ovoj stranici! Prebacujem na index.php...");
+    
 }
+
+// If user is either an admin or professor allow data input
 else{
+    // If button 'posalji' is clicked check if there is a solution in the 'rjesenje' input box 
     if(isset($_POST['posalji'])){
+
+        // If all inputs are correctly filled proceed with DB inserting
         if(!empty($_POST['rjesenje'])){
         
         $id_tecaj_fk = ocisti_tekst($_POST['id_tecaj_fk']);
@@ -40,9 +53,14 @@ else{
                     '$ponudeni_odgovori',
                     '$rjesenje'
                     );";
+
         $res = mysqli_query($con,$sql);
+
         header("Location: question_add.php");
+
         }
+
+        // If query does not go through reload the page and echo exit() parameter
         else{
             header("Location: question_add.php");
             exit("Popunite sva polja!");
@@ -63,7 +81,7 @@ else{
 
                 
                 <?php
-                    // Catching course
+                    // Fetching course
                     $sql = "SELECT id, smjer FROM tecaj";
                     $res_tecaj = mysqli_query($con, $sql); 
 
@@ -96,7 +114,6 @@ else{
 
 
 
-        <!-- select -->
         <div class = "form-group">
             <label for="id_tip_pitanja" class = "col-sm-2 control-label">Tip pitanja:</label> 
             <div class="col-sm-7">
@@ -105,15 +122,20 @@ else{
                 <?php
 
                     // Catching question type
-
-
                     $sql = "SELECT * FROM tip_pitanja";
+
                     $res_tip_pitanja = mysqli_query($con, $sql);
 
-                    if(mysqli_num_rows($res_tip_pitanja)>0){
+                    // If query returns more than one/all question types (checkbox, radio, input)
+                    // Create <select> menu items
+                    if(mysqli_num_rows($res_tip_pitanja) > 0){
+
                         while($tip_pitanja = mysqli_fetch_assoc($res_tip_pitanja)){
+
                             echo '<option id= "'.$tip_pitanja['type'].'" value="'.$tip_pitanja['id'].'">';
+
                             echo $tip_pitanja['opis'];
+                            
                             echo '</option>';
                             
                         }

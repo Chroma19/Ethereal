@@ -5,16 +5,27 @@ $title = "Upis polaznika na tečaj";
 
 require_once ("includes/functions.php");
 
+// Connect to DB
 $con = spajanje();
 
+// Check for cookies
+cookieCheck();
+
+// Check user's status
 $status = checkStatus();
 
+// If status is not admin or professor deny access and redirect to home page
 if($status !== 2 && $status !== 1){
-	header("refresh:2;url=index.php");
-	die("Nemate ovlasti za pristup ovoj stranici! Prebacujem na index.php...");
+
+    header("refresh:2;url=index.php");
+    
+    die("Nemate ovlasti za pristup ovoj stranici! Prebacujem na index.php...");
+    
 }
 
+// If user is either a professor or admin allow enrollment
 else{
+    // If button 'posalji' is clicked prepare and send SQL query
     if(!empty($_POST['posalji'])){
         
         $id_users_fk = ocisti_tekst($_POST['id_users_fk']);
@@ -29,10 +40,24 @@ else{
                     '$id_smjer_fk',
                     '$id_grupa_fk'
                     );";
+
         $res = mysqli_query($con,$sql);
         
-        header("Location: ".$_SERVER['PHP_SELF']);
-        exit();
+        // If mysqli_query returns true
+        if($res){
+
+            // Empty $_POST array to prevent form resending
+            $_POST = array();
+
+            // Terminate script
+            exit();
+            
+        }
+
+        // If mysqli_query returns false throw error
+        else{
+            echo "Korisnik nije upisan " .mysqli_error($con);
+        }
     }
 }
 require_once "includes/header.php";
@@ -47,17 +72,22 @@ require_once "includes/header.php";
                 <option value="NULL" disabled selected>--</option>
 
                 <?php
-                // Catching users
+                // Fetching students
 
                     $sql = "SELECT id, ime, prezime FROM users WHERE id_status_fk = '3' ORDER BY prezime ASC";
+
                     $res_osobe = mysqli_query($con, $sql); 
 
-                    if(mysqli_num_rows($res_osobe)>0){
+                    // If query returns at least one student fill in the select menu
+                    if(mysqli_num_rows($res_osobe) > 0){
                         while($user = mysqli_fetch_assoc($res_osobe)){
                             
                             echo '<option value="'.$user['id'].'">';
+
                             echo $user['ime'].' '.$user['prezime'];
+
                             echo '</option>';
+
                         }
                     }
                 
@@ -74,17 +104,22 @@ require_once "includes/header.php";
                 <option value="NULL" disabled selected>--</option>
 
                 <?php
-                // Catching courses
+                // Fetching courses
 
                     $sql = "SELECT * FROM tecaj";
+
                     $res_tecaj = mysqli_query($con, $sql); 
 
+                    // If query returns at least one course fill in the select menu
                     if(mysqli_num_rows($res_tecaj) > 0){
                         while($tecaj = mysqli_fetch_assoc($res_tecaj)){
                             
                             echo '<option value="'.$tecaj['id'].'">';
+
                             echo $tecaj['smjer'];
+
                             echo '</option>';
+
                         }
                     }
                     

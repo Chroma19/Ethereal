@@ -3,15 +3,25 @@ session_start();
 
 require_once "includes/functions.php";
 
+// Connect to DB
 $con = spajanje();
 
+// Check for cookies
+cookieCheck();
+
+// Check status of current user
 $status = checkStatus();
 
+// If the user is neither a professor nor an admin redirect to index page
 if($status !== 2 && $status !== 1){
+
 	header("refresh:2;url=index.php");
+
 	die("Nemate ovlasti za pristup ovoj stranici! Prebacujem na index.php...");
+	
 }
 
+// If current user is a professor or an admin allow alterations to courses in DB
 else{
 	if(!empty($_POST['spremi'])){
 		
@@ -43,6 +53,7 @@ else{
 		
 	}
 
+	// If no user has been selected via GET parameters
 	if(!isset($_GET['id'])){
 		die("Nije predan id parametar!");
 	}
@@ -50,6 +61,7 @@ else{
 	// Setting value of $id for SQL query
 	$id = $_GET['id'];
 
+	// Create page name using SQL query
 	$name_query = "SELECT smjer FROM tecaj WHERE tecaj.id = $id;";
 	$res = mysqli_query($con, $name_query);
 	$name = mysqli_fetch_assoc($res);
@@ -63,23 +75,27 @@ else{
 
 	$result = mysqli_query($con, $sql);
 
+	// If mysqli_query returns exactly 1 row create an associative field using collected data
 	if (mysqli_num_rows($result) == 1){
 		$course = mysqli_fetch_assoc($result);
 	}
 
+	// If no course has been fetched from the DB create an empty variable for security reasons
 	else {
 		$course = null;
 		die('<div class="alert" style="background:yellow;"> 
-			<a href="index.php" class="close" data-dismiss="alert" aria-label="close">
-			&times;
-			</a>
-			<strong>Nije odabran niti jedan tečaj!</strong>
-			
+				<a href="index.php" class="close" data-dismiss="alert" aria-label="close">
+					&times;
+				</a>
+				<strong>Nije odabran niti jedan tečaj!</strong>
 			</div>');
 	}
 }
+
 require_once "includes/header.php";
 ?>
+
+
 <form class="form-horizontal" action ="" method = "post">
 	
 	<div class="form-group">

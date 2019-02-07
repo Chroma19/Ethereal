@@ -1,10 +1,16 @@
 <?php
+
 session_start();
 
 require_once "includes/functions.php";
 
+// Connect to DB
 $con = spajanje();
 
+// Check for cookies
+cookieCheck();
+
+// Check user's status
 $status = checkStatus();
 
 /**** 
@@ -15,20 +21,25 @@ $status = checkStatus();
  * 
 ****/
 
-
+// If not logged in as either redirect to homepage
 if($status !== 2 && $status !== 1){
+
 	header("refresh:2;url=index.php");
+
 	die("Nemate ovlasti za pristup ovoj stranici! Prebacujem na index.php...");
+
 }
 
+// If status is 1 or 2 allow data manipulation 
 else{
+	// If button 'spremi' is clicked prepare and send off an SQL update query
 	if(!empty($_POST['spremi'])){
 		
-		$naziv= $_POST['naziv'];
+		$naziv = $_POST['naziv'];
 		$id_predavac_fk  = $_POST['id_predavac_fk'];
 		$id_tecaj_fk = $_POST['id_tecaj_fk'];
 		
-
+		//Curly braces used as escape symbols due to complications with id being a number char
 		$sql = "UPDATE grupa
 				SET
 				naziv = '$naziv',
@@ -40,15 +51,18 @@ else{
 		
 		$rez = mysqli_query($con, $sql);
 		
+		// If query returns true echo success message
 		if($rez){
-		echo    '<div class="alert" style="background:#0090bc; color:white;"> 
-				<a href="#" class="close" data-dismiss="alert" aria-label="close">
-				&times;
-				</a>
-				<strong>Grupa uspješno ažurirana!</strong>
-				</div>';
-				
+			echo    
+				'<div class="alert" style="background:#0090bc; color:white;"> 
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">
+						&times;
+					</a>
+					<strong>Grupa uspješno ažurirana!</strong>
+				</div>';	
 		}
+
+		// If query returns false throw error
 		else{
 			echo mysqli_error($con);
 		}
@@ -56,40 +70,58 @@ else{
 	}
 
 
-	
-if(!isset($_GET['id'])){
-	die("Nije predan id parametar!");
-}
-$id=$_GET['id'];
-$get_name = "SELECT naziv FROM grupa WHERE grupa.id = $id;";
-$res = mysqli_query($con, $get_name);
-$name = mysqli_fetch_assoc($res);
-$name = implode(" ", $name);
-$title = $name;
+	// If no group was selected via GET id parameter throw error
+	if(!isset($_GET['id'])){
+		die("Nije predan id parametar!");
+	}
 
-$sql = "SELECT * 
-		FROM grupa 
-		WHERE id = $id;";
+	// Create <title> for page
+	$id = $_GET['id'];
+
+	$get_name = "SELECT naziv FROM grupa WHERE grupa.id = $id;";
+
+	$res = mysqli_query($con, $get_name);
+
+	$name = mysqli_fetch_assoc($res);
+
+	$name = implode(" ", $name);
+
+	$title = $name;
 
 
-$result = mysqli_query($con, $sql);
 
-if (mysqli_num_rows($result)==1){
-	$group = mysqli_fetch_assoc($result);
+	$sql = "SELECT * 
+			FROM grupa 
+			WHERE id = $id;";
+
+
+	$result = mysqli_query($con, $sql);
+
+
+	// If query returns a unique group create an associative array for it
+	if (mysqli_num_rows($result) == 1){
+		$group = mysqli_fetch_assoc($result);
+	}
+
+	// Else create an empty variable for security reasons
+	else {
+		$group = null;
+		die('<div class="alert" style="background:yellow;"> 
+				<a href="index.php" class="close" data-dismiss="alert" aria-label="close">
+					&times;
+				</a>
+				<strong>Nije odabrana niti jedna grupa!</strong>
+			</div>');
+	}
+
 }
-else {
-	$group = null;
-	die('<div class="alert" style="background:yellow;"> 
-        <a href="index.php" class="close" data-dismiss="alert" aria-label="close">
-        &times;
-        </a>
-        <strong>Nije odabrana niti jedna grupa!</strong>
-        
-        </div>');
-}
-}
+
+
 require_once "includes/header.php";
 ?>
+
+
+
 <form class="form-horizontal" action ="" method = "post">
 	
 	<div class="form-group">
@@ -115,15 +147,20 @@ require_once "includes/header.php";
 				<option selected disabled value="" >Odaberite predavača</option>
 			<?php 
 			
+				//Select all professors from the DB
 				$sql = "SELECT * FROM users WHERE id_status_fk = '2';";
+
 				$res_tutor = mysqli_query($con, $sql);
 				
-				if(mysqli_num_rows($res_tutor)>0){
+				// If query returns more than one professor echo them all as <select> menu items
+				if(mysqli_num_rows($res_tutor) > 0){
 					while($tutor = mysqli_fetch_assoc($res_tutor)){
+						// Prevent errors from popping up as menu items
 						error_reporting(0);
 
 						echo '<option value="'.$tutor['id'].'"';
 						
+						// If id of professor equates to group teacher echo "selected" attribute
 						if($tutor['id'] == $group['id_predavac_fk'])
 							echo " selected";
 					
@@ -146,14 +183,18 @@ require_once "includes/header.php";
 			<?php 
 			
 				$sql = "SELECT * FROM tecaj;";
+
 				$res_tecaj = mysqli_query($con, $sql);
 				
+				// If query returns more than one course echo them all as <select> menu items
 				if(mysqli_num_rows($res_tecaj)>0){
 					while($tecaj = mysqli_fetch_assoc($res_tecaj)){
+						// Prevent errors from popping up as menu items
 						error_reporting(0);
 
 						echo '<option value="'.$tecaj['id'].'"';
 						
+						// If id of course equates to group course echo "selected" attribute
 						if($tecaj['id'] == $group['id_tecaj_fk'])
 							echo "selected";
 					

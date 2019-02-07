@@ -60,7 +60,7 @@ $id = $_SESSION['userid'];
         </div>
         <div id="navigation" class="collapse navbar-collapse navbar-right">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.php">Početna</a></li>
+            <li class="active"><a href="profile.php?id='.$id.'">Moj profil</a></li>
             <!-- Admin access  -->
             <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Osnovni podaci<b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -111,7 +111,7 @@ else if($_SESSION['role'] == "2"){
         </div>
         <div id="navigation" class="collapse navbar-collapse navbar-right">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.php">Početna</a></li>
+            <li class="active"><a href="profile.php'.$id.'">Moj profil</a></li>
                  
           
           <!-- professor access -->
@@ -128,6 +128,7 @@ else if($_SESSION['role'] == "2"){
     </div>
   </header>';
 }
+
 // If logged in as a student:
 else if($_SESSION['role'] == "3"){
 	echo '<!-- navbar-->
@@ -141,8 +142,6 @@ else if($_SESSION['role'] == "3"){
         </div>
         <div id="navigation" class="collapse navbar-collapse navbar-right">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.php">Početna</a></li> 
-
             <!-- student access -->
                 <li><a href="exam_list.php">Popis nadolazećih ispita</a></li>
                 <li><a href="profile.php?id='.$id.'">Moj profil</a></li> 
