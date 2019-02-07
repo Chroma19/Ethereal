@@ -4,13 +4,8 @@
       <div class="footer__copyright">
         <div class="container">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-offset-5 col-md-3">
               <p>&copy;2018 Ethereal. Sva prava pridržana.</p>
-            </div>
-            <div class="col-md-4">
-            </div>
-            <div class="col-md-4">
-              <p class="credit"><a style = "color:#222;" href="https://bootstrapious.com/free-templates" class="external">Template by Bootstrapious templates</a></p>
             </div>
           </div>
         </div>

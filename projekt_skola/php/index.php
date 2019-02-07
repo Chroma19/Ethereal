@@ -127,7 +127,7 @@ require_once "includes/header.php";
           <div class="overlay"></div>
           <div class="carousel-caption">
             <h1 class="super-heading">Ethereal</h1>
-            <p class = "super-paragraph">Template by <a style = "color:white; text-decoration:none;" href="bootstrapious.com">Bootstrapious templates</a></p>
+            <p class = "super-paragraph">InfoKup 2019.</p>
           </div>
         </div>
       </div>
