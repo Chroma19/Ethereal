@@ -111,15 +111,16 @@ else if($_SESSION['role'] == "2"){
         </div>
         <div id="navigation" class="collapse navbar-collapse navbar-right">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="profile.php'.$id.'">Moj profil</a></li>
+            <li class="active"><a href="profile.php?id='.$id.'">Moj profil</a></li>
                  
           
           <!-- professor access -->
             
-                <li><a href="exam_list.php">Popis svih ispita</a></li>
+                <li><a href="exam_list.php">Popis ispita</a></li>
                 <li><a href="exam_add.php">Unos ispita</a></li>
                 <li><a href="lesson_add.php">Unos lekcije</a></li>
-                <li><a href="question_add.php">Unos pitanja u bazu</a></li>
+                <li><a href="question_add.php">Unos pitanja</a></li>
+                <li><a href="groups.php">Popis grupa</a></li>
                 
 
           </ul><a id = "btn-adjust"  href="odjava.php" class="btn navbar-btn btn-ghost  pull-left"><i class="fa fa-sign-in"></i>Odjava</a>
