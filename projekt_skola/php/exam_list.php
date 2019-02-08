@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+// error_reporting(0);
 
 session_start();
 
@@ -40,18 +40,15 @@ else{
 		$userid = $_SESSION['userid'];
 
 		$sql = "SELECT
-					ispit.id,
-					ispit.autor,
-					ispit.naziv,
-					lessons.naziv,
-					tecaj.naziv
+				ispit.id,
+				ispit.autor,
+				ispit.naziv,
+				lessons.lesson_name,
+				tecaj.smjer
 				FROM
 					ispit
-				INNER JOIN upisi ON upisi.id_smjer_fk = ispit.id_tecaj_fK
 				INNER JOIN lessons ON lessons.id = ispit.id_lesson_fk
 				INNER JOIN tecaj ON tecaj.id = ispit.id_tecaj_fk
-				WHERE
-					upisi.id_users_fk = $userid;
 				";
 
 		$res = mysqli_query($con, $sql);
@@ -90,18 +87,16 @@ else{
 	else{
 		// If button 'obrisi' is clicked and GET id parameter is set for the selected exam
 		// Drop that exam from the DB
-		if(isset($_GET['obrisi']) and isset($_GET['id'])){
+		if(isset($_GET['obrisi']) and isset($_GET['id']) ){
 
-			drop("ispit");
-
-			// Empty _POST to prevent form resending
-			$_POST = array();
-
+			$drop = drop("ispit");
+		
 			header("Location:exam_list.php");
-
-			exit();	
+			
 		}
+		
 
+		
 		$sql = 
 		"SELECT
 		ispit.id,
@@ -111,7 +106,6 @@ else{
 		tecaj.smjer
 		FROM
 			ispit
-		INNER JOIN upisi ON upisi.id_smjer_fk = ispit.id_tecaj_fK
 		INNER JOIN lessons ON lessons.id = ispit.id_lesson_fk
 		INNER JOIN tecaj ON tecaj.id = ispit.id_tecaj_fk";
 
@@ -142,7 +136,7 @@ else{
 						<td>".$res_ispiti['smjer']."</td>
 						<td>".$res_ispiti['lesson_name']."</td>
 						<td>".$res_ispiti['autor']."</td>
-						<td><a href='exam_list.php?obrisi=true&id=".$res_ispiti['id']."'>
+						<td><a href='exam_list.php?obrisi=true&id=".$res_ispiti['id']."' onclick='return confirm(\"Jeste li sigurni da želite obrisati ispit?\")'>
 								<i class='fa fa-trash fa-2x' aria-hidden='true'></i>
 							</a>
 						</td>

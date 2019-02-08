@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+// error_reporting(0);
 
 session_start();
 
@@ -29,9 +29,9 @@ if($status !== 2 && $status !== 1){
 else{
     // If button 'posalji' is clicked proceed to check form
     if(!empty($_POST['posalji'])){
-        // If there are questions, scheduling or duration information in POST variable proceed 
+        // If there are questions in POST variable proceed 
         // To prepare and send SQL query for exam creation 
-        if(!empty($_POST['pitanja']) and !empty($_POST['vrijeme_ispita']) and !empty($_POST['trajanje_ispita'])){
+        if(!empty($_POST['pitanja'])){
         
             $naziv = ocisti_tekst($_POST['naziv']);
             $id_tecaj_fk = ocisti_tekst($_POST['id_tecaj_fk']);
@@ -53,33 +53,15 @@ else{
                 '$autor'
             );";
 
-
-            // Checking whether there are at least 10 questions in the exam
-            $totalQuestions = explode(",",$pitanja_string);
-
-            $totalQuestions = implode("",$totalQuestions);
-
-            if(strlen($totalQuestions) >= 10){
-
                 mysqli_query($con,$sql);
 
                 header("Location: ".$_SERVER['PHP_SELF']);
 
                 exit();
 
-            }
-
-            // If there are 10>questions in the exam call a JS alert function and remain on same page
-            else{
-                echo 
-                    '<script>
-                        alert("Ispit mora sadržavati najmanje 10 pitanja!");
-                        return false;
-                    </script>';
-                }
         }
     
-        // If lacking duration, scheduling or questions in form reload the page and terminate script
+        // If lacking questions in form reload the page and terminate script
         else{
             die("Popunite sva područja! Za povratak na stranicu kliknite <a href='exam_add.php'><b>ovdje</b></a>");
         }

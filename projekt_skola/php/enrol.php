@@ -48,6 +48,8 @@ else{
         // If mysqli_query returns true
         if($res){
 
+            header("Location:enrol.php");
+
             // Empty $_POST array to prevent form resending
             $_POST = array();
 

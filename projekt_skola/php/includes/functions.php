@@ -69,6 +69,14 @@ function spajanje(){
 		$query = "DELETE FROM $table_name_str WHERE id = $id";
 
 		$delete = mysqli_query($con, $query);
+
+		if($delete){
+			return true;
+		}
+
+		else{
+			return false;
+		}
 	}
 
 	/*

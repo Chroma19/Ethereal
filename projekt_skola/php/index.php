@@ -24,7 +24,7 @@ if(isset($_POST['prijava'])){
 		
 		$sql = "SELECT *
 			FROM users
-			WHERE username='$username';";
+			WHERE username = '$username' and password = '$password';";
     
     
 		$rezultat = mysqli_query($con,$sql);
